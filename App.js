@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View } from 'react-native';
 
 import { BleManager } from "react-native-ble-plx";
 
@@ -7,7 +7,7 @@ export default class App extends React.Component {
   constructor() {
     super();
     this.manager = new BleManager();
-    this.device = null;
+    this.tap = null;
 
     this.manager.startDeviceScan(null, null, (error, device) => {
       if (error) {
@@ -15,24 +15,27 @@ export default class App extends React.Component {
           return
       }
 
-      console.log('scanning')
+      console.log('found device');
 
       // or other criteria.
       if (device.name === 'tap-button') { 
         console.log('found');
-        
-    
 
         device.connect().then((tap) => {
           return tap.discoverAllServicesAndCharacteristics()
         }).then(tap => {
-          this.manager.writeCharacteristicWithoutResponseForDevice(tap.id, 'ffe0', 'ffe1', btoa('1'))
-            .then(() => console.log(sent));
-        })
+          this.tap = tap;
+          console.log('ready');
+        });
           
         this.manager.stopDeviceScan();
       }
     });
+
+    setTimeout(() => {
+      console.log('stop scan');
+      this.manager.stopDeviceScan();
+    }, 10000);
   }
 
   render() {
@@ -41,16 +44,16 @@ export default class App extends React.Component {
         <Text>Hello from Wadowice!</Text>
         <Text>Changes you make will automatically reload.</Text>
         <Text>Shake your phone to open the developer menu.</Text>
+        <Button onPress={this.ping.bind(this)} title="Ping device"/>
       </View>
     );
   }
 
-  stringToBytes(string) {
-    var array = new Uint8Array(string.length);
-    for (var i = 0, l = string.length; i < l; i++) {
-        array[i] = string.charCodeAt(i);
-     }
-     return array.buffer;
+  ping() {
+    if (this.tap) {
+      console.log('sending ping to', this.tap.id);
+      this.manager.writeCharacteristicWithoutResponseForDevice(this.tap.id, 'ffe0', 'ffe1', btoa('1'));
+    }
   }
 }
 
