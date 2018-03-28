@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "babel-preset-react-native-stage-0": "^1.0.1",
     "color": "^3.0.0",
     "mobx": "^4.1.1",
     "mobx-react": "^5.0.0",
