@@ -5,7 +5,7 @@ export default class MainScene extends React.Component {
   render() {
     return (
       <View>
-        <Text>Tests</Text>
+        <Text>No error!</Text>
       </View>
     )
   }
