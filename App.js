@@ -1,20 +1,17 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import { observer, Provider as MobXProvider } from 'mobx-react/native';
+import { observer } from 'mobx-react/native';
+import { Router, Stack, Scene } from 'react-native-router-flux';
+import MainScene from './src/scenes/main-scene';
 
-import Store from './src/stores/store';
-
-const store = new Store();
-
-@observer
 export default class App extends React.Component {
   render() {
     return (
-        <MobXProvider store={store}>
-          <View style={{ paddingTop: 20 }}>
-            <Text>Hejo!</Text>
-          </View>
-        </MobXProvider>
+      <Router wrapBy={observer}>
+        <Stack headerMode="screen">
+          <Scene key="home" component={MainScene} title="Tap"/>
+        </Stack>
+      </Router>
     );
   }
 }
