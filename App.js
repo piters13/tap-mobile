@@ -2,7 +2,12 @@ import React from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 
 import { BleManager } from "react-native-ble-plx";
+import Store from './stores/Store';
+import { observer } from 'mobx-react/native';
 
+const store = new Store();
+
+@observer
 export default class App extends React.Component {
   constructor() {
     super();
