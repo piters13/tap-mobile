@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "babel-preset-mobx": "^1.0.2",
     "babel-preset-react-native": "^4.0.0",
-    "babel-preset-react-native-stage-0": "^1.0.1",
     "react-test-renderer": "16.2.0"
   },
   "scripts": {
