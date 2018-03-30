@@ -1,17 +1,18 @@
-import React from 'react';
-import { Text, View } from 'react-native';
-import { observer } from 'mobx-react/native';
-import { Router, Stack, Scene } from 'react-native-router-flux';
-import MainScene from './src/scenes/main-scene';
+import { Navigation } from 'react-native-navigation';
+import Provider from './src/utils/mobx-rnn-provider';
+import Stores from './src/stores';
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <Router wrapBy={observer}>
-        <Stack headerMode="screen">
-          <Scene key="home" component={MainScene} title="Tap"/>
-        </Stack>
-      </Router>
-    );
-  }
-}
+import { registerScreens } from './src/screens';
+
+registerScreens(Stores, Provider);
+
+Navigation.startTabBasedApp({
+  tabs: [
+    {
+      label: 'Main',
+      screen: 'MainScreen',
+      icon: require('./img/navicon_menu.png')
+    }
+  ]
+});
+
