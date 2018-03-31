@@ -1,4 +1,4 @@
-package com.tapmobile;
+package com.tap;
 
 import android.support.annotation.Nullable;
 

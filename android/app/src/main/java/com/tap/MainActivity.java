@@ -1,4 +1,4 @@
-package com.tapmobile;
+package com.tap;
 
 import com.reactnativenavigation.controllers.SplashActivity;
 
