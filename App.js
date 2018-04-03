@@ -1,10 +1,10 @@
 import { Navigation } from 'react-native-navigation';
-import Provider from './src/utils/mobx-rnn-provider';
-import Stores from './src/stores';
+import { MobxRnnProvider } from './src/utils/mobx-rnn-provider';
 
 import { registerScreens } from './src/screens';
+import { stores } from './src/stores';
 
-registerScreens(Stores, Provider);
+registerScreens(stores, MobxRnnProvider);
 
 Navigation.startTabBasedApp({
   tabs: [

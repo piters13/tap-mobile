@@ -1,7 +1,6 @@
-import MainStore from './main.store';
+import { Auth } from './auth.store';
 
-const stores = {
-  MainStore: new MainStore(),
+export const stores = {
+  Auth: new Auth(),
 };
 
-export default stores;

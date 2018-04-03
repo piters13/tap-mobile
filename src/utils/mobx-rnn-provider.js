@@ -4,7 +4,7 @@ import { Provider } from 'mobx-react/native';
 
 const SPECIAL_REACT_KEYS = {children: true, key: true, ref: true};
 
-export default class MobxRnnProvider extends Provider {
+export class MobxRnnProvider extends Provider {
   getChildContext() {
     const stores = {};
 
@@ -12,13 +12,15 @@ export default class MobxRnnProvider extends Provider {
     const baseStores = this.context.mobxStores;
     if (baseStores) {
       for (let key in baseStores) {
-        stores[key] = baseStores[key];
+        if (baseStores.hasOwnProperty(key)) {
+          stores[key] = baseStores[key];
+        }
       }
     }
 
     // add own stores
     for (let key in this.props.store) {
-      if (!SPECIAL_REACT_KEYS[key]) {
+      if (!SPECIAL_REACT_KEYS[key] && this.props.store.hasOwnProperty(key)) {
         stores[key] = this.props.store[key];
       }
     }
