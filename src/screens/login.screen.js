@@ -1,7 +1,8 @@
 import React from 'react';
-import { Button, Text, TextInput, View, Keyboard, StyleSheet } from 'react-native';
+import { Text, TextInput, View, Keyboard, StyleSheet, TouchableHighlight, Image } from 'react-native';
 import { inject, observer } from 'mobx-react';
 import { MainScreen } from './main.screen';
+import { Images } from '../config/images';
 
 @inject('Auth') @observer
 export class LoginScreen extends React.Component {
@@ -18,6 +19,8 @@ export class LoginScreen extends React.Component {
   render() {
     return (
         <View style={styles.container}>
+          <Image source={Images.Logo} style={styles.logo}/>
+          <Text style={styles.header}>Why, hello there</Text>
           <TextInput placeholder="Email"
                      keyboardType="email-address"
                      underlineColorAndroid="transparent"
@@ -30,7 +33,9 @@ export class LoginScreen extends React.Component {
                      style={styles.input}
                      onChangeText={(password) => this.setState({password})}
                      value={this.state.password}/>
-          <Button onPress={() => this.login()} title="Log in"/>
+          <TouchableHighlight onPress={() => this.login()} title="Sign in">
+            <View style={styles.button}><Text style={styles.buttonText}>Sign in</Text></View>
+          </TouchableHighlight>
 
           <Text>{this.state.error ? this.state.error : ''}</Text>
         </View>
@@ -57,6 +62,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  logo: {
+    width: 240,
+    resizeMode: 'contain'
+  },
+  header: {
+    textAlign: 'left',
+    color: '#1ba1b7',
+    fontSize: 20,
+    fontWeight: 'bold',
+    width: 270,
+    marginBottom: 10
+  },
   input: {
     backgroundColor: '#ECF0F3',
     borderWidth: 0,
@@ -64,10 +81,22 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     paddingLeft: 20,
     paddingRight: 20,
-    borderRadius: 10,
+    borderRadius: 14,
     color: '#333',
     fontSize: 14,
-    margin: 4,
+    marginBottom: 10,
     width: 270
+  },
+  button: {
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 50,
+    paddingRight: 50,
+    backgroundColor: '#06c9d4',
+    borderRadius: 14
+  },
+  buttonText: {
+    fontSize: 16,
+    color: '#ffffff'
   }
 });
