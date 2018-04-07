@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, TextInput, View, Keyboard, StyleSheet, TouchableHighlight, Image } from 'react-native';
+import { Button, Image, Keyboard, StyleSheet, Text, TextInput, View } from 'react-native';
 import { inject, observer } from 'mobx-react';
 import { MainScreen } from './main.screen';
 import { Images } from '../config/images';
@@ -12,7 +12,7 @@ export class LoginScreen extends React.Component {
     this.state = {
       username: 'Mary85@hotmail.com',
       password: 'Jey6JwNg',
-      error: null
+      error: null,
     };
   }
 
@@ -33,9 +33,9 @@ export class LoginScreen extends React.Component {
                      style={styles.input}
                      onChangeText={(password) => this.setState({password})}
                      value={this.state.password}/>
-          <TouchableHighlight onPress={() => this.login()} title="Sign in">
-            <View style={styles.button}><Text style={styles.buttonText}>Sign in</Text></View>
-          </TouchableHighlight>
+          <View style={styles.buttonContainer}>
+            <Button onPress={() => this.login()} title="Sign in"/>
+          </View>
 
           <Text>{this.state.error ? this.state.error : ''}</Text>
         </View>
@@ -49,8 +49,8 @@ export class LoginScreen extends React.Component {
         .then(() => {
           this.setState({username: '', password: ''});
           this.props.navigator.resetTo({
-            screen: 'MainScreen'
-          })
+            screen: 'MainScreen',
+          });
         })
         .catch(err => this.setState({error: err.message}));
   }
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: 240,
-    resizeMode: 'contain'
+    resizeMode: 'contain',
   },
   header: {
     textAlign: 'left',
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     width: 270,
-    marginBottom: 10
+    marginBottom: 10,
   },
   input: {
     backgroundColor: '#ECF0F3',
@@ -85,18 +85,9 @@ const styles = StyleSheet.create({
     color: '#333',
     fontSize: 14,
     marginBottom: 10,
-    width: 270
+    width: 270,
   },
-  button: {
-    paddingTop: 10,
-    paddingBottom: 10,
-    paddingLeft: 50,
-    paddingRight: 50,
-    backgroundColor: '#06c9d4',
-    borderRadius: 14
-  },
-  buttonText: {
-    fontSize: 16,
-    color: '#ffffff'
+  buttonContainer: {
+    width: 270,
   }
 });
