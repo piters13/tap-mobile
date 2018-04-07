@@ -15,11 +15,14 @@ export class LoginScreen extends React.Component {
       error: null,
     };
 
-    this.props.navigator.toggleNavBar();
+    this.props.navigator.toggleNavBar({
+      to: 'hidden',
+      animated: false,
+    });
 
     this.props.navigator.toggleTabs({
       to: 'hidden',
-      animated: true
+      animated: false,
     });
   }
 
@@ -57,9 +60,10 @@ export class LoginScreen extends React.Component {
           this.setState({username: '', password: ''});
           this.props.navigator.resetTo({
             screen: 'MainScreen',
+            animated: true,
+            animationType: 'slide-horizontal'
           });
-        })
-        .catch(err => this.setState({error: err.message}));
+        }).catch(err => this.setState({error: err.message}));
   }
 }
 
@@ -68,9 +72,10 @@ const styles = StyleSheet.create({
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#ffffff',
   },
   logo: {
-    width: 200,
+    width: 180,
     resizeMode: 'contain',
   },
   header: {
@@ -78,7 +83,7 @@ const styles = StyleSheet.create({
     color: '#1ba1b7',
     fontSize: 20,
     fontWeight: 'bold',
-    width: 270,
+    width: 230,
     marginBottom: 10,
   },
   input: {
@@ -97,5 +102,5 @@ const styles = StyleSheet.create({
   buttonContainer: {
     paddingTop: 10,
     width: 270,
-  }
+  },
 });
