@@ -14,6 +14,13 @@ export class LoginScreen extends React.Component {
       password: 'Jey6JwNg',
       error: null,
     };
+
+    this.props.navigator.toggleNavBar();
+
+    this.props.navigator.toggleTabs({
+      to: 'hidden',
+      animated: true
+    });
   }
 
   render() {
@@ -63,7 +70,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logo: {
-    width: 240,
+    width: 200,
     resizeMode: 'contain',
   },
   header: {
@@ -88,6 +95,7 @@ const styles = StyleSheet.create({
     width: 270,
   },
   buttonContainer: {
+    paddingTop: 10,
     width: 270,
   }
 });
