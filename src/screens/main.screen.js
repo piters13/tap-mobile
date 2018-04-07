@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 import { inject, observer } from 'mobx-react';
+import { Screens } from '../constants/screens';
 
 @inject('Auth') @observer
 export class MainScreen extends React.Component {
@@ -15,7 +16,7 @@ export class MainScreen extends React.Component {
 
   logout() {
     this.props.navigator.resetTo({
-      screen: 'LoginScreen',
+      screen: Screens.Login.screen,
     });
 
     this.props.Auth.logout();

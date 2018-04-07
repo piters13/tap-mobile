@@ -4,8 +4,8 @@ import ApolloClient from "apollo-boost";
 
 import { registerScreens } from './src/screens';
 import { stores } from './src/stores';
-import { ApiUrl } from './src/config/config';
-import { guestTabs, userTabs } from './src/config/navigation';
+import { ApiUrl } from './src/constants/config';
+import { NavigationTabs, appStyle } from './src/constants/navigation';
 
 export const apolloClient = new ApolloClient({
   uri: ApiUrl
@@ -14,5 +14,6 @@ export const apolloClient = new ApolloClient({
 registerScreens(stores, MobxRnnProvider);
 
 Navigation.startTabBasedApp({
-  tabs: guestTabs
+  tabs: NavigationTabs,
+  appStyle: appStyle
 });

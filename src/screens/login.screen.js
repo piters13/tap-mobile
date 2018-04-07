@@ -1,8 +1,9 @@
 import React from 'react';
 import { Button, Image, Keyboard, StyleSheet, Text, TextInput, View, Alert } from 'react-native';
 import { inject, observer } from 'mobx-react';
-import { MainScreen } from './main.screen';
-import { Images } from '../config/images';
+import { Images } from '../constants/images';
+import { Screens } from '../constants/screens';
+import { Colors } from '../constants/colors';
 
 @inject('Auth') @observer
 export class LoginScreen extends React.Component {
@@ -13,11 +14,6 @@ export class LoginScreen extends React.Component {
       username: 'Mary85@hotmail.com',
       password: 'Jey6JwNg',
     };
-
-    this.props.navigator.toggleNavBar({
-      to: 'hidden',
-      animated: false,
-    });
 
     this.props.navigator.toggleTabs({
       to: 'hidden',
@@ -59,12 +55,10 @@ export class LoginScreen extends React.Component {
 
   login() {
     Keyboard.dismiss();
-    this.setState({error: null});
     this.props.Auth.login(this.state.username, this.state.password)
         .then(() => {
-          this.setState({username: '', password: ''});
           this.props.navigator.resetTo({
-            screen: 'MainScreen',
+            screen: Screens.Main.screen,
             animated: true,
             animationType: 'slide-horizontal'
           });
@@ -85,7 +79,7 @@ const styles = StyleSheet.create({
   },
   header: {
     textAlign: 'left',
-    color: '#1ba1b7',
+    color: Colors.Main,
     fontSize: 20,
     fontWeight: 'bold',
     width: 230,

@@ -1,39 +1,39 @@
-import { action, computed, observable } from 'mobx';
+import { action, observable } from 'mobx';
 import { apolloClient } from '../../App';
 import { gql } from 'apollo-boost';
-import { guestTabs, userTabs } from '../config/navigation';
 
 export class Auth {
   @observable isLogged = false;
   @observable user = {};
 
   @action login = (username, password) =>
-      new Promise((resolve, reject) => {
-        if (username && password) {
-          const query = gql`query Login($email: String!) { user(userSearch: {email: $email}) { id, firstname, lastname, email, password } }`;
+      new Promise(async (resolve, reject) => {
+        if (!username || !password) {
+          reject({status: 'error', message: 'Please provide both username and password'});
+        }
 
-          apolloClient.query({
+        const query = gql`query Login($email: String!) { user(userSearch: {email: $email}) { id, firstname, lastname, email, password } }`;
+        try {
+          const response = await apolloClient.query({
             query,
             variables: {email: username},
-          }).then(response => {
-            const user = response.data.user;
+          });
 
-            console.log(user);
+          const user = response.data.user;
 
-            if (!user) {
-              reject({status: 'error', message: 'Invalid credentials'});
-            }
+          if (!user) {
+            reject({status: 'error', message: 'Invalid credentials'});
+          }
 
-            if (password === user.password) {
-              this.user = Object.assign(user, {password: undefined});
-              this.isLogged = true;
-              resolve({status: 'ok'});
-            } else {
-              reject({status: 'error', message: 'Invalid credentials'});
-            }
-          }).catch(err => reject({status: 'error', message: err}));
-        } else {
-          reject({status: 'error', message: 'Missing username or password'});
+          if (password === user.password) {
+            this.user = Object.assign(user, {password: undefined});
+            this.isLogged = true;
+            resolve({status: 'ok'});
+          } else {
+            reject({status: 'error', message: 'Invalid credentials'});
+          }
+        } catch (e) {
+          reject({status: 'error', message: e});
         }
       });
 
