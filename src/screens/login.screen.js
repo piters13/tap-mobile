@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Image, Keyboard, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Button, Image, Keyboard, StyleSheet, Text, TextInput, View, Alert } from 'react-native';
 import { inject, observer } from 'mobx-react';
 import { MainScreen } from './main.screen';
 import { Images } from '../config/images';
@@ -12,7 +12,6 @@ export class LoginScreen extends React.Component {
     this.state = {
       username: 'Mary85@hotmail.com',
       password: 'Jey6JwNg',
-      error: null,
     };
 
     this.props.navigator.toggleNavBar({
@@ -31,23 +30,29 @@ export class LoginScreen extends React.Component {
         <View style={styles.container}>
           <Image source={Images.Logo} style={styles.logo}/>
           <Text style={styles.header}>Why, hello there</Text>
+
           <TextInput placeholder="Email"
                      keyboardType="email-address"
                      underlineColorAndroid="transparent"
                      style={styles.input}
                      onChangeText={(username) => this.setState({username})}
                      value={this.state.username}/>
+
           <TextInput secureTextEntry={true}
                      placeholder="Password"
                      underlineColorAndroid="transparent"
                      style={styles.input}
                      onChangeText={(password) => this.setState({password})}
                      value={this.state.password}/>
+
           <View style={styles.buttonContainer}>
             <Button onPress={() => this.login()} title="Sign in"/>
           </View>
 
-          <Text>{this.state.error ? this.state.error : ''}</Text>
+          <View style={styles.registerLinkContainer}>
+            <Text style={styles.registerLink}
+                  onPress={() => Alert.alert('Error', 'Not implemented')}>You need to create account?</Text>
+          </View>
         </View>
     );
   }
@@ -63,7 +68,7 @@ export class LoginScreen extends React.Component {
             animated: true,
             animationType: 'slide-horizontal'
           });
-        }).catch(err => this.setState({error: err.message}));
+        }).catch(err => Alert.alert('Authentication error', err.message));
   }
 }
 
@@ -84,7 +89,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     width: 230,
-    marginBottom: 10,
+    paddingBottom: 15,
   },
   input: {
     backgroundColor: '#ECF0F3',
@@ -100,7 +105,12 @@ const styles = StyleSheet.create({
     width: 270,
   },
   buttonContainer: {
-    paddingTop: 10,
     width: 270,
   },
+  registerLinkContainer: {
+    paddingTop: 30,
+  },
+  registerLink: {
+    fontSize: 16,
+  }
 });
