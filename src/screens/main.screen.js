@@ -16,6 +16,21 @@ class MyListItem extends React.Component {
   }
 }
 
+class MyList extends React.Component {
+  render(){
+    return(
+      <FlatList
+            data={data}
+            renderItem={({item, index}) => (
+                <MyListItem item={item} index={index}>
+                </MyListItem>
+            )}
+            keyExtractor={item => item.avatar_url}
+          />
+    );
+  }
+}
+
 @inject('Auth') @observer
 export class MainScreen extends React.Component {
 
@@ -24,14 +39,7 @@ export class MainScreen extends React.Component {
         <View style={styles.container}>
           <Text style={styles.headerText}>Tasks</Text>
           <Text style={styles.lowerHeader}>Updated 5 minutes ago</Text>
-          <FlatList
-            data={data}
-            renderItem={({item, index}) => (
-                <MyListItem item={item} index={index}>
-                </MyListItem>
-            )}
-            keyExtractor={item => item.avatar_url}
-          />
+          <MyList/>
           <Button onPress={() => this.logout()} title="Logout"/>
         </View>
     );
