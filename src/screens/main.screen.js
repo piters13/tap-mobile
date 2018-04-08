@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, StyleSheet, Text, View, FlatList } from 'react-native';
+import { Button, StyleSheet, Text, View, FlatList, TouchableHighlight} from 'react-native';
 import { Avatar } from "react-native-elements";
 import { inject, observer } from 'mobx-react';
 import { Screens } from '../constants/screens';
@@ -8,7 +8,7 @@ import data from '../data/tempData';
 class MyListItem extends React.Component {
   render(){
     return (
-      <View style={{flex:1, margin:10, width: 250, borderBottomWidth: 1,}}>
+      <View style={{flex:1, margin:10, width: 250, borderBottomWidth: 1}}>
         <Text style={{fontWeight: "bold"}}>{this.props.item.name}</Text>
         <Text>{this.props.item.subtitle}</Text>
       </View>
@@ -37,10 +37,15 @@ export class MainScreen extends React.Component {
   render() {
     return (
         <View style={styles.container}>
-          <Text style={styles.headerText}>Tasks</Text>
-          <Text style={styles.lowerHeader}>Updated 5 minutes ago</Text>
-          <MyList/>
-          <Button onPress={() => this.logout()} title="Logout"/>
+          <View style={{width:250, paddingBottom: 15}}>
+            <Text style={styles.headerText}>Tasks</Text>
+            <Text style={{fontSize: 10, color: 'black'}}>Updated 5 minutes ago</Text>
+          </View>
+          <MyList style={{height: 100}}/>
+          <TouchableHighlight style={styles.addButton}
+              underlayColor='#0d8193' onPress={() => this.logout()}>
+              <Text style={{fontSize: 40, color: 'white'}}>+</Text>
+          </TouchableHighlight>
         </View>
     );
   }
@@ -64,13 +69,29 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff'
   },
   headerText: {
+    textAlign: 'left',
     color: '#1ca3b9',
     fontWeight: "400",
     fontSize: 50,
     fontFamily: 'Arial, Helvetica, sansSerif',
-    padding: 10
+    paddingTop: 10
   },
-  lowerHeader: {
-    fontSize: 15
+  addButton: {
+    backgroundColor: '#1ca3b9',
+    height: 70,
+    width: 70,
+    borderRadius: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    bottom: 15,
+    right: 15,
+    shadowColor: "#000000",
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    shadowOffset: {
+      height: 1,
+      width: 0
+    }
   }
 });
