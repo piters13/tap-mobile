@@ -7,7 +7,7 @@ export class TaskListItem extends React.Component {
     return (
       <View style={styles.listItemStyle}>
         <Text style={{fontWeight: "bold", fontSize: 20}}>{this.props.item.name}</Text>
-        <Text>{this.props.item.subtitle}</Text>
+        <Text style={{paddingBottom: 10}}>{this.props.item.subtitle}</Text>
       </View>
     );
   }
@@ -16,7 +16,7 @@ export class TaskListItem extends React.Component {
 const styles = StyleSheet.create({
   listItemStyle : {
     flex:1,
-    margin:10,
+    margin: 5,
     width: 250,
     borderBottomWidth: 1,
     borderBottomColor: 'gray'

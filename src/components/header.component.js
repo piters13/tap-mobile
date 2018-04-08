@@ -17,13 +17,15 @@ export class Header extends React.Component {
 const styles = StyleSheet.create({
     headerStyle: {
       width:250,
-      paddingBottom: 15
+      paddingBottom: 15,
+      paddingTop: 40
     },
     headerTextStyle: {
       textAlign: 'left',
       color: Colors.Main,
       fontWeight: "400",
-      fontSize: 50,
+      fontSize: 40,
+      fontWeight: 'bold',
       fontFamily: 'Arial, Helvetica, sansSerif',
       paddingTop: 10
     }
