@@ -1,4 +1,4 @@
-var data = [{
+const toDoListMock = [{
     name: 'Donald Trump',
     subtitle: 'President'
   },
@@ -47,4 +47,4 @@ var data = [{
     subtitle: 'Forward'
   }];
 
-  module.exports = data;
+module.exports = toDoListMock;
