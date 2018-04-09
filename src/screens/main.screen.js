@@ -1,33 +1,39 @@
-import React from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
-import { inject, observer } from 'mobx-react';
-import { Screens } from '../constants/screens';
+import React from 'react'
+import { StyleSheet, View } from 'react-native'
+import ActionButton from 'react-native-action-button'
+import { inject, observer } from 'mobx-react'
+import { Screens } from '../constants/screens'
+import { Header } from '../components/header.component'
+import { TaskList } from '../components/task-list.component'
+import { Colors } from '../constants/colors'
 
 @inject('Auth') @observer
 export class MainScreen extends React.Component {
-  render() {
+  render () {
     return (
-        <View style={styles.container}>
-          <Text>You are {this.props.Auth.user.firstname} {this.props.Auth.user.lastname}</Text>
-          <Button onPress={() => this.logout()} title="Logout"/>
-        </View>
-    );
+      <View style={styles.container}>
+        <Header />
+        <TaskList style={{height: 100}} />
+        <ActionButton position='center' buttonColor={Colors.Main} onPress={() => this.logout()} />
+      </View>
+    )
   }
 
-  logout() {
+  logout () {
     this.props.navigator.resetTo({
-      screen: Screens.Login.screen,
-    });
+      screen: Screens.Login.screen
+    })
 
-    this.props.Auth.logout();
+    this.props.Auth.logout()
   }
 }
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     height: '100%',
-    justifyContent: 'center',
+    width: '100%',
     alignItems: 'center',
-    backgroundColor: '#ffffff',
+    backgroundColor: '#ffffff'
   }
-});
+})
