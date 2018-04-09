@@ -7,7 +7,7 @@ export class TaskList extends React.Component {
   render () {
     return (
       <View style={styles.listStyle}>
-        <FlatList data={taskListMock} renderItem={({item, index, style}) => (
+        <FlatList data={taskListMock} ItemSeparatorComponent={this.renderSeparator} renderItem={({item, index, style}) => (
           <View>
             <TaskListItem item={item} index={index} style={styles.listItemStyle} />
           </View>
@@ -15,17 +15,26 @@ export class TaskList extends React.Component {
       </View>
     )
   }
+
+  renderSeparator = () => {
+    return (
+      <View
+        style={{
+          height: 1,
+          width: 250,
+          backgroundColor: '#e1e6e9'
+        }}
+      />
+    )
+  }
 }
 
 const styles = StyleSheet.create({
   listStyle: {
-    maxHeight: '60%'
+    maxHeight: '53%'
   },
   listItemStyle: {
     flex: 1,
-    margin: 5,
-    width: 250,
-    borderBottomWidth: 1,
-    borderBottomColor: 'gray'
+    margin: 5
   }
 })

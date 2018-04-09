@@ -9,7 +9,7 @@ export class Header extends React.Component {
         <Text style={styles.headerTextStyle}>
           Tasks
         </Text>
-        <Text style={{fontSize: 10, color: 'black'}}>
+        <Text style={{fontSize: 15, color: 'black'}}>
           Updated 5 minutes ago
         </Text>
       </View>
