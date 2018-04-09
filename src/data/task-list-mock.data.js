@@ -1,4 +1,4 @@
-const toDoListMock = [{
+export default taskListMock = [{
     name: 'Donald Trump',
     subtitle: 'President'
   },
@@ -46,5 +46,3 @@ const toDoListMock = [{
     name: 'Marco Asensio',
     subtitle: 'Forward'
   }];
-
-module.exports = toDoListMock;

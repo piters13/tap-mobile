@@ -15,7 +15,7 @@ export class MainScreen extends React.Component {
         <View style={styles.container}>
           <Header/>
           <ToDoList style={{height: 100}}/>
-          <ActionButton buttonColor={Colors.Main} onPress={() => this.logout()}/>
+          <ActionButton position='center' buttonColor={Colors.Main} onPress={() => this.logout()}/>
         </View>
     );
   }
