@@ -3,16 +3,15 @@ import { StyleSheet, View, FlatList } from 'react-native'
 import { TaskListItem } from '../components/task-list-item.component'
 import taskListMock from '../data/task-list-mock.data'
 
-export class ToDoList extends React.Component {
+export class TaskList extends React.Component {
   render () {
     return (
       <View style={styles.listStyle}>
-        <FlatList data={taskListMock} 
-          renderItem={({item, index, style}) => (
-            <View style={styles.listItemStyle}>
-              <TaskListItem item={item} index={index} />
-            </View>
-          )} keyExtractor={item => item.subtitle} />
+        <FlatList data={taskListMock} renderItem={({item, index, style}) => (
+          <View>
+            <TaskListItem item={item} index={index} style={styles.listItemStyle} />
+          </View>
+        )} keyExtractor={item => item.subtitle} />
       </View>
     )
   }

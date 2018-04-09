@@ -1,4 +1,5 @@
-export default taskListMock = [{
+export default taskListMock = [
+  {
     name: 'Donald Trump',
     subtitle: 'President'
   },
@@ -45,4 +46,4 @@ export default taskListMock = [{
   {
     name: 'Marco Asensio',
     subtitle: 'Forward'
-  }];
+  }]

@@ -4,7 +4,7 @@ import { Text, View } from 'react-native'
 export class TaskListItem extends React.Component {
   render () {
     return (
-      <View>
+      <View style={this.props.style}>
         <Text style={{fontWeight: 'bold', fontSize: 20}}>
           {this.props.item.name}
         </Text>

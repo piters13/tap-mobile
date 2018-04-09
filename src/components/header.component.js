@@ -1,6 +1,5 @@
 import React from 'react'
 import { StyleSheet, View, Text } from 'react-native'
-import { TaskListItem } from '../components/task-list-item.component'
 import { Colors } from '../constants/colors'
 
 export class Header extends React.Component {
@@ -27,7 +26,6 @@ const styles = StyleSheet.create({
   headerTextStyle: {
     textAlign: 'left',
     color: Colors.Main,
-    fontWeight: '400',
     fontSize: 40,
     fontWeight: 'bold',
     fontFamily: 'Arial, Helvetica, sansSerif',
