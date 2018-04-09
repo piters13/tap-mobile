@@ -1,10 +1,10 @@
-import { Screens } from './screens';
-import { Icons } from './images';
-import { Colors } from './colors';
+import { Screens } from './screens'
+import { Icons } from './images'
+import { Colors } from './colors'
 
 export const defaultNavigatorStyle = {
   navBarHidden: true,
-};
+}
 
 export const NavigationTabs = [
   {
@@ -12,8 +12,8 @@ export const NavigationTabs = [
     screen: Screens.Main.screen,
     icon: Icons.Home,
   }
-];
+]
 
 export const appStyle = {
   tabBarSelectedButtonColor: Colors.Main
-};
+}

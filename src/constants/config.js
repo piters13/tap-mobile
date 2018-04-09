@@ -1,1 +1,1 @@
-export const ApiUrl = 'https://hackaton-tap.herokuapp.com/graphql';
+export const ApiUrl = 'https://hackaton-tap.herokuapp.com/graphql'

@@ -1,21 +1,9 @@
 import React from 'react'
-import { StyleSheet, View, FlatList } from 'react-native'
+import { FlatList, StyleSheet, View } from 'react-native'
 import { TaskListItem } from '../components/task-list-item.component'
 import taskListMock from '../data/task-list-mock.data'
 
 export class TaskList extends React.Component {
-  render () {
-    return (
-      <View style={styles.listStyle}>
-        <FlatList data={taskListMock} ItemSeparatorComponent={this.renderSeparator} renderItem={({item, index, style}) => (
-          <View>
-            <TaskListItem item={item} index={index} style={styles.listItemStyle} />
-          </View>
-        )} keyExtractor={item => item.subtitle} />
-      </View>
-    )
-  }
-
   renderSeparator = () => {
     return (
       <View
@@ -25,6 +13,19 @@ export class TaskList extends React.Component {
           backgroundColor: '#e1e6e9'
         }}
       />
+    )
+  }
+
+  render () {
+    return (
+      <View style={styles.listStyle}>
+        <FlatList data={taskListMock} ItemSeparatorComponent={this.renderSeparator}
+                  renderItem={({item, index}) => (
+                    <View>
+                      <TaskListItem item={item} index={index} style={styles.listItemStyle}/>
+                    </View>
+                  )} keyExtractor={item => item.subtitle}/>
+      </View>
     )
   }
 }

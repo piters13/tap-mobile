@@ -12,9 +12,9 @@ export class MainScreen extends React.Component {
   render () {
     return (
       <View style={styles.container}>
-        <Header />
-        <TaskList style={{height: 100}} />
-        <ActionButton position='center' buttonColor={Colors.Main} onPress={() => this.logout()} />
+        <Header/>
+        <TaskList style={{height: 100}}/>
+        <ActionButton position='center' buttonColor={Colors.Main} onPress={() => this.logout()}/>
       </View>
     )
   }

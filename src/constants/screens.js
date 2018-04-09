@@ -7,4 +7,4 @@ export const Screens = {
     screen: 'MainScreen',
     title: 'Dashboard'
   }
-};
+}
