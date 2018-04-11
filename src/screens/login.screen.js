@@ -17,7 +17,7 @@ export class LoginScreen extends React.Component {
 
     this.props.navigator.toggleTabs({
       to: 'hidden',
-      animated: false,
+      animated: false
     })
   }
 

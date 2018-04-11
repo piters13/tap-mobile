@@ -20,11 +20,11 @@ export class TaskList extends React.Component {
     return (
       <View style={styles.listStyle}>
         <FlatList data={taskListMock} ItemSeparatorComponent={this.renderSeparator}
-                  renderItem={({item, index}) => (
-                    <View>
-                      <TaskListItem item={item} index={index} style={styles.listItemStyle}/>
-                    </View>
-                  )} keyExtractor={item => item.subtitle}/>
+          renderItem={({item, index}) => (
+            <View>
+              <TaskListItem item={item} index={index} style={styles.listItemStyle} />
+            </View>
+          )} keyExtractor={item => item.subtitle} />
       </View>
     )
   }
