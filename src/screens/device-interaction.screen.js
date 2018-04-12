@@ -24,9 +24,12 @@ export class DeviceInteractionScreen extends React.Component {
             You have just pressed the button!
           </Text>
         </View>
-        <SwitchExample
-          toggleSwitch1={this.toggleSwitch1}
-          switch1Value={this.state.switch1Value} />
+        <View style={styles.buttonContainer}>
+          <Text style={{color: 'white'}}>Resting</Text>
+          <SwitchExample
+            toggleSwitch1={this.toggleSwitch1}
+            switch1Value={this.state.switch1Value} />
+        </View>
       </View>
     )
   }
@@ -42,7 +45,7 @@ const styles = StyleSheet.create({
   },
   headerStyle: {
     width: 300,
-    paddingBottom: 15,
+    paddingBottom: 30,
     paddingTop: '35%'
   },
   headerTextStyle: {
@@ -52,5 +55,24 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontFamily: 'Arial, Helvetica, sansSerif',
     paddingTop: 10
+  },
+  buttonContainer: {
+    borderRadius: 4,
+    paddingTop: 3,
+    paddingBottom: 3,
+    paddingLeft: 85,
+    paddingRight: 85,
+    backgroundColor: '#4a637c',
+    shadowColor: '#3381cd',
+    shadowOffset: {
+      width: 5,
+      height: 3
+    },
+    shadowRadius: 2,
+    shadowOpacity: 0.4,
+    marginBottom: 10,
+    marginRight: 10,
+    elevation: 5,
+    position: 'relative'
   }
 })
