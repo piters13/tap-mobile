@@ -1,21 +1,10 @@
 import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
-import { SwitchExample } from '../components/switch-example.component'
+import ToggleSwitch from 'toggle-switch-react-native'
+// import { SwitchExample } from '../components/switch-example.component'
 import { Colors } from '../constants/colors'
 
 export class DeviceInteractionScreen extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      switch1Value: false
-    }
-  }
-
-  toggleSwitch1 = (value) => {
-    this.setState({switch1Value: value})
-    console.log('Switch 1 is: ' + value)
-  }
-
   render () {
     return (
       <View style={styles.container}>
@@ -25,10 +14,19 @@ export class DeviceInteractionScreen extends React.Component {
           </Text>
         </View>
         <View style={styles.buttonContainer}>
-          <Text style={{color: 'white'}}>Resting</Text>
-          <SwitchExample
-            toggleSwitch1={this.toggleSwitch1}
-            switch1Value={this.state.switch1Value} />
+          <ToggleSwitch
+            isOn={false}
+            onColor='#3280CB'
+            offColor='#3F3F3F'
+            label='Resting'
+            labelStyle={{color: 'white', fontWeight: '900'}}
+            size='medium'
+            onToggle={(isOn) => console.log('changed to : ', isOn)} />
+        </View>
+        <View style={styles.footerStyle}>
+          <Text>
+            Take your time!
+          </Text>
         </View>
       </View>
     )
@@ -44,7 +42,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff'
   },
   headerStyle: {
-    width: 300,
+    width: '84%',
     paddingBottom: 30,
     paddingTop: '35%'
   },
@@ -57,11 +55,11 @@ const styles = StyleSheet.create({
     paddingTop: 10
   },
   buttonContainer: {
-    borderRadius: 4,
-    paddingTop: 3,
-    paddingBottom: 3,
-    paddingLeft: 85,
-    paddingRight: 85,
+    borderRadius: 15,
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingLeft: 25,
+    paddingRight: 25,
     backgroundColor: '#4a637c',
     shadowColor: '#3381cd',
     shadowOffset: {
@@ -74,5 +72,10 @@ const styles = StyleSheet.create({
     marginRight: 10,
     elevation: 5,
     position: 'relative'
+  },
+  footerStyle: {
+    position: 'absolute',
+    left: '8%',
+    bottom: '10%'
   }
 })
