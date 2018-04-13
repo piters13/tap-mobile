@@ -5,6 +5,11 @@ import { TaskList } from '../components/task-list.component'
 import { Colors } from '../constants/colors'
 
 export class DeviceInteractionScreen extends React.Component {
+  constructor () {
+    super()
+    this.state = {showList: false}
+  }
+
   render () {
     return (
       <View style={styles.container}>
@@ -13,7 +18,7 @@ export class DeviceInteractionScreen extends React.Component {
             You have just pressed the button!
           </Text>
         </View>
-        <TouchableHighlight style={styles.buttonContainer} onPress={this.onToggle}>
+        <TouchableHighlight style={styles.buttonContainer} onPress={() => this.printList()}>
           <ToggleSwitch
             isOn={false}
             onColor='#3280CB'
@@ -21,8 +26,9 @@ export class DeviceInteractionScreen extends React.Component {
             label='Resting'
             labelStyle={{color: 'white', fontWeight: '900'}}
             size='medium'
-            onToggle={this.onToggle} />
+            onToggle={() => this.printList()} />
         </TouchableHighlight>
+        {this.state.showList && <TaskList /> }
         <View style={styles.footerStyle}>
           <Text>
             Take your time!
@@ -32,8 +38,8 @@ export class DeviceInteractionScreen extends React.Component {
     )
   }
 
-  onToggle (isOn) {
-    alert('Changed to ' + isOn)
+  printList = () => {
+    this.setState({showList: !this.state.showList})
   }
 }
 
