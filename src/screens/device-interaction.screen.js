@@ -1,7 +1,7 @@
 import React from 'react'
-import { View, StyleSheet, Text } from 'react-native'
+import { View, StyleSheet, Text, TouchableHighlight } from 'react-native'
 import ToggleSwitch from 'toggle-switch-react-native'
-// import { SwitchExample } from '../components/switch-example.component'
+import { TaskList } from '../components/task-list.component'
 import { Colors } from '../constants/colors'
 
 export class DeviceInteractionScreen extends React.Component {
@@ -13,7 +13,7 @@ export class DeviceInteractionScreen extends React.Component {
             You have just pressed the button!
           </Text>
         </View>
-        <View style={styles.buttonContainer}>
+        <TouchableHighlight style={styles.buttonContainer} onPress={this.onToggle}>
           <ToggleSwitch
             isOn={false}
             onColor='#3280CB'
@@ -21,8 +21,8 @@ export class DeviceInteractionScreen extends React.Component {
             label='Resting'
             labelStyle={{color: 'white', fontWeight: '900'}}
             size='medium'
-            onToggle={(isOn) => console.log('changed to : ', isOn)} />
-        </View>
+            onToggle={this.onToggle} />
+        </TouchableHighlight>
         <View style={styles.footerStyle}>
           <Text>
             Take your time!
@@ -30,6 +30,10 @@ export class DeviceInteractionScreen extends React.Component {
         </View>
       </View>
     )
+  }
+
+  onToggle (isOn) {
+    alert('Changed to ' + isOn)
   }
 }
 
