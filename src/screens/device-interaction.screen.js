@@ -18,20 +18,20 @@ export class DeviceInteractionScreen extends React.Component {
             You have just pressed the button!
           </Text>
         </View>
-        <TouchableHighlight style={styles.buttonContainer} onPress={() => this.printList()}>
+        <TouchableHighlight style={this.state.showList ? styles.buttonPress : styles.buttonContainer} onPress={() => this.printList()}>
           <ToggleSwitch
             isOn={false}
             onColor='#3280CB'
             offColor='#3F3F3F'
-            label='Resting'
+            label={this.state.showList ? 'Working' : 'Resting'}
             labelStyle={{color: 'white', fontWeight: '900'}}
             size='medium'
             onToggle={() => this.printList()} />
         </TouchableHighlight>
-        {this.state.showList && <TaskList /> }
+        {this.state.showList && <View style={{height: '70%', paddingTop: '4%'}}><TaskList /></View> }
         <View style={styles.footerStyle}>
           <Text>
-            Take your time!
+            {this.state.showList ? 'Keep up the good work!' : 'Take your time!'}
           </Text>
         </View>
       </View>
@@ -53,8 +53,8 @@ const styles = StyleSheet.create({
   },
   headerStyle: {
     width: '84%',
-    paddingBottom: 30,
-    paddingTop: '35%'
+    paddingBottom: '4%',
+    paddingTop: '12%'
   },
   headerTextStyle: {
     textAlign: 'left',
@@ -71,6 +71,25 @@ const styles = StyleSheet.create({
     paddingLeft: 25,
     paddingRight: 25,
     backgroundColor: '#4a637c',
+    shadowColor: '#3381cd',
+    shadowOffset: {
+      width: 5,
+      height: 3
+    },
+    shadowRadius: 2,
+    shadowOpacity: 0.4,
+    marginBottom: 10,
+    marginRight: 10,
+    elevation: 5,
+    position: 'relative'
+  },
+  buttonPress: {
+    borderRadius: 15,
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingLeft: 25,
+    paddingRight: 25,
+    backgroundColor: '#3f90e0',
     shadowColor: '#3381cd',
     shadowOffset: {
       width: 5,
