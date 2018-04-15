@@ -1,12 +1,14 @@
 import { Navigation } from 'react-native-navigation'
 import { LoginScreen } from './login.screen'
 import { MainScreen } from './main.screen'
+import { DeviceInteractionScreen } from './device-interaction.screen'
 import { Screens } from '../constants/screens'
 import { defaultNavigatorStyle } from '../constants/navigation'
 
 const screens = [
   {screen: Screens.Login.screen, component: LoginScreen},
   {screen: Screens.Main.screen, component: MainScreen},
+  {screen: Screens.DeviceInteraction.screen, component: DeviceInteractionScreen}
 ]
 
 export function registerScreens (store, Provider) {

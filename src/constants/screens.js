@@ -6,5 +6,9 @@ export const Screens = {
   Main: {
     screen: 'MainScreen',
     title: 'Dashboard'
+  },
+  DeviceInteraction: {
+    screen: 'DeviceInteracionScreen',
+    title: 'Tapped'
   }
 }
