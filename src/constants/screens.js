@@ -8,7 +8,7 @@ export const Screens = {
     title: 'Dashboard'
   },
   DeviceInteraction: {
-    screen: 'DeviceInteracionScreen',
-    title: 'Tapped'
+    screen: 'DeviceInteractionScreen',
+    title: 'DeviceInteraction'
   }
 }

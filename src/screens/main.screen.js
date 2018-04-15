@@ -6,15 +6,18 @@ import { Screens } from '../constants/screens'
 import { Header } from '../components/header.component'
 import { TaskList } from '../components/task-list.component'
 import { Colors } from '../constants/colors'
+import { taskListMock } from '../data/task-list-mock'
 
 @inject('Auth') @observer
 export class MainScreen extends React.Component {
   render () {
     return (
       <View style={styles.container}>
-        <Header />
-        <TaskList style={{height: 100}} />
-        <ActionButton position='center' buttonColor={Colors.Main} onPress={() => this.logout()} />
+        <Header title={`Tasks`} subtitle={`Updated 5 mins ago`}/>
+        <TaskList tasks={taskListMock} style={{width: 260, flex: 1}}/>
+        <View style={{width: '100%', height: 110}}>
+          <ActionButton position='center' buttonColor={Colors.Primary} onPress={() => this.logout()}/>
+        </View>
       </View>
     )
   }
@@ -31,7 +34,6 @@ export class MainScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: '100%',
     width: '100%',
     alignItems: 'center',
     backgroundColor: '#ffffff'
