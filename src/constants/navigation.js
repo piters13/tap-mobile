@@ -1,6 +1,7 @@
 import { Screens } from './screens'
 import { Icons } from './images'
 import { Colors } from './colors'
+import { Styles } from './styles'
 
 export const defaultNavigatorStyle = {
   navBarHidden: true
@@ -20,5 +21,6 @@ export const NavigationTabs = [
 ]
 
 export const appStyle = {
-  tabBarSelectedButtonColor: Colors.Primary
+  tabBarSelectedButtonColor: Colors.Primary,
+  tabFontFamily: Styles.fonts.RobotoMedium
 }

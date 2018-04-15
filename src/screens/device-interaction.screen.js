@@ -32,12 +32,14 @@ export class DeviceInteractionScreen extends React.Component {
           </View>
         </View>
 
-        {this.printList()}
+        <View style={{flex: 1}}>
+          {this.printList()}
 
-        <View style={styles.footer}>
-          <Text style={{fontFamily: Styles.fonts.RobotoLight, color: Colors.TextPrimary}}>
-            {this.footerText}
-          </Text>
+          <View style={styles.footer}>
+            <Text style={{fontFamily: Styles.fonts.RobotoLight, color: Colors.TextPrimary}}>
+              {this.footerText}
+            </Text>
+          </View>
         </View>
       </View>
     )
