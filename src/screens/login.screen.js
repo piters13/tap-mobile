@@ -60,7 +60,7 @@ export class LoginScreen extends React.Component {
     this.props.Auth.login(this.state.username, this.state.password)
       .then(() => {
         this.props.navigator.resetTo({
-          screen: Screens.Primary.screen,
+          screen: Screens.Main.screen,
           animated: true,
           animationType: 'slide-horizontal'
         })

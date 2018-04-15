@@ -4,10 +4,12 @@ import { MainScreen } from './main.screen'
 import { DeviceInteractionScreen } from './device-interaction.screen'
 import { Screens } from '../constants/screens'
 import { defaultNavigatorStyle } from '../constants/navigation'
+import { SettingsScreen } from './settings.screen'
 
 const screens = [
   {screen: Screens.Login.screen, component: LoginScreen},
   {screen: Screens.Main.screen, component: MainScreen},
+  {screen: Screens.Settings.screen, component: SettingsScreen},
   {screen: Screens.DeviceInteraction.screen, component: DeviceInteractionScreen}
 ]
 

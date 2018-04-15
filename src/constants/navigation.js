@@ -17,10 +17,15 @@ export const NavigationTabs = [
     label: Screens.DeviceInteraction.title,
     screen: Screens.DeviceInteraction.screen,
     icon: Icons.Connection
+  },
+  {
+    label: Screens.Settings.title,
+    screen: Screens.Settings.screen,
+    icon: Icons.Cog
   }
 ]
 
 export const appStyle = {
   tabBarSelectedButtonColor: Colors.Primary,
-  tabFontFamily: Styles.fonts.RobotoMedium
+  tabFontFamily: Styles.fonts.RobotoLight
 }

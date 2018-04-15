@@ -7,8 +7,12 @@ export const Screens = {
     screen: 'MainScreen',
     title: 'Dashboard'
   },
+  Settings: {
+    screen: 'SettingsScreen',
+    title: 'Settings'
+  },
   DeviceInteraction: {
     screen: 'DeviceInteractionScreen',
-    title: 'DeviceInteraction'
+    title: 'Tap'
   }
 }
