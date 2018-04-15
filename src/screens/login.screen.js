@@ -41,7 +41,7 @@ export class LoginScreen extends React.Component {
                    onChangeText={(password) => this.setState({password})}
                    value={this.state.password}/>
 
-        <View style={styles.buttonContainer}>
+        <View style={styles.restingSwitch}>
           <Button onPress={() => this.login()} title="Sign in"/>
         </View>
 
@@ -58,7 +58,7 @@ export class LoginScreen extends React.Component {
     this.props.Auth.login(this.state.username, this.state.password)
       .then(() => {
         this.props.navigator.resetTo({
-          screen: Screens.Main.screen,
+          screen: Screens.Primary.screen,
           animated: true,
           animationType: 'slide-horizontal'
         })
@@ -68,7 +68,7 @@ export class LoginScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    height: '100%',
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#ffffff',
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   },
   header: {
     textAlign: 'left',
-    color: Colors.Main,
+    color: Colors.Primary,
     fontSize: 20,
     fontWeight: 'bold',
     width: 230,
@@ -93,12 +93,12 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     borderRadius: 14,
-    color: '#333',
+    color: Colors.TextPrimary,
     fontSize: 14,
     marginBottom: 10,
     width: 270,
   },
-  buttonContainer: {
+  restingSwitch: {
     width: 270,
   },
   registerLinkContainer: {

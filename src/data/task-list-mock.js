@@ -1,4 +1,4 @@
-export default taskListMock = [
+export const taskListMock = [
   {
     name: 'Donald Trump',
     subtitle: 'President'
@@ -46,4 +46,5 @@ export default taskListMock = [
   {
     name: 'Marco Asensio',
     subtitle: 'Forward'
-  }]
+  }
+]

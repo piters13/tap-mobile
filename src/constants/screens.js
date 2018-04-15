@@ -13,6 +13,6 @@ export const Screens = {
   },
   CreateTask: {
     screen: 'CreateTaskScreen',
-    title: ''
+    title: 'Create task'
   }
 }

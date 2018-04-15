@@ -20,5 +20,5 @@ export const NavigationTabs = [
 ]
 
 export const appStyle = {
-  tabBarSelectedButtonColor: Colors.Main
+  tabBarSelectedButtonColor: Colors.Primary
 }
