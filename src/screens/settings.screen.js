@@ -13,7 +13,9 @@ export class SettingsScreen extends React.Component {
 
   logout () {
     this.props.navigator.resetTo({
-      screen: Screens.Login.screen
+      screen: Screens.Login.screen,
+      animated: true,
+      animationType: 'slide-horizontal'
     })
 
     this.props.Auth.logout()
