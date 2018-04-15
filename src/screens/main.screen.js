@@ -14,9 +14,21 @@ export class MainScreen extends React.Component {
       <View style={styles.container}>
         <Header />
         <TaskList style={{height: 100}} />
-        <ActionButton position='center' buttonColor={Colors.Main} onPress={() => this.logout()} />
+        <ActionButton position='center' buttonColor={Colors.Main} onPress={() => this.createTask()} />
       </View>
     )
+  }
+
+  createTask(){
+    this.props.navigator.showModal({
+      screen: Screens.CreateTask.screen, 
+      title: Screens.CreateTask.title, 
+      passProps: {},
+      navigatorStyle: {}, // override the navigator style for the screen, see "Styling the navigator" below (optional)
+      navigatorButtons: {}, // override the nav buttons for the screen, see "Adding buttons to the navigator" below (optional)
+      animationType: 'slide-up' // 'none' / 'slide-up' , appear animation for the modal (optional, default 'slide-up')
+    });
+    
   }
 
   logout () {
