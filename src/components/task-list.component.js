@@ -32,6 +32,8 @@ export class TaskList extends React.Component {
 
 const styles = StyleSheet.create({
   listItemStyle: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     flex: 1,
     marginTop: 10,
     marginBottom: 10,
