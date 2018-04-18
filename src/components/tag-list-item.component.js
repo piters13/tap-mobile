@@ -6,8 +6,8 @@ export class TagItem extends React.Component {
     return (
       <View style={styles.tagButton}>
         <TouchableHighlight underlayColor='white'>
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>{this.props.item.name}</Text>
+          <View style={styles.tagButton}>
+            <Text style={styles.tagText}>{this.props.item.name}</Text>
           </View>
         </TouchableHighlight>
       </View>

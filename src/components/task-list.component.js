@@ -8,11 +8,11 @@ export class TaskList extends React.Component {
       <View style={this.props.style}>
         {this.renderSeparator()}
         <FlatList data={this.props.tasks} ItemSeparatorComponent={this.renderSeparator}
-                  renderItem={({item, index}) => (
-                    <View>
-                      <TaskListItem item={item} index={index} style={styles.listItemStyle}/>
-                    </View>
-                  )} keyExtractor={item => item.subtitle}/>
+          renderItem={({item, index}) => (
+            <View>
+              <TaskListItem item={item} index={index} style={styles.listItemStyle} />
+            </View>
+          )} keyExtractor={item => item.subtitle} />
         {this.renderSeparator()}
       </View>
     )

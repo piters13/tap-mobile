@@ -1,7 +1,9 @@
 import React from 'react'
-import { StyleSheet, View, Text, TextInput } from 'react-native'
+import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native'
 import ActionButton from 'react-native-action-button'
 import { Colors } from '../constants/colors'
+import { TagList } from '../components/tag-list.component'
+import { tagListMock } from '../data/tag-list-mock'
 
 export class CreateTaskScreen extends React.Component {
   constructor (props) {
@@ -15,47 +17,56 @@ export class CreateTaskScreen extends React.Component {
 
   render () {
     return (
-      <View style={styles.container}>
-        <Text style={styles.createTask}>Create task</Text>
+      <View style={styles.background}>
+        <View style={styles.container}>
+          <Text style={styles.createTask}>Create task</Text>
 
-        <TextInput placeholder='Task name'
-          underlineColorAndroid='transparent'
-          style={styles.input}
-          onChangeText={(taskName) => this.setState({taskName})}
-          value={this.state.taskName} />
+          <TextInput placeholder='Task name'
+            underlineColorAndroid='transparent'
+            style={styles.input}
+            onChangeText={(taskName) => this.setState({taskName})}
+            value={this.state.taskName} />
 
-        <Text style={styles.addTags}>Add some tags</Text>
+          <Text style={styles.addTags}>Add some tags</Text>
 
-        <TextInput placeholder='New tag'
-          underlineColorAndroid='transparent'
-          style={styles.input}
-          onChangeText={(tagName) => this.setState({tagName})}
-          value={this.state.tagName} />
+          <TagList tags={tagListMock} style={{width: 260, flex: 1}} />
 
-        <ActionButton position='right' buttonColor={Colors.Main} onPress={() => this.createTag()} />
+          <TextInput placeholder='New tag'
+            underlineColorAndroid='transparent'
+            style={styles.newTagInput}
+            onChangeText={(tagName) => this.setState({tagName})}
+            value={this.state.tagName} />
+
+          <ActionButton style={styles.addTagButton} buttonColor={Colors.Primary} onPress={() => this.createTag()} />
+          <TouchableOpacity style={styles.button} onPress={() => this.createTask()}>
+            <Text style={styles.buttonText}> Add </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     )
   }
 
   createTag () {
+  }
 
+  createTask () {
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    height: '60%',
+    height: '70%',
     width: '80%',
     borderRadius: 14,
     justifyContent: 'center',
-    backgroundColor: '#101b31',
-    top: 40,
+    backgroundColor: Colors.DarkGrey,
+    top: 60,
     left: 40,
     right: 40,
     bottom: 40
   },
   input: {
-    backgroundColor: '#CFD7DB',
+    backgroundColor: Colors.Grey,
     borderWidth: 0,
     marginLeft: 30,
     paddingTop: 10,
@@ -67,6 +78,20 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginBottom: 10,
     width: 270
+  },
+  newTagInput: {
+    backgroundColor: Colors.Grey,
+    borderWidth: 0,
+    marginLeft: 30,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 30,
+    paddingRight: 20,
+    borderRadius: 14,
+    color: '#333',
+    fontSize: 14,
+    marginBottom: 10,
+    width: 180
   },
   createTask: {
     fontSize: 22,
@@ -86,5 +111,31 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     paddingLeft: 30,
     paddingRight: 20
+  },
+  button: {
+    alignItems: 'center',
+    backgroundColor: Colors.Primary,
+    padding: 20,
+    margin: 20,
+    borderWidth: 0,
+    marginLeft: 30,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 30,
+    paddingRight: 20,
+    borderRadius: 14,
+    justifyContent: 'center'
+  },
+  buttonText: {
+    color: '#ffffff',
+    fontWeight: 'bold'
+  },
+  background: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(255,255,255,0.8)'
+  },
+  addTagButton: {
+    marginBottom: 60
   }
 })

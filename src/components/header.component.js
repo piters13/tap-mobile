@@ -33,6 +33,6 @@ const styles = StyleSheet.create({
   subtitleStyle: {
     fontSize: 17,
     color: Colors.TextPrimary,
-    fontFamily: Styles.fonts.RobotoLight,
+    fontFamily: Styles.fonts.RobotoLight
   }
 })

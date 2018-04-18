@@ -12,7 +12,7 @@ export class LoginScreen extends React.Component {
 
     this.state = {
       username: 'Mary85@hotmail.com',
-      password: 'Jey6JwNg',
+      password: 'Jey6JwNg'
     }
 
     this.props.navigator.toggleTabs({
@@ -24,30 +24,30 @@ export class LoginScreen extends React.Component {
   render () {
     return (
       <View style={styles.container}>
-        <Image source={Images.Logo} style={styles.logo}/>
+        <Image source={Images.Logo} style={styles.logo} />
         <Text style={styles.header}>Why, hello there</Text>
 
-        <TextInput placeholder="Email"
-                   keyboardType="email-address"
-                   underlineColorAndroid="transparent"
-                   style={styles.input}
-                   onChangeText={(username) => this.setState({username})}
-                   value={this.state.username}/>
+        <TextInput placeholder='Email'
+          keyboardType='email-address'
+          underlineColorAndroid='transparent'
+          style={styles.input}
+          onChangeText={(username) => this.setState({username})}
+          value={this.state.username} />
 
-        <TextInput secureTextEntry={true}
-                   placeholder="Password"
-                   underlineColorAndroid="transparent"
-                   style={styles.input}
-                   onChangeText={(password) => this.setState({password})}
-                   value={this.state.password}/>
+        <TextInput secureTextEntry
+          placeholder='Password'
+          underlineColorAndroid='transparent'
+          style={styles.input}
+          onChangeText={(password) => this.setState({password})}
+          value={this.state.password} />
 
-        <View style={styles.restingSwitch}>
-          <Button onPress={() => this.login()} title="Sign in"/>
+        <View style={styles.buttonContainer}>
+          <Button onPress={() => this.login()} title='Sign in' />
         </View>
 
         <View style={styles.registerLinkContainer}>
           <Text style={styles.registerLink}
-                onPress={() => Alert.alert('Error', 'Not implemented')}>You need to create account?</Text>
+            onPress={() => Alert.alert('Error', 'Not implemented')}>You need to create account?</Text>
         </View>
       </View>
     )
@@ -58,7 +58,7 @@ export class LoginScreen extends React.Component {
     this.props.Auth.login(this.state.username, this.state.password)
       .then(() => {
         this.props.navigator.resetTo({
-          screen: Screens.Primary.screen,
+          screen: Screens.Main.screen,
           animated: true,
           animationType: 'slide-horizontal'
         })
@@ -68,22 +68,22 @@ export class LoginScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#ffffff',
+    backgroundColor: '#ffffff'
   },
   logo: {
     width: 180,
-    resizeMode: 'contain',
+    resizeMode: 'contain'
   },
   header: {
     textAlign: 'left',
-    color: Colors.Primary,
+    color: Colors.Main,
     fontSize: 20,
     fontWeight: 'bold',
     width: 230,
-    paddingBottom: 15,
+    paddingBottom: 15
   },
   input: {
     backgroundColor: '#ECF0F3',
@@ -93,18 +93,18 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     borderRadius: 14,
-    color: Colors.TextPrimary,
+    color: '#333',
     fontSize: 14,
     marginBottom: 10,
-    width: 270,
+    width: 270
   },
-  restingSwitch: {
-    width: 270,
+  buttonContainer: {
+    width: 270
   },
   registerLinkContainer: {
-    paddingTop: 30,
+    paddingTop: 30
   },
   registerLink: {
-    fontSize: 16,
+    fontSize: 16
   }
 })
