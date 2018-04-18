@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
   listItemStyle: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
     flex: 1,
     marginTop: 10,
     marginBottom: 10,
