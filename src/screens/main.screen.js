@@ -13,10 +13,10 @@ export class MainScreen extends React.Component {
   render () {
     return (
       <View style={styles.container}>
-        <Header title={`Tasks`} subtitle={`Updated 5 mins ago`}/>
-        <TaskList tasks={taskListMock} style={{width: 260, flex: 1}}/>
+        <Header title={`Tasks`} subtitle={`Updated 5 mins ago`} />
+        <TaskList tasks={taskListMock} style={{width: 260, flex: 1}} />
         <View style={{width: '100%', height: 110}}>
-          <ActionButton position='center' buttonColor={Colors.Primary} onPress={() => this.logout()}/>
+          <ActionButton position='center' buttonColor={Colors.Primary} onPress={() => this.logout()} />
         </View>
       </View>
     )
