@@ -43,14 +43,14 @@ const styles = StyleSheet.create({
   },
   firstBadgeStyle: {
     backgroundColor: '#3c40c6',
-    borderRadius: 12.3,
+    borderRadius: 6,
     width: 40,
     height: 20,
     marginBottom: 3
   },
   secondBadgeStyle: {
     backgroundColor: '#2c7dce',
-    borderRadius: 12.3,
+    borderRadius: 6,
     width: 40,
     height: 20
   }
