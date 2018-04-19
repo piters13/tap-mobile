@@ -5,8 +5,8 @@ import { Styles } from '../constants/styles'
 import { Colors } from '../constants/colors'
 
 export class TaskListItem extends React.Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
     this.state = {notes: 13, actions: 7}
   }
 
