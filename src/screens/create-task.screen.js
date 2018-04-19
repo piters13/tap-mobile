@@ -39,7 +39,7 @@ export class CreateTaskScreen extends React.Component {
 
           <ActionButton style={styles.addTagButton} buttonColor={Colors.Primary} onPress={() => this.createTag()} />
           <TouchableOpacity style={styles.button} onPress={() => this.createTask()}>
-            <Text style={styles.buttonText}> Add </Text>
+            <Text style={styles.buttonText}> Create task </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -136,6 +136,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,0.8)'
   },
   addTagButton: {
-    marginBottom: 60
+    marginBottom: 55
   }
 })

@@ -18,9 +18,10 @@ export class TagList extends React.Component {
         <Text style={styles.labelText}>Tags:</Text>
         <TagSelect
           data={this.props.tags}
-          ref={(tag) => {
-            this.tag = tag
-          }}
+          itemStyle={styles.item}
+          itemLabelStyle={styles.label}
+          itemStyleSelected={styles.itemSelected}
+          itemLabelStyleSelected={styles.labelSelected}
         />
       </View>
     )
@@ -42,5 +43,19 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '500',
     marginBottom: 30
+  },
+  item: {
+    backgroundColor: Colors.DarkGrey
+  },
+  label: {
+    color: '#FFF'
+  },
+  itemSelected: {
+    borderWidth: 1,
+    borderColor: Colors.DarkGrey,
+    backgroundColor: '#FFF'
+  },
+  labelSelected: {
+    color: Colors.DarkGrey
   }
 })
