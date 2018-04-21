@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, ScrollView } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { TagSelect } from 'react-native-tag-select'
 import { Colors } from '../constants/colors'
 
