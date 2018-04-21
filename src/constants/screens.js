@@ -12,7 +12,7 @@ export const Screens = {
     title: 'Settings'
   },
   DeviceInteraction: {
-    screen: 'DeviceInteracionScreen',
+    screen: 'DeviceInteractionScreen',
     title: 'Tap'
   },
   CreateTask: {
