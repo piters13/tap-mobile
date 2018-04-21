@@ -3,7 +3,8 @@ import { Alert, Button, Image, Keyboard, StyleSheet, Text, TextInput, View } fro
 import { inject, observer } from 'mobx-react'
 import { Images } from '../constants/images'
 import { Screens } from '../constants/screens'
-import { Colors } from '../constants/colors'
+import { Header } from '../components/header.component'
+import { Styles } from '../constants/styles'
 
 @inject('Auth') @observer
 export class LoginScreen extends React.Component {
@@ -25,7 +26,7 @@ export class LoginScreen extends React.Component {
     return (
       <View style={styles.container}>
         <Image source={Images.Logo} style={styles.logo} />
-        <Text style={styles.header}>Why, hello there</Text>
+        <Header title={`Why, hello there`} />
 
         <TextInput placeholder='Email'
           keyboardType='email-address'
@@ -75,15 +76,8 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: 180,
-    resizeMode: 'contain'
-  },
-  header: {
-    textAlign: 'left',
-    color: Colors.Main,
-    fontSize: 20,
-    fontWeight: 'bold',
-    width: 230,
-    paddingBottom: 15
+    resizeMode: 'contain',
+    maxHeight: 160
   },
   input: {
     backgroundColor: '#ECF0F3',
@@ -95,6 +89,7 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     color: '#333',
     fontSize: 14,
+    fontFamily: Styles.fonts.Roboto,
     marginBottom: 10,
     width: 270
   },
@@ -105,6 +100,7 @@ const styles = StyleSheet.create({
     paddingTop: 30
   },
   registerLink: {
-    fontSize: 16
+    fontSize: 16,
+    fontFamily: Styles.fonts.RobotoLight
   }
 })

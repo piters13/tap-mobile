@@ -12,7 +12,7 @@ export class TaskList extends React.Component {
             <View>
               <TaskListItem item={item} index={index} style={styles.listItemStyle} />
             </View>
-          )} keyExtractor={item => item.subtitle} />
+          )} keyExtractor={item => item.name} />
         {this.renderSeparator()}
       </View>
     )
@@ -32,6 +32,9 @@ export class TaskList extends React.Component {
 
 const styles = StyleSheet.create({
   listItemStyle: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     flex: 1,
     marginTop: 10,
     marginBottom: 10,
