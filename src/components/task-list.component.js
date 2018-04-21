@@ -7,12 +7,15 @@ export class TaskList extends React.Component {
     return (
       <View style={this.props.style}>
         {this.renderSeparator()}
-        <FlatList data={this.props.tasks} ItemSeparatorComponent={this.renderSeparator}
-                  renderItem={({item, index}) => (
-                    <View>
-                      <TaskListItem item={item} index={index} style={styles.listItemStyle}/>
-                    </View>
-                  )} keyExtractor={item => item.name}/>
+        <FlatList
+          data={this.props.tasks}
+          ItemSeparatorComponent={this.renderSeparator}
+          renderItem={({item, index}) => (
+            <View>
+              <TaskListItem item={item} index={index} style={styles.listItemStyle} />
+            </View>
+          )}
+          keyExtractor={item => item.name} />
         {this.renderSeparator()}
       </View>
     )
@@ -20,12 +23,10 @@ export class TaskList extends React.Component {
 
   renderSeparator () {
     return (
-      <View
-        style={{
-          height: 1,
-          backgroundColor: '#f3f4f6'
-        }}
-      />
+      <View style={{
+        height: 1,
+        backgroundColor: '#f3f4f6'
+      }} />
     )
   }
 }

@@ -14,7 +14,7 @@ export class LoginScreen extends React.Component {
 
     this.state = {
       username: 'Mary85@hotmail.com',
-      password: 'Jey6JwNg',
+      password: 'Jey6JwNg'
     }
 
     this.props.navigator.toggleTabs({
@@ -26,30 +26,30 @@ export class LoginScreen extends React.Component {
   render () {
     return (
       <View style={styles.container}>
-        <Image source={Images.Logo} style={styles.logo}/>
-        <Header title={`Why, hello there`}/>
+        <Image source={Images.Logo} style={styles.logo} />
+        <Header title={`Why, hello there`} />
 
-        <TextInput placeholder="Email"
-                   keyboardType="email-address"
-                   underlineColorAndroid="transparent"
-                   style={styles.input}
-                   onChangeText={(username) => this.setState({username})}
-                   value={this.state.username}/>
+        <TextInput placeholder='Email'
+          keyboardType='email-address'
+          underlineColorAndroid='transparent'
+          style={styles.input}
+          onChangeText={(username) => this.setState({username})}
+          value={this.state.username} />
 
-        <TextInput secureTextEntry={true}
-                   placeholder="Password"
-                   underlineColorAndroid="transparent"
-                   style={styles.input}
-                   onChangeText={(password) => this.setState({password})}
-                   value={this.state.password}/>
+        <TextInput secureTextEntry
+          placeholder='Password'
+          underlineColorAndroid='transparent'
+          style={styles.input}
+          onChangeText={(password) => this.setState({password})}
+          value={this.state.password} />
 
         <View style={styles.restingSwitch}>
-          <Button onPress={() => this.login()} title="Sign in"/>
+          <Button onPress={() => this.login()} title='Sign in' />
         </View>
 
         <View style={styles.registerLinkContainer}>
           <Text style={styles.registerLink}
-                onPress={() => Alert.alert('Error', 'Not implemented')}>You need to create account?</Text>
+            onPress={() => Alert.alert('Error', 'Not implemented')}>You need to create account?</Text>
         </View>
       </View>
     )
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#ffffff',
+    backgroundColor: '#ffffff'
   },
   logo: {
     width: 180,
@@ -95,13 +95,13 @@ const styles = StyleSheet.create({
     width: 270
   },
   restingSwitch: {
-    width: 270,
+    width: 270
   },
   registerLinkContainer: {
-    paddingTop: 30,
+    paddingTop: 30
   },
   registerLink: {
     fontSize: 16,
-    fontFamily: Styles.fonts.RobotoLight,
+    fontFamily: Styles.fonts.RobotoLight
   }
 })
