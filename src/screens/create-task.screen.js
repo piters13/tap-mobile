@@ -1,10 +1,10 @@
 import React from 'react'
-import { StyleSheet, View, Text, TextInput, ScrollView } from 'react-native'
-import ActionButton from 'react-native-action-button'
+import { ScrollView, StyleSheet, Text, TextInput, View } from 'react-native'
 import { Colors } from '../constants/colors'
 import { TagList } from '../components/tag-list.component'
 import { tagListMock } from '../data/tag-list-mock'
 import { Button } from 'react-native-elements'
+import { Styles } from '../constants/styles'
 
 export class CreateTaskScreen extends React.Component {
   constructor (props) {
@@ -18,9 +18,10 @@ export class CreateTaskScreen extends React.Component {
 
   render () {
     return (
-      <ScrollView style={styles.background} contentContainerStyle={{height: '100%', alignItems: 'center', justifyContent: 'center'}}>
+      <ScrollView style={styles.background}
+        contentContainerStyle={{height: '100%', alignItems: 'center', justifyContent: 'center'}}>
         <View style={styles.container}>
-          <View style={{width: '80%', paddingBottom: 20, paddingTop: 20}} >
+          <View style={{width: '80%', paddingBottom: 20, paddingTop: 20}}>
 
             <Text style={styles.createTask}>Create task</Text>
 
@@ -35,7 +36,7 @@ export class CreateTaskScreen extends React.Component {
 
             <ScrollView horizontal>
               <TagList tags={tagListMock} />
-            </ScrollView >
+            </ScrollView>
 
             <View style={{flexDirection: 'row', alignItems: 'center', paddingTop: 12}}>
               <TextInput placeholder='New tag'
@@ -45,23 +46,25 @@ export class CreateTaskScreen extends React.Component {
                 onChangeText={(tagName) => this.setState({tagName})}
                 value={this.state.tagName} />
 
-              <ActionButton size={40}
-                style={{marginLeft: '55%'}}
-                buttonColor={Colors.Primary}
-                onPress={() => this.createTag()}
-                position='left'
-                offsetX={0} offsetY={0} />
+              <Button
+                backgroundColor={Colors.Primary}
+                fontSize={18}
+                buttonStyle={{width: 36, height: 36}}
+                borderRadius={18}
+                title='+'
+                textStyle={{marginTop: -2}}
+                fontFamily={Styles.fonts.RobotoBold} />
             </View>
 
-            <View style={{paddingTop: 25}}>
-              <Button onPress={() => this.dismissModal()} buttonStyle={{
-                backgroundColor: Colors.Primary,
-                borderWidth: 0,
-                borderRadius: 14,
-                borderColor: 'transparent',
-                padding: 10
-              }} title='Confirm' titleStyle={{ fontWeight: '700' }} />
-            </View>
+            <Button
+              onPress={() => this.dismissModal()}
+              backgroundColor={Colors.Primary}
+              containerViewStyle={{marginLeft: 0, marginRight: 0, marginTop: 25}}
+              fontSize={14}
+              borderRadius={14}
+              buttonStyle={{padding: 10}}
+              title='Confirm'
+              fontFamily={Styles.fonts.RobotoBold} />
           </View>
         </View>
       </ScrollView>
@@ -75,15 +78,17 @@ export class CreateTaskScreen extends React.Component {
   }
 
   dismissModal () {
-    this.props.navigator.dismissModal({
-      animationType: 'slide-horizontal',
-      passProps: {},
-      navigatorStyle: {
-        navBarTranslucent: true,
-        navBarTransparent: true
-      },
-      navigatorButtons: {}
-    })
+    setTimeout(() => {
+      this.props.navigator.dismissModal({
+        animationType: 'slide-horizontal',
+        passProps: {},
+        navigatorStyle: {
+          navBarTranslucent: true,
+          navBarTransparent: true
+        },
+        navigatorButtons: {}
+      })
+    }, 500)
   }
 }
 
@@ -100,7 +105,10 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     borderRadius: 14,
     color: '#ffffff',
-    padding: 10,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 5,
+    paddingBottom: 5,
     fontSize: 14,
     marginBottom: 10
   },
@@ -118,13 +126,14 @@ const styles = StyleSheet.create({
   },
   createTask: {
     fontSize: 22,
-    fontWeight: 'bold',
+    fontFamily: Styles.fonts.RobotoBold,
     textAlign: 'left',
     color: '#ffffff',
     paddingBottom: 10
   },
   addTags: {
-    fontSize: 18,
+    fontSize: 16,
+    fontFamily: Styles.fonts.RobotoLight,
     textAlign: 'left',
     color: '#ffffff',
     paddingTop: 10,
