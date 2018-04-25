@@ -14,5 +14,9 @@ export const Screens = {
   DeviceInteraction: {
     screen: 'DeviceInteractionScreen',
     title: 'Tap'
+  },
+  CreateTask: {
+    screen: 'CreateTaskScreen',
+    title: 'Create task'
   }
 }

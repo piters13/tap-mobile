@@ -3,7 +3,6 @@ import { Alert, Button, Image, Keyboard, StyleSheet, Text, TextInput, View } fro
 import { inject, observer } from 'mobx-react'
 import { Images } from '../constants/images'
 import { Screens } from '../constants/screens'
-import { Colors } from '../constants/colors'
 import { Header } from '../components/header.component'
 import { Styles } from '../constants/styles'
 
@@ -42,7 +41,6 @@ export class LoginScreen extends React.Component {
           style={styles.input}
           onChangeText={(password) => this.setState({password})}
           value={this.state.password} />
-
         <View style={styles.restingSwitch}>
           <Button onPress={() => this.login()} title='Sign in' />
         </View>
@@ -70,7 +68,7 @@ export class LoginScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#ffffff'
@@ -83,12 +81,12 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: '#ECF0F3',
     borderWidth: 0,
-    paddingTop: 10,
-    paddingBottom: 10,
-    paddingLeft: 20,
-    paddingRight: 20,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 5,
+    paddingBottom: 5,
     borderRadius: 14,
-    color: Colors.TextPrimary,
+    color: '#333',
     fontSize: 14,
     fontFamily: Styles.fonts.Roboto,
     marginBottom: 10,
