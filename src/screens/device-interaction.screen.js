@@ -23,12 +23,12 @@ export class DeviceInteractionScreen extends React.Component {
   render () {
     return (
       <View style={styles.container}>
-        <Header title={`You have just pressed the button!`}/>
+        <Header title={`You have just pressed the button!`} />
         <View style={this.state.tapped ? styles.workingSwitch : styles.restingSwitch}>
           <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: 120}}>
             <Text style={{color: 'white', fontFamily: Styles.fonts.RobotoBold}}>{this.buttonLabel}</Text>
             <Switch value={this.state.tapped} onTintColor='#3280CB' thumbTintColor='#ffffff'
-                    tintColor='#3F3F3F' onValueChange={() => this.changeTapped()}/>
+              tintColor='#3F3F3F' onValueChange={() => this.changeTapped()} />
           </View>
         </View>
 
@@ -48,7 +48,7 @@ export class DeviceInteractionScreen extends React.Component {
   printList () {
     if (this.state.tapped) {
       return (
-        <View style={{flex: 3, paddingTop: 20}}><TaskList tasks={taskListMock} style={{width: 260, flex: 1}}/></View>)
+        <View style={{flex: 3, paddingTop: 20}}><TaskList tasks={taskListMock} style={{width: 260, flex: 1}} /></View>)
     }
   }
 
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     paddingBottom: 15,
     paddingLeft: 25,
-    paddingRight: 25,
+    paddingRight: 25
   },
   restingSwitch: {
     borderRadius: 15,
