@@ -2,6 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { Colors } from '../constants/colors'
 import { Styles } from '../constants/styles'
+import { IntervalPicker } from './interval-picker.component'
 import DateTimePicker from 'react-native-modal-datetime-picker'
 
 export class Preferences extends React.Component {
@@ -10,6 +11,7 @@ export class Preferences extends React.Component {
     this.state = {
       isStartTimePickerVisible: false,
       isEndTimePickerVisible: false,
+      isIntervalPickerVisible: false,
       startTime: '16:00',
       endTime: '18:00'
     }
@@ -44,26 +46,36 @@ export class Preferences extends React.Component {
             />
           </TouchableOpacity>
         </View>
-        <TouchableOpacity style={styles.itemStyle}>
-          <Text style={styles.itemTextStyle}>Ping interval</Text>
-        </TouchableOpacity>
+        <IntervalPicker />
       </View>
     )
   }
 
-  showStartTimePicker = () => this.setState({ isStartTimePickerVisible: true })
+  showStartTimePicker = () =>
+    this.setState({ isStartTimePickerVisible: true })
 
-  showEndTimePicker = () => this.setState({ isEndTimePickerVisible: true })
+  showEndTimePicker = () =>
+    this.setState({ isEndTimePickerVisible: true })
 
-  handleStartTimePicked = (time) => {
-    this.setState({ isStartTimePickerVisible: false, startTime: time.toLocaleTimeString().match(/\d{2}:\d{2}/) })
+  handleStartTimePicked = time => {
+    this.setState({
+      isStartTimePickerVisible: false,
+      startTime: time.toLocaleTimeString().match(/\d{2}:\d{2}/)
+    })
   }
 
-  handleEndTimePicked = (time) => {
-    this.setState({ isEndTimePickerVisible: false, endTime: time.toLocaleTimeString().match(/\d{2}:\d{2}/) })
+  handleEndTimePicked = time => {
+    this.setState({
+      isEndTimePickerVisible: false,
+      endTime: time.toLocaleTimeString().match(/\d{2}:\d{2}/)
+    })
   }
 
-  hideDateTimePicker = () => this.setState({ isStartTimePickerVisible: false, isEndTimePickerVisible: false })
+  hideDateTimePicker = () =>
+    this.setState({
+      isStartTimePickerVisible: false,
+      isEndTimePickerVisible: false
+    })
 }
 
 const styles = StyleSheet.create({
