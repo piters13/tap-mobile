@@ -13,9 +13,6 @@ export class IntervalPicker extends React.Component {
     }
   }
 
-  toggleModal = () =>
-    this.setState({ isModalVisible: !this.state.isModalVisible });
-
   render () {
     return (
       <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
@@ -78,14 +75,17 @@ export class IntervalPicker extends React.Component {
               style={styles.modalItem}>
               <Text>2 h</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={this.toggleModal} style={{paddingTop: 10, alignItems: 'flex-end'}}>
-              <Text style={{color: 'black'}}>Close</Text>
+            <TouchableOpacity onPress={this.toggleModal} style={{paddingTop: 20, alignItems: 'flex-end'}}>
+              <Text style={{color: Colors.Primary, fontWeight: 'bold'}}>CANCEL</Text>
             </TouchableOpacity>
           </View>
         </Modal>
       </View>
     )
   }
+
+  toggleModal = () =>
+    this.setState({ isModalVisible: !this.state.isModalVisible });
 }
 
 const styles = StyleSheet.create({
@@ -96,21 +96,21 @@ const styles = StyleSheet.create({
   },
   itemStyle: {
     paddingTop: 10,
-    paddingBottom: 10,
+    paddingBottom: 15,
     paddingRight: 20
   },
   modalContent: {
     backgroundColor: 'white',
-    padding: 25,
-    width: '70%',
-    marginLeft: '15%',
-    borderRadius: 4,
+    padding: 20,
+    width: '60%',
+    marginLeft: '20%',
+    borderRadius: 3,
     borderColor: 'rgba(0, 0, 0, 0.1)'
   },
   separator: {
-    height: 1,
-    backgroundColor: '#c9d1d8',
-    width: '70%',
+    height: 2,
+    backgroundColor: '#788D90',
+    width: '65%',
     alignSelf: 'center'
   },
   modalItem: {

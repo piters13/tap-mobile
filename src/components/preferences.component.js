@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     color: Colors.TextPrimary
   },
   itemStyle: {
-    paddingTop: 10,
+    paddingTop: 15,
     paddingBottom: 10,
     paddingRight: 20
   }
