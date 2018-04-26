@@ -1,7 +1,9 @@
 import React from 'react'
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
+import { Button } from 'react-native-elements'
 import { Colors } from '../constants/colors'
 import { Styles } from '../constants/styles'
+import { Separator } from './separator.component'
 import { IntervalPicker } from './interval-picker.component'
 import DateTimePicker from 'react-native-modal-datetime-picker'
 
@@ -19,32 +21,40 @@ export class Preferences extends React.Component {
 
   render () {
     return (
-      <View style={this.props.style}>
+      <View style={{paddingTop: 5}}>
         <Text style={styles.sectionTextStyle}>Preferences</Text>
-        <View style={{ height: 1, backgroundColor: '#c9d1d8', width: '100%' }} />
-        <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+        <Separator />
+        <View style={styles.itemStyle}>
           <Text style={styles.itemTextStyle}>Workday start</Text>
-          <TouchableOpacity style={styles.itemStyle} onPress={this.showStartTimePicker}>
-            <Text>{this.state.startTime}</Text>
-            <DateTimePicker
-              isVisible={this.state.isStartTimePickerVisible}
-              onConfirm={this.handleStartTimePicked}
-              onCancel={this.hideDateTimePicker}
-              mode='time'
-            />
-          </TouchableOpacity>
+          <Button transparent
+            buttonStyle={styles.buttonStyle}
+            containerViewStyle={{marginLeft: 0, marginRight: 11}}
+            onPress={this.showStartTimePicker}
+            color={Colors.TextPrimary}
+            rounded
+            title={this.state.startTime} />
+          <DateTimePicker
+            isVisible={this.state.isStartTimePickerVisible}
+            onConfirm={this.handleStartTimePicked}
+            confirmTextStyle={Colors.Primary}
+            onCancel={this.hideDateTimePicker}
+            cancelTextStyle={Colors.Primary}
+            mode='time' />
         </View>
-        <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+        <View style={styles.itemStyle}>
           <Text style={styles.itemTextStyle}>Workday end</Text>
-          <TouchableOpacity style={styles.itemStyle} onPress={this.showEndTimePicker}>
-            <Text>{this.state.endTime}</Text>
-            <DateTimePicker
-              isVisible={this.state.isEndTimePickerVisible}
-              onConfirm={this.handleEndTimePicked}
-              onCancel={this.hideDateTimePicker}
-              mode='time'
-            />
-          </TouchableOpacity>
+          <Button transparent
+            buttonStyle={styles.buttonStyle}
+            containerViewStyle={{marginLeft: 0, marginRight: 11}}
+            onPress={this.showEndTimePicker}
+            color={Colors.TextPrimary}
+            rounded
+            title={this.state.endTime} />
+          <DateTimePicker
+            isVisible={this.state.isEndTimePickerVisible}
+            onConfirm={this.handleEndTimePicked}
+            onCancel={this.hideDateTimePicker}
+            mode='time' />
         </View>
         <IntervalPicker />
       </View>
@@ -91,7 +101,15 @@ const styles = StyleSheet.create({
   },
   itemStyle: {
     paddingTop: 15,
-    paddingBottom: 10,
-    paddingRight: 20
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  buttonStyle: {
+    borderRadius: 5,
+    paddingLeft: 12,
+    paddingRight: 12,
+    paddingTop: 7,
+    paddingBottom: 7
   }
 })

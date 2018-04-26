@@ -1,34 +1,57 @@
 import React from 'react'
 import { Alert, StyleSheet, Text, View } from 'react-native'
 import { Button } from 'react-native-elements'
+import { Separator } from './separator.component'
 import { Colors } from '../constants/colors'
 import { Styles } from '../constants/styles'
 
 export class Device extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      connectionState: 'DETACH',
+      deviceInfo: 'I am connected!'
+    }
+  }
+
   render () {
     return (
-      <View style={this.props.style}>
+      <View style={{paddingTop: 5}}>
         <Text style={styles.sectionTextStyle}>Device</Text>
-        <View style={{ height: 1, backgroundColor: '#c9d1d8', width: '100%' }} />
-        <View style={{paddingTop: 10, paddingBottom: 10, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
-          <Text style={{fontSize: 14, fontFamily: Styles.fonts.RobotoLight, color: Colors.TextPrimary}}>I am connected!</Text>
+        <Separator />
+        <View style={styles.itemStyle}>
+          <Text style={styles.itemTextStyle}>{this.state.deviceInfo}</Text>
           <Button transparent
-            onPress={() => this.showAlert()}
+            onPress={
+              this.state.connectionState === 'DETACH'
+                ? () => this.showDetachAlert()
+                : () => this.showAttachAlert()}
             containerViewStyle={{marginLeft: 0, marginRight: 0}}
             buttonStyle={{borderRadius: 5, paddingLeft: 12, paddingRight: 12, paddingTop: 7, paddingBottom: 7}}
             color={Colors.TextPrimary}
             rounded
-            title='DETACH' />
+            title={this.state.connectionState} />
         </View>
       </View>
     )
   }
 
-  showAlert = () => {
+  showDetachAlert = () => {
     Alert.alert(
       'Are you sure you want to detach the device?', '',
       [
-        {text: 'Yes', onPress: () => console.log('Yes pressed')},
+        {text: 'Yes', onPress: () => this.setState({connectionState: 'ATTACH', deviceInfo: 'Any device connected'})},
+        {text: 'No', onPress: () => {}, style: 'cancel'}
+      ],
+      { cancelable: false }
+    )
+  }
+
+  showAttachAlert = () => {
+    Alert.alert(
+      'Are you sure you want to attach the device?', '',
+      [
+        {text: 'Yes', onPress: () => this.setState({connectionState: 'DETACH', deviceInfo: 'I am connected!'})},
         {text: 'No', onPress: () => {}, style: 'cancel'}
       ],
       { cancelable: false }
@@ -41,5 +64,17 @@ const styles = StyleSheet.create({
     fontSize: 22,
     color: Colors.TextPrimary,
     fontFamily: Styles.fonts.RobotoLight
+  },
+  itemStyle: {
+    paddingTop: 10,
+    paddingBottom: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  itemTextStyle: {
+    fontSize: 14,
+    fontFamily: Styles.fonts.RobotoLight,
+    color: Colors.TextPrimary
   }
 })

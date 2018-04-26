@@ -2,6 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { inject, observer } from 'mobx-react'
 // import { Screens } from '../constants/screens'
+import { Separator } from './separator.component'
 import { Colors } from '../constants/colors'
 import { Styles } from '../constants/styles'
 
@@ -9,11 +10,11 @@ import { Styles } from '../constants/styles'
 export class Profile extends React.Component {
   render () {
     return (
-      <View style={this.props.style}>
+      <View style={{paddingTop: 10}}>
         <Text style={styles.sectionTextStyle}>Profile</Text>
-        <View style={{ height: 1, backgroundColor: '#c9d1d8' }} />
-        <TouchableOpacity style={{paddingTop: 10}} onPress={() => this.logout()}>
-          <Text style={{fontWeight: 'bold'}}>Logout</Text>
+        <Separator />
+        <TouchableOpacity style={{paddingTop: 15}} onPress={() => this.logout()}>
+          <Text style={{fontWeight: 'bold', fontSize: 16, color: Colors.TextPrimary}}>Logout</Text>
           <Text style={styles.itemTextStyle}>{this.userInfo}</Text>
         </TouchableOpacity>
       </View>
@@ -44,6 +45,7 @@ const styles = StyleSheet.create({
   itemTextStyle: {
     fontSize: 14,
     fontFamily: Styles.fonts.RobotoLight,
-    color: Colors.TextPrimary
+    color: Colors.TextPrimary,
+    paddingTop: 5
   }
 })

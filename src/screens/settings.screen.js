@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     fontFamily: Styles.fonts.RobotoLight
   },
   componentsStyle: {
-    paddingTop: 5,
-    width: 250
+    width: 250,
+    marginBottom: '15%'
   }
 })
