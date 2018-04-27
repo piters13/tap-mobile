@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, FlatList } from 'react-native'
 import { Button } from 'react-native-elements'
 import { Colors } from '../constants/colors'
 import { Styles } from '../constants/styles'
@@ -32,54 +32,19 @@ export class IntervalPicker extends React.Component {
           onBackButtonPress={() => { this.toggleModal() }}
           onBackdropPress={() => { this.toggleModal() }}>
           <View style={styles.modalContent}>
-            <Text style={{fontSize: 20, fontWeight: 'bold', paddingBottom: 10, color: Colors.TextPrimary}}>Ping me every...</Text>
-            <TouchableOpacity
-              onPress={() => {
-                this.setState({interval: '15 m'})
-              }}
-              style={styles.modalItem}>
-              <Text style={{fontSize: 15}}>15 minutes</Text>
-            </TouchableOpacity>
-            <Separator />
-            <TouchableOpacity
-              onPress={() => {
-                this.setState({interval: '30 m'})
-              }}
-              style={styles.modalItem}>
-              <Text style={{fontSize: 15}}>30 minutes</Text>
-            </TouchableOpacity>
-            <Separator />
-            <TouchableOpacity
-              onPress={() => {
-                this.setState({interval: '45 m'})
-              }}
-              style={styles.modalItem}>
-              <Text style={{fontSize: 15}}>45 minutes</Text>
-            </TouchableOpacity>
-            <Separator />
-            <TouchableOpacity
-              onPress={() => {
-                this.setState({interval: '1 h'})
-              }}
-              style={styles.modalItem}>
-              <Text style={{fontSize: 15}}>1 hour</Text>
-            </TouchableOpacity>
-            <Separator />
-            <TouchableOpacity
-              onPress={() => {
-                this.setState({interval: '1:30 h'})
-              }}
-              style={styles.modalItem}>
-              <Text style={{fontSize: 15}}>1 hour 30 minutes</Text>
-            </TouchableOpacity>
-            <Separator />
-            <TouchableOpacity
-              onPress={() => {
-                this.setState({interval: '2 h'})
-              }}
-              style={styles.modalItem}>
-              <Text style={{fontSize: 15}}>2 hours</Text>
-            </TouchableOpacity>
+            <FlatList
+              ListHeaderComponent={
+                <Text style={{fontSize: 20, fontWeight: 'bold', paddingBottom: 10, color: Colors.TextPrimary}}>
+                  Ping me every...
+                </Text>}
+              ItemSeparatorComponent={Separator}
+              data={[{key: '15 minutes'}, {key: '30 minutes'},
+                {key: '45 minutes'}, {key: '1 hour'},
+                {key: '1 hour 30 minutes'}, {key: '2 hours'}]}
+              renderItem={({ item }) => (
+                this.renderRow(item)
+              )}
+            />
             <View style={{paddingTop: 20, flexDirection: 'row', justifyContent: 'flex-end'}}>
               <Button transparent
                 onPress={this.toggleModal}
@@ -110,6 +75,18 @@ export class IntervalPicker extends React.Component {
     return {
       from: {opacity: 0}, to: {opacity: 1}
     }
+  }
+
+  renderRow = (item) => {
+    return (
+      <TouchableOpacity
+        onPress={() => this.setState({interval: item.key})}
+        style={styles.modalItem}>
+        {item.key === this.state.interval
+          ? <Text style={{fontSize: 15, fontWeight: 'bold', color: Colors.Primary}}>{item.key}</Text>
+          : <Text style={{fontSize: 15}}>{item.key}</Text>}
+      </TouchableOpacity>
+    )
   }
 }
 
