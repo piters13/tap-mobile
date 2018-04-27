@@ -40,7 +40,8 @@ const styles = StyleSheet.create({
   sectionTextStyle: {
     fontSize: 22,
     color: Colors.TextPrimary,
-    fontFamily: Styles.fonts.RobotoLight
+    fontFamily: Styles.fonts.RobotoLight,
+    paddingBottom: 10
   },
   itemTextStyle: {
     fontSize: 14,

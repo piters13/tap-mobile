@@ -10,7 +10,8 @@ export class IntervalPicker extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      interval: '30 m',
+      intervalValue: 30,
+      intervalLabel: '30 min',
       isModalVisible: false
     }
   }
@@ -25,7 +26,7 @@ export class IntervalPicker extends React.Component {
           containerViewStyle={{marginLeft: 0, marginRight: 12}}
           color={Colors.TextPrimary}
           rounded
-          title={this.state.interval} />
+          title={this.state.intervalLabel} />
         <Modal
           isVisible={this.state.isModalVisible}
           animationIn={this.fadeInEntry()}
@@ -38,18 +39,20 @@ export class IntervalPicker extends React.Component {
                   Ping me every...
                 </Text>}
               ItemSeparatorComponent={Separator}
-              data={[{key: '15 minutes'}, {key: '30 minutes'},
-                {key: '45 minutes'}, {key: '1 hour'},
-                {key: '1 hour 30 minutes'}, {key: '2 hours'}]}
+              data={[{value: 15, shortLabel: '15 min', label: '15 minutes'}, {value: 30, shortLabel: '30 min', label: '30 minutes'},
+                {value: 45, shortLabel: '45 min', label: '45 minutes'}, {value: 60, shortLabel: '1h', label: '1 hour'},
+                {value: 90, shortLabel: '1:30h', label: '1 hour 30 minutes'}, {value: 120, shortLabel: '2h', label: '2 hours'}]}
               renderItem={({ item }) => (
                 this.renderRow(item)
               )}
+              keyExtractor={(item, index) => index}
             />
             <View style={{paddingTop: 20, flexDirection: 'row', justifyContent: 'flex-end'}}>
               <Button transparent
                 onPress={this.toggleModal}
                 buttonStyle={styles.intervalButtonStyle}
                 textStyle={{fontWeight: 'bold'}}
+                containerViewStyle={{marginRight: 0}}
                 color={Colors.TextPrimary}
                 rounded
                 title='CANCEL' />
@@ -57,7 +60,7 @@ export class IntervalPicker extends React.Component {
                 onPress={this.toggleModal}
                 buttonStyle={styles.intervalButtonStyle}
                 textStyle={{fontWeight: 'bold'}}
-                containerViewStyle={{marginRight: 10}}
+                containerViewStyle={{marginLeft: 0, marginRight: 0}}
                 color={Colors.Primary}
                 rounded
                 title='OK' />
@@ -80,11 +83,11 @@ export class IntervalPicker extends React.Component {
   renderRow = (item) => {
     return (
       <TouchableOpacity
-        onPress={() => this.setState({interval: item.key})}
+        onPress={() => this.setState({intervalValue: item.value, intervalLabel: item.shortLabel})}
         style={styles.modalItem}>
-        {item.key === this.state.interval
-          ? <Text style={{fontSize: 15, fontWeight: 'bold', color: Colors.Primary}}>{item.key}</Text>
-          : <Text style={{fontSize: 15}}>{item.key}</Text>}
+        {item.value === this.state.intervalValue
+          ? <Text style={{fontSize: 15, fontWeight: 'bold', color: Colors.Primary}}>{item.label}</Text>
+          : <Text style={{fontSize: 15}}>{item.label}</Text>}
       </TouchableOpacity>
     )
   }
@@ -127,8 +130,8 @@ const styles = StyleSheet.create({
   },
   intervalButtonStyle: {
     borderRadius: 5,
-    paddingLeft: 0,
-    paddingRight: 0,
+    paddingLeft: 12,
+    paddingRight: 12,
     paddingTop: 7,
     paddingBottom: 7
   }
