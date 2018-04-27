@@ -41,8 +41,7 @@ export class LoginScreen extends React.Component {
           style={styles.input}
           onChangeText={(password) => this.setState({password})}
           value={this.state.password} />
-
-        <View style={styles.buttonContainer}>
+        <View style={styles.restingSwitch}>
           <Button onPress={() => this.login()} title='Sign in' />
         </View>
 
@@ -93,7 +92,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     width: 270
   },
-  buttonContainer: {
+  restingSwitch: {
     width: 270
   },
   registerLinkContainer: {
