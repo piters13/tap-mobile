@@ -70,14 +70,14 @@ export class Preferences extends React.Component {
   handleStartTimePicked = time => {
     this.setState({
       isStartTimePickerVisible: false,
-      startTime: time.toLocaleTimeString().match(/\d{2}:\d{2}/)
+      startTime: time.toLocaleTimeString().slice(0, 5)
     })
   }
 
   handleEndTimePicked = time => {
     this.setState({
       isEndTimePickerVisible: false,
-      endTime: time.toLocaleTimeString().match(/\d{2}:\d{2}/)
+      endTime: time.toLocaleTimeString().slice(0, 5)
     })
   }
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View, TouchableOpacity, FlatList } from 'react-native'
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Button } from 'react-native-elements'
 import { Colors } from '../constants/colors'
 import { Styles } from '../constants/styles'
@@ -43,7 +43,7 @@ export class IntervalPicker extends React.Component {
           <View style={styles.modalContent}>
             <FlatList
               ListHeaderComponent={
-                <Text style={{fontSize: 20, fontWeight: 'bold', paddingBottom: 10, color: Colors.TextPrimary}}>
+                <Text style={{fontSize: 20, fontFamily: Styles.fonts.RobotoBold, paddingBottom: 10, color: Colors.TextPrimary}}>
                   Ping me every...
                 </Text>}
               ItemSeparatorComponent={Separator}
@@ -58,14 +58,15 @@ export class IntervalPicker extends React.Component {
             <Button transparent
               onPress={this.toggleModal}
               buttonStyle={styles.buttonStyle}
-              containerViewStyle={{marginRight: 0}}
-              color={Colors.TextPrimary}
+              textStyle={{fontFamily: Styles.fonts.RobotoMedium}}
+              containerViewStyle={{marginRight: 5}}
+              color={Colors.Primary}
               rounded
               title='CANCEL' />
             <Button transparent
               onPress={this.toggleModal}
               buttonStyle={styles.confirmButtonStyle}
-              textStyle={{fontWeight: 'bold'}}
+              textStyle={{fontFamily: Styles.fonts.RobotoMedium}}
               containerViewStyle={{marginLeft: 0, marginRight: 0}}
               color={Colors.Primary}
               rounded
@@ -97,8 +98,8 @@ export class IntervalPicker extends React.Component {
         onPress={() => this.setState({interval: item})}
         style={styles.modalItem}>
         {item.value === this.state.interval.value
-          ? <Text style={{fontSize: 15, fontWeight: 'bold', color: Colors.Primary}}>{item.label}</Text>
-          : <Text style={{fontSize: 15}}>{item.label}</Text>}
+          ? <Text style={{fontSize: 16, fontFamily: Styles.fonts.RobotoBold, color: Colors.Primary}}>{item.label}</Text>
+          : <Text style={{fontSize: 16, fontFamily: Styles.fonts.RobotoLight, color: Colors.TextPrimary}}>{item.label}</Text>}
       </TouchableOpacity>
     )
   }
@@ -146,15 +147,15 @@ const styles = StyleSheet.create({
   },
   buttonStyle: {
     borderRadius: 5,
-    paddingLeft: 12,
-    paddingRight: 12,
+    paddingLeft: 10,
+    paddingRight: 10,
     paddingTop: 7,
     paddingBottom: 7
   },
   confirmButtonStyle: {
     borderRadius: 5,
-    paddingLeft: 25,
-    paddingRight: 25,
+    paddingLeft: 20,
+    paddingRight: 20,
     paddingTop: 7,
     paddingBottom: 7
   }
