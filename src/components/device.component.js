@@ -25,7 +25,7 @@ export class Device extends React.Component {
   }
 
   createDeviceAttachmentSetting = () => {
-    const buttonTitle = this.state.connectionState === ConnectionState.Detached ? 'DETACH' : 'ATTACH'
+    const buttonTitle = this.state.connectionState === ConnectionState.Detached ? 'DETACH' : 'SCAN'
     const deviceInfo = this.state.connectionState === ConnectionState.Detached ? 'I am connected!' : 'No device connected'
     return (
       <View style={styles.itemStyle}>
