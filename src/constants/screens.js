@@ -18,5 +18,9 @@ export const Screens = {
   CreateTask: {
     screen: 'CreateTaskScreen',
     title: 'Create task'
+  },
+  AvailableDevices: {
+    screen: 'AvailableDevicesScreen',
+    title: 'Connect with device'
   }
 }

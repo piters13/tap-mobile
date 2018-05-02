@@ -4,6 +4,7 @@ import { Button } from 'react-native-elements'
 import { Separator } from './separator.component'
 import { Colors } from '../constants/colors'
 import { Styles } from '../constants/styles'
+import { Screens } from '../constants/screens'
 import { ConnectionState } from '../constants/enums/connection-state'
 
 export class Device extends React.Component {
@@ -61,13 +62,18 @@ export class Device extends React.Component {
   }
 
   attachDevice = () => {
-    Alert.alert(
+    /* Alert.alert(
       'Attach the device?', '',
       [
         {text: 'Yes', onPress: () => this.setState({connectionState: ConnectionState.Detached})},
         {text: 'No', onPress: () => {}, style: 'cancel'}
       ],
       { cancelable: false }
+    ) */
+    return (
+      this.props.navigator.push({
+        screen: Screens.AvailableDevices.screen
+      })
     )
   }
 }
