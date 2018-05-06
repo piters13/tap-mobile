@@ -3,9 +3,9 @@ import { Alert, Image, Keyboard, StyleSheet, Text, TextInput, View } from 'react
 import { Button } from 'react-native-elements'
 import { inject, observer } from 'mobx-react'
 import { Images } from '../constants/images'
-import { Screens } from '../constants/screens'
 import { Header } from '../components/header.component'
 import { Styles } from '../constants/styles'
+import { initPrivateApp } from '../../App'
 import { Colors } from '../constants/colors'
 
 @inject('Auth') @observer
@@ -71,11 +71,7 @@ export class LoginScreen extends React.Component {
     Keyboard.dismiss()
     this.props.Auth.login(this.state.username, this.state.password)
       .then(() => {
-        this.props.navigator.resetTo({
-          screen: Screens.Main.screen,
-          animated: true,
-          animationType: 'slide-horizontal'
-        })
+        initPrivateApp()
       }).catch(err => Alert.alert('Authentication error', err.message))
   }
 

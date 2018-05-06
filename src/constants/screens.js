@@ -1,10 +1,14 @@
 export const Screens = {
+  Main: {
+    screen: 'MainScreen',
+    title: 'Main'
+  },
   Login: {
     screen: 'LoginScreen',
     title: 'Login'
   },
-  Main: {
-    screen: 'MainScreen',
+  Tasks: {
+    screen: 'TasksScreen',
     title: 'Dashboard'
   },
   Settings: {

@@ -5,7 +5,7 @@ import { inject, observer } from 'mobx-react'
 import { Separator } from './separator.component'
 import { Colors } from '../constants/colors'
 import { Styles } from '../constants/styles'
-import { Screens } from '../constants/screens'
+import { initPublicApp } from '../../App'
 
 @inject('Auth') @observer
 export class Profile extends React.Component {
@@ -27,12 +27,7 @@ export class Profile extends React.Component {
   }
 
   logout () {
-    this.props.navigator.resetTo({
-      screen: Screens.Login.screen,
-      animated: true,
-      animationType: 'slide-horizontal'
-    })
-
+    initPublicApp()
     this.props.Auth.logout()
   }
 }
