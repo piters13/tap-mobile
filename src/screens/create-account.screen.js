@@ -2,10 +2,10 @@ import React from 'react'
 import { Keyboard, StyleSheet, TextInput, View } from 'react-native'
 import { Button } from 'react-native-elements'
 import { inject, observer } from 'mobx-react'
-import { Screens } from '../constants/screens'
 import { Header } from '../components/header.component'
 import { Styles } from '../constants/styles'
 import { Colors } from '../constants/colors'
+import { initPrivateApp } from '../../App'
 
 @inject('Auth') @observer
 export class CreateAccountScreen extends React.Component {
@@ -27,21 +27,22 @@ export class CreateAccountScreen extends React.Component {
 
           <Header title={`Happy to have You!`} subtitle={'Simply fill the form below'} />
 
-          <TextInput secureTextEntry
+          <TextInput
             placeholder='First name'
             underlineColorAndroid='transparent'
             style={styles.input}
             onChangeText={(firstName) => this.setState({firstName})}
             value={this.state.firstName} />
 
-          <TextInput secureTextEntry
+          <TextInput
             placeholder='Last name'
             underlineColorAndroid='transparent'
             style={styles.input}
             onChangeText={(lastName) => this.setState({lastName})}
             value={this.state.lastName} />
 
-          <TextInput placeholder='Email'
+          <TextInput
+            placeholder='Email'
             keyboardType='email-address'
             underlineColorAndroid='transparent'
             style={styles.input}
@@ -56,7 +57,7 @@ export class CreateAccountScreen extends React.Component {
             value={this.state.password} />
 
           <Button
-            onPress={() => this.setAccount()}
+            onPress={() => this.register()}
             backgroundColor={Colors.Primary}
             containerViewStyle={{marginLeft: 0, marginRight: 0, marginTop: 25}}
             fontSize={14}
@@ -69,13 +70,9 @@ export class CreateAccountScreen extends React.Component {
     )
   }
 
-  setAccount () {
+  register () {
     Keyboard.dismiss()
-    this.props.navigator.resetTo({
-      screen: Screens.Main.screen,
-      animated: true,
-      animationType: 'slide-horizontal'
-    })
+    initPrivateApp()
   }
 }
 
