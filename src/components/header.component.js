@@ -20,9 +20,9 @@ export class Header extends React.Component {
 
 const styles = StyleSheet.create({
   headerStyle: {
-    width: 250,
     paddingBottom: 15,
-    paddingTop: 40
+    paddingTop: 40,
+    width: '100%'
   },
   titleStyle: {
     color: Colors.Primary,

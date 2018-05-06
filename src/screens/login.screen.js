@@ -25,29 +25,31 @@ export class LoginScreen extends React.Component {
   render () {
     return (
       <View style={styles.container}>
-        <Image source={Images.Logo} style={styles.logo} />
-        <Header title={`Why, hello there`} />
+        <View style={{flex: 1, width: Styles.baseWidth}}>
+          <Image source={Images.Logo} style={styles.logo} />
+          <Header title={`Why, hello there`} />
 
-        <TextInput placeholder='Email'
-          keyboardType='email-address'
-          underlineColorAndroid='transparent'
-          style={styles.input}
-          onChangeText={(username) => this.setState({username})}
-          value={this.state.username} />
+          <TextInput placeholder='Email'
+            keyboardType='email-address'
+            underlineColorAndroid='transparent'
+            style={styles.input}
+            onChangeText={(username) => this.setState({username})}
+            value={this.state.username} />
 
-        <TextInput secureTextEntry
-          placeholder='Password'
-          underlineColorAndroid='transparent'
-          style={styles.input}
-          onChangeText={(password) => this.setState({password})}
-          value={this.state.password} />
-        <View style={styles.restingSwitch}>
-          <Button onPress={() => this.login()} title='Sign in' />
-        </View>
+          <TextInput secureTextEntry
+            placeholder='Password'
+            underlineColorAndroid='transparent'
+            style={styles.input}
+            onChangeText={(password) => this.setState({password})}
+            value={this.state.password} />
+          <View style={styles.loginButton}>
+            <Button onPress={() => this.login()} title='Sign in' />
+          </View>
 
-        <View style={styles.registerLinkContainer}>
-          <Text style={styles.registerLink}
-            onPress={() => Alert.alert('Error', 'Not implemented')}>You need to create account?</Text>
+          <View style={styles.registerLinkContainer}>
+            <Text style={styles.registerLink}
+              onPress={() => Alert.alert('Error', 'Not implemented')}>You need to create account?</Text>
+          </View>
         </View>
       </View>
     )
@@ -90,10 +92,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: Styles.fonts.Roboto,
     marginBottom: 10,
-    width: 270
   },
-  restingSwitch: {
-    width: 270
+  loginButton: {
   },
   registerLinkContainer: {
     paddingTop: 30

@@ -30,7 +30,7 @@ export class IntervalPicker extends React.Component {
         <Button transparent
           onPress={this.toggleModal}
           buttonStyle={styles.buttonStyle}
-          containerViewStyle={{marginLeft: 0, marginRight: 12}}
+          containerViewStyle={{marginLeft: 0, marginRight: 0}}
           color={Colors.TextPrimary}
           rounded
           title={this.state.interval.shortLabel} />

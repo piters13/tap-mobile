@@ -28,7 +28,7 @@ export class Preferences extends React.Component {
           <Text style={styles.itemTextStyle}>Workday start</Text>
           <Button transparent
             buttonStyle={styles.buttonStyle}
-            containerViewStyle={{marginLeft: 0, marginRight: 11}}
+            containerViewStyle={{marginLeft: 0, marginRight: 0}}
             onPress={this.showStartTimePicker}
             color={Colors.TextPrimary}
             rounded
@@ -45,7 +45,7 @@ export class Preferences extends React.Component {
           <Text style={styles.itemTextStyle}>Workday end</Text>
           <Button transparent
             buttonStyle={styles.buttonStyle}
-            containerViewStyle={{marginLeft: 0, marginRight: 11}}
+            containerViewStyle={{marginLeft: 0, marginRight: 0}}
             onPress={this.showEndTimePicker}
             color={Colors.TextPrimary}
             rounded

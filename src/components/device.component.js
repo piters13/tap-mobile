@@ -62,14 +62,6 @@ export class Device extends React.Component {
   }
 
   attachDevice = () => {
-    /* Alert.alert(
-      'Attach the device?', '',
-      [
-        {text: 'Yes', onPress: () => this.setState({connectionState: ConnectionState.Detached})},
-        {text: 'No', onPress: () => {}, style: 'cancel'}
-      ],
-      { cancelable: false }
-    ) */
     return (
       this.props.navigator.push({
         screen: Screens.AvailableDevices.screen

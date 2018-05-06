@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, ScrollView } from 'react-native'
+import { ScrollView, StyleSheet, View } from 'react-native'
 import { inject, observer } from 'mobx-react'
 import { Header } from '../components/header.component'
 import { Device } from '../components/device.component'
@@ -13,12 +13,14 @@ export class SettingsScreen extends React.Component {
   render () {
     return (
       <View style={styles.container}>
-        <Header title={`Settings`} subtitle={`Adjust your experience`} />
-        <ScrollView style={styles.componentsStyle}>
-          <Device navigator={this.props.navigator} />
-          <Preferences />
-          <Profile navigator={this.props.navigator} />
-        </ScrollView>
+        <View style={{flex: 1, width: Styles.baseWidth}}>
+          <Header title={`Settings`} subtitle={`Adjust your experience`} />
+          <ScrollView style={styles.componentsStyle}>
+            <Device navigator={this.props.navigator} />
+            <Preferences />
+            <Profile navigator={this.props.navigator} />
+          </ScrollView>
+        </View>
       </View>
     )
   }
@@ -32,7 +34,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff'
   },
   itemStyle: {
-    width: 250,
     marginTop: 10,
     marginBottom: 10,
     marginLeft: 5,
@@ -44,7 +45,6 @@ const styles = StyleSheet.create({
     fontFamily: Styles.fonts.RobotoLight
   },
   componentsStyle: {
-    width: 250,
     marginBottom: '15%'
   }
 })
