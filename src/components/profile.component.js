@@ -15,7 +15,7 @@ export class Profile extends React.Component {
         <Text style={styles.sectionTextStyle}>Profile</Text>
         <Separator />
         <TouchableNativeFeedback onPress={() => this.logout()}>
-          <View style={{padding: 5, marginTop: 10}}>
+          <View style={{paddingLeft: 10, paddingRight: 10, paddingTop: 5, paddingBottom: 5, marginTop: 10, borderLeftWidth: 3, borderLeftColor: '#bdc3c7'}}>
             <Text style={{fontWeight: 'bold', fontSize: 16, color: Colors.TextPrimary}}>Logout</Text>
             <Text style={styles.itemTextStyle}>{this.userInfo}</Text>
           </View>
