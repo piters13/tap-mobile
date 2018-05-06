@@ -12,7 +12,7 @@ import { MainScreen } from './main.screen'
 const screens = [
   {screen: Screens.Main.screen, component: MainScreen},
   {screen: Screens.Login.screen, component: LoginScreen},
-  {screen: Screens.CreateAccount.screen, component: CreateAccountScreen}
+  {screen: Screens.CreateAccount.screen, component: CreateAccountScreen},
   {screen: Screens.Tasks.screen, component: TasksScreen},
   {screen: Screens.DeviceInteraction.screen, component: DeviceInteractionScreen},
   {screen: Screens.CreateTask.screen, component: CreateTaskScreen},

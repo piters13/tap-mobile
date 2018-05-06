@@ -7,6 +7,7 @@ import { Header } from '../components/header.component'
 import { Styles } from '../constants/styles'
 import { initPrivateApp } from '../../App'
 import { Colors } from '../constants/colors'
+import { Screens } from '../constants/screens'
 
 @inject('Auth') @observer
 export class LoginScreen extends React.Component {

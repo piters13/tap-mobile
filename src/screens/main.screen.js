@@ -13,7 +13,7 @@ export class MainScreen extends React.Component {
       } else {
         initPublicApp()
       }
-    }, 1000)
+    }, 2000)
   }
 
   render () {
