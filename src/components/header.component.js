@@ -5,8 +5,14 @@ import { Styles } from '../constants/styles'
 
 export class Header extends React.Component {
   render () {
+    const containerStyle = Object.assign({
+      paddingBottom: 15,
+      paddingTop: 40,
+      width: '100%'
+    }, this.props.style)
+
     return (
-      <View style={styles.headerStyle}>
+      <View style={containerStyle}>
         <Text style={styles.titleStyle}>
           {this.props.title}
         </Text>
@@ -19,11 +25,6 @@ export class Header extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  headerStyle: {
-    paddingBottom: 15,
-    paddingTop: 40,
-    width: '100%'
-  },
   titleStyle: {
     color: Colors.Primary,
     fontSize: 27,

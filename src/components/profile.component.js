@@ -1,10 +1,11 @@
 import React from 'react'
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { inject, observer } from 'mobx-react'
 // import { Screens } from '../constants/screens'
 import { Separator } from './separator.component'
 import { Colors } from '../constants/colors'
 import { Styles } from '../constants/styles'
+import { Screens } from '../constants/screens'
 
 @inject('Auth') @observer
 export class Profile extends React.Component {
@@ -26,8 +27,8 @@ export class Profile extends React.Component {
   }
 
   logout () {
-    this.props.navigator.handleDeepLink({
-      link: 'login',
+    this.props.navigator.resetTo({
+      screen: Screens.Login.screen,
       animated: true,
       animationType: 'slide-horizontal'
     })

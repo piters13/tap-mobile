@@ -25,8 +25,11 @@ export class LoginScreen extends React.Component {
   render () {
     return (
       <View style={styles.container}>
-        <View style={{flex: 1, width: Styles.baseWidth}}>
-          <Image source={Images.Logo} style={styles.logo} />
+        <View style={{flex: 1, width: Styles.baseWidth, justifyContent: 'center'}}>
+          <View style={{alignItems: 'center', justifyContent: 'center'}}>
+            <Image source={Images.Logo} style={styles.logo} />
+          </View>
+
           <Header title={`Why, hello there`} />
 
           <TextInput placeholder='Email'
@@ -42,9 +45,8 @@ export class LoginScreen extends React.Component {
             style={styles.input}
             onChangeText={(password) => this.setState({password})}
             value={this.state.password} />
-          <View style={styles.loginButton}>
-            <Button onPress={() => this.login()} title='Sign in' />
-          </View>
+
+          <Button onPress={() => this.login()} title='Sign in' />
 
           <View style={styles.registerLinkContainer}>
             <Text style={styles.registerLink}
@@ -76,9 +78,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff'
   },
   logo: {
-    width: 180,
     resizeMode: 'contain',
-    maxHeight: 160
+    height: 120
   },
   input: {
     backgroundColor: '#ECF0F3',
@@ -92,8 +93,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: Styles.fonts.Roboto,
     marginBottom: 10,
-  },
-  loginButton: {
   },
   registerLinkContainer: {
     paddingTop: 30
