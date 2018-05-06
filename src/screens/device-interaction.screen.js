@@ -23,26 +23,30 @@ export class DeviceInteractionScreen extends React.Component {
   render () {
     return (
       <View style={styles.container}>
-        <Header title={`You have just pressed the button!`} />
-        <View style={this.state.tapped ? styles.workingSwitch : styles.restingSwitch}>
-          <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: 120}}>
-            <Text style={{color: 'white', fontFamily: Styles.fonts.RobotoBold}}>
-              {this.buttonLabel}
-            </Text>
-            <Switch
-              value={this.state.tapped}
-              onTintColor='#3280CB'
-              thumbTintColor='#ffffff'
-              tintColor='#3F3F3F'
-              onValueChange={() => this.changeTapped()} />
+        <View style={{flex: 1, width: Styles.baseWidth}}>
+          <Header title={`You have just pressed the button!`} />
+          <View style={{alignItems: 'center'}}>
+            <View style={this.state.tapped ? styles.workingSwitch : styles.restingSwitch}>
+              <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%'}}>
+                <Text style={{color: 'white', fontFamily: Styles.fonts.RobotoBold}}>
+                  {this.buttonLabel}
+                </Text>
+                <Switch
+                  value={this.state.tapped}
+                  onTintColor='#3280CB'
+                  thumbTintColor='#ffffff'
+                  tintColor='#3F3F3F'
+                  onValueChange={() => this.changeTapped()} />
+              </View>
+            </View>
           </View>
-        </View>
-        <View style={{flex: 1}}>
-          {this.printList()}
-          <View style={styles.footer}>
-            <Text style={{fontFamily: Styles.fonts.RobotoLight, color: Colors.TextPrimary}}>
-              {this.footerText}
-            </Text>
+          <View style={{flex: 1}}>
+            {this.printList()}
+            <View style={styles.footer}>
+              <Text style={{fontFamily: Styles.fonts.RobotoLight, color: Colors.TextPrimary}}>
+                {this.footerText}
+              </Text>
+            </View>
           </View>
         </View>
       </View>
@@ -52,7 +56,7 @@ export class DeviceInteractionScreen extends React.Component {
   printList () {
     if (this.state.tapped) {
       return (
-        <View style={{flex: 3, paddingTop: 20}}>
+        <View style={{flex: 4, paddingTop: 20}}>
           <TaskList tasks={taskListMock} style={{width: 260, flex: 1}} />
         </View>)
     }
@@ -79,6 +83,7 @@ const styles = StyleSheet.create({
     paddingRight: 25
   },
   restingSwitch: {
+    width: 170,
     borderRadius: 15,
     paddingTop: 15,
     paddingBottom: 15,
@@ -98,6 +103,7 @@ const styles = StyleSheet.create({
     position: 'relative'
   },
   workingSwitch: {
+    width: 170,
     borderRadius: 15,
     paddingTop: 15,
     paddingBottom: 15,
