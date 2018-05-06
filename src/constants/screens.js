@@ -26,5 +26,9 @@ export const Screens = {
   AvailableDevices: {
     screen: 'AvailableDevicesScreen',
     title: 'Connect with device'
+  },
+  CreateAccount: {
+    screen: 'CreateAccountScreen',
+    title: 'New account'
   }
 }

@@ -1,41 +1,48 @@
 import React from 'react'
-import { Alert, Image, Keyboard, StyleSheet, Text, TextInput, View } from 'react-native'
+import { Keyboard, StyleSheet, TextInput, View } from 'react-native'
 import { Button } from 'react-native-elements'
 import { inject, observer } from 'mobx-react'
-import { Images } from '../constants/images'
 import { Header } from '../components/header.component'
 import { Styles } from '../constants/styles'
-import { initPrivateApp } from '../../App'
 import { Colors } from '../constants/colors'
-import { Screens } from '../constants/screens'
+import { initPrivateApp } from '../../App'
 
 @inject('Auth') @observer
-export class LoginScreen extends React.Component {
+export class CreateAccountScreen extends React.Component {
   constructor (props) {
     super(props)
 
     this.state = {
-      username: 'Mary85@hotmail.com',
-      password: 'Jey6JwNg'
+      firstName: '',
+      lastName: '',
+      username: '',
+      password: ''
     }
-
-    this.props.navigator.toggleTabs({
-      to: 'hidden',
-      animated: false
-    })
   }
 
   render () {
     return (
       <View style={styles.container}>
         <View style={{flex: 1, width: Styles.baseWidth, justifyContent: 'center'}}>
-          <View style={{alignItems: 'center', justifyContent: 'center'}}>
-            <Image source={Images.Logo} style={styles.logo} />
-          </View>
 
-          <Header title={`Why, hello there`} />
+          <Header title={`Happy to have You!`} subtitle={'Simply fill the form below'} />
 
-          <TextInput placeholder='Email'
+          <TextInput
+            placeholder='First name'
+            underlineColorAndroid='transparent'
+            style={styles.input}
+            onChangeText={(firstName) => this.setState({firstName})}
+            value={this.state.firstName} />
+
+          <TextInput
+            placeholder='Last name'
+            underlineColorAndroid='transparent'
+            style={styles.input}
+            onChangeText={(lastName) => this.setState({lastName})}
+            value={this.state.lastName} />
+
+          <TextInput
+            placeholder='Email'
             keyboardType='email-address'
             underlineColorAndroid='transparent'
             style={styles.input}
@@ -50,38 +57,22 @@ export class LoginScreen extends React.Component {
             value={this.state.password} />
 
           <Button
-            onPress={() => this.login()}
+            onPress={() => this.register()}
             backgroundColor={Colors.Primary}
             containerViewStyle={{marginLeft: 0, marginRight: 0, marginTop: 25}}
             fontSize={14}
             borderRadius={14}
             buttonStyle={{padding: 10}}
-            title='Sing in'
+            title='Sing up'
             fontFamily={Styles.fonts.RobotoBold} />
-
-          <View style={styles.registerLinkContainer}>
-            <Text style={styles.registerLink}
-              onPress={() => this.createAccount()}>You need to create account?</Text>
-          </View>
         </View>
       </View>
     )
   }
 
-  login () {
+  register () {
     Keyboard.dismiss()
-    this.props.Auth.login(this.state.username, this.state.password)
-      .then(() => {
-        initPrivateApp()
-      }).catch(err => Alert.alert('Authentication error', err.message))
-  }
-
-  createAccount () {
-    return (
-      this.props.navigator.push({
-        screen: Screens.CreateAccount.screen
-      })
-    )
+    initPrivateApp()
   }
 }
 
@@ -91,10 +82,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#ffffff'
-  },
-  logo: {
-    resizeMode: 'contain',
-    height: 120
   },
   input: {
     backgroundColor: '#ECF0F3',
@@ -109,11 +96,11 @@ const styles = StyleSheet.create({
     fontFamily: Styles.fonts.Roboto,
     marginBottom: 10
   },
-  registerLinkContainer: {
-    paddingTop: 30
-  },
-  registerLink: {
-    fontSize: 16,
-    fontFamily: Styles.fonts.RobotoLight
+  buttonStyle: {
+    borderRadius: 5,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 7,
+    paddingBottom: 7
   }
 })
