@@ -18,7 +18,7 @@ export class SettingsScreen extends React.Component {
           <ScrollView style={styles.componentsStyle}>
             <Device navigator={this.props.navigator} />
             <Preferences />
-            <Profile navigator={this.props.navigator} />
+            <Profile />
           </ScrollView>
         </View>
       </View>
