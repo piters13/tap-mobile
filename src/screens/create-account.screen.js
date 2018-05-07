@@ -6,7 +6,7 @@ import { Header } from '../components/header.component'
 import { Styles } from '../constants/styles'
 import { Colors } from '../constants/colors'
 import { Screens } from '../screens'
-import { apolloClient, initPrivateApp } from '../../App'
+import { apolloClient } from '../../App'
 import { gql } from 'apollo-boost'
 
 @inject('Auth') @observer
@@ -109,7 +109,9 @@ export class CreateAccountScreen extends React.Component {
         email: this.state.email,
         password: this.state.password
       }
-    }).then(() => initPrivateApp())
+    }).then(() => this.props.navigator.navigate({
+      screen: Screens.LoginScreen.screen
+    }))
   }
 
   focusNextField (id) {
