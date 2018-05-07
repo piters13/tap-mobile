@@ -1,7 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableNativeFeedback, View } from 'react-native'
 import { inject, observer } from 'mobx-react'
-// import { Screens } from '../constants/screens'
 import { Separator } from './separator.component'
 import { Colors } from '../constants/colors'
 import { Styles } from '../constants/styles'
