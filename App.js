@@ -17,6 +17,10 @@ export const apolloClient = new ApolloClient({
       }
     });
   },
+  onError: ({ graphQLErrors, networkError }) => {
+    console.error(graphQLErrors)
+    console.error(networkError)
+  },
 })
 
 const rootNavigation = Navigation
