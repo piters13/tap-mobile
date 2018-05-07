@@ -16,7 +16,7 @@ export class TaskListItem extends React.Component {
       <View style={this.props.style}>
         <View>
           <Text style={styles.titleStyle}>
-            {this.props.item.name}
+            {this.props.item.title}
           </Text>
           <Text style={styles.subtitleStyle}>
             {this.props.item.subtitle}

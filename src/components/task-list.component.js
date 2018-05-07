@@ -13,7 +13,7 @@ export class TaskList extends React.Component {
             <View>
               <TaskListItem item={item} index={index} style={styles.listItemStyle} />
             </View>
-          )} keyExtractor={item => item.name} />
+          )} keyExtractor={item => item.id} />
         <Separator />
       </View>
     )

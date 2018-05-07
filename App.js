@@ -9,7 +9,14 @@ import { Screens } from './src/constants/screens'
 import { appStyle, NavigationTabs } from './src/constants/navigation'
 
 export const apolloClient = new ApolloClient({
-  uri: ApiUrl
+  uri: ApiUrl,
+  request: async (operation) => {
+    operation.setContext({
+      headers: {
+        authorization: stores.Auth.token
+      }
+    });
+  },
 })
 
 const rootNavigation = Navigation

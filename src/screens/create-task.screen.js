@@ -5,6 +5,8 @@ import { TagList } from '../components/tag-list.component'
 import { tagListMock } from '../data/tag-list-mock'
 import { Button } from 'react-native-elements'
 import { Styles } from '../constants/styles'
+import { apolloClient } from '../../App'
+import { gql } from 'apollo-boost'
 
 export class CreateTaskScreen extends React.Component {
   constructor (props) {
@@ -57,7 +59,7 @@ export class CreateTaskScreen extends React.Component {
             </View>
 
             <Button
-              onPress={() => this.dismissModal()}
+              onPress={() => this.createTask()}
               backgroundColor={Colors.Primary}
               containerViewStyle={{marginLeft: 0, marginRight: 0, marginTop: 25}}
               fontSize={14}
@@ -75,6 +77,10 @@ export class CreateTaskScreen extends React.Component {
   }
 
   createTask () {
+    apolloClient.mutate({
+      mutation: gql`mutation CreateTask($title: String!) { createTask(task: {title: $title}) { id } }`,
+      variables: {title: this.state.taskName}
+    }).then(() => this.dismissModal())
   }
 
   dismissModal () {

@@ -23,7 +23,7 @@ export class Profile extends React.Component {
   }
 
   get userInfo () {
-    return 'You are currently logged as ' + this.props.Auth.user.firstname + ' ' + this.props.Auth.user.lastname
+    return 'You are currently logged as ' + this.props.Auth.token
   }
 
   logout () {

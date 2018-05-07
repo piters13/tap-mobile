@@ -15,8 +15,8 @@ export class LoginScreen extends React.Component {
     super(props)
 
     this.state = {
-      username: 'Mary85@hotmail.com',
-      password: 'Jey6JwNg'
+      username: 'admin',
+      password: 'admin123'
     }
 
     this.props.navigator.toggleTabs({
@@ -73,7 +73,7 @@ export class LoginScreen extends React.Component {
     this.props.Auth.login(this.state.username, this.state.password)
       .then(() => {
         initPrivateApp()
-      }).catch(err => Alert.alert('Authentication error', err.message))
+      }).catch(err => { Alert.alert('Authentication error', err.message) })
   }
 
   createAccount () {
