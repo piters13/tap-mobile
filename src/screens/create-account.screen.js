@@ -1,6 +1,6 @@
 import React from 'react'
-import { Keyboard, KeyboardAvoidingView, StyleSheet, Text, TextInput, View } from 'react-native'
-import { Button } from 'react-native-elements'
+import { Keyboard, KeyboardAvoidingView, StyleSheet, Text, View } from 'react-native'
+import { Button, FormLabel, FormInput } from 'react-native-elements'
 import { inject, observer } from 'mobx-react'
 import { Header } from '../components/header.component'
 import { Styles } from '../constants/styles'
@@ -34,36 +34,42 @@ export class CreateAccountScreen extends React.Component {
       <View style={styles.container}>
         <KeyboardAvoidingView
           style={{width: Styles.baseWidth, justifyContent: 'center'}} enabled>
-          <Header title={`Happy to have You!`} subtitle={'Simply fill the form below'} />
+          <Header style={{paddingTop: 10}} title={`Happy to have You!`} subtitle={'Simply fill the form below'} />
 
-          <TextInput
-            placeholder='First name'
+          <FormLabel fontFamily={Styles.fonts.RobotoMedium} labelStyle={styles.formLabelStyle}>First name</FormLabel>
+          <FormInput
             onSubmitEditing={() => {
               this.inputs.lastName.focus()
             }}
             blurOnSubmit={false}
             returnKeyType={'next'}
             ref={input => { this.inputs.firstName = input }}
-            underlineColorAndroid='transparent'
-            style={styles.input}
+            containerStyle={styles.containerInputStyle}
+            inputStyle={styles.formInputStyle}
+            placeholder='Please enter your first name'
             onChangeText={(firstName) => this.setState({firstName})}
-            value={this.state.firstName} />
+            value={this.state.firstName}
+            underlineColorAndroid='transparent'
+          />
 
-          <TextInput
-            placeholder='Last name'
+          <FormLabel fontFamily={Styles.fonts.RobotoMedium} labelStyle={styles.formLabelStyle}>Last name</FormLabel>
+          <FormInput
             onSubmitEditing={() => {
               this.inputs.email.focus()
             }}
             blurOnSubmit={false}
             returnKeyType={'next'}
             ref={input => { this.inputs.lastName = input }}
-            underlineColorAndroid='transparent'
-            style={styles.input}
+            containerStyle={styles.containerInputStyle}
+            inputStyle={styles.formInputStyle}
+            placeholder='Please enter your last name'
             onChangeText={(lastName) => this.setState({lastName})}
-            value={this.state.lastName} />
+            value={this.state.lastName}
+            underlineColorAndroid='transparent'
+          />
 
-          <TextInput
-            placeholder='Email'
+          <FormLabel fontFamily={Styles.fonts.RobotoMedium} labelStyle={styles.formLabelStyle}>Email</FormLabel>
+          <FormInput
             keyboardType='email-address'
             blurOnSubmit={false}
             onSubmitEditing={() => {
@@ -71,31 +77,37 @@ export class CreateAccountScreen extends React.Component {
             }}
             returnKeyType={'next'}
             ref={input => { this.inputs.email = input }}
-            underlineColorAndroid='transparent'
-            style={styles.input}
+            containerStyle={styles.containerInputStyle}
+            inputStyle={styles.formInputStyle}
+            placeholder='Please enter your email address'
             onChangeText={(email) => this.setState({email})}
-            value={this.state.email} />
+            value={this.state.email}
+            underlineColorAndroid='transparent'
+          />
 
-          <TextInput secureTextEntry
-            placeholder='Password'
+          <FormLabel fontFamily={Styles.fonts.RobotoMedium} labelStyle={styles.formLabelStyle}>Password</FormLabel>
+          <FormInput secureTextEntry
             onSubmitEditing={() => {
               this.register()
             }}
             returnKeyType={'done'}
             ref={input => { this.inputs.password = input }}
-            underlineColorAndroid='transparent'
-            style={styles.input}
+            containerStyle={styles.containerInputStyle}
+            inputStyle={styles.formInputStyle}
+            placeholder='Please enter your password'
             onChangeText={(password) => this.setState({password})}
-            value={this.state.password} />
+            value={this.state.password}
+            underlineColorAndroid='transparent'
+          />
 
           <Button
             onPress={() => this.register()}
             backgroundColor={Colors.Primary}
-            containerViewStyle={{marginLeft: 0, marginRight: 0}}
+            containerViewStyle={{marginLeft: 0, marginRight: 0, marginTop: 15}}
             fontSize={14}
             borderRadius={14}
             buttonStyle={{padding: 10}}
-            title='Sing up'
+            title='Sign up'
             fontFamily={Styles.fonts.RobotoBold} />
 
           <View style={{paddingTop: 30}}>
@@ -139,18 +151,32 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#ffffff'
   },
-  input: {
-    backgroundColor: '#ECF0F3',
-    borderWidth: 0,
-    paddingLeft: 10,
-    paddingRight: 10,
+  formInputStyle: {
+    paddingLeft: 0,
+    paddingRight: 0,
     paddingTop: 5,
     paddingBottom: 5,
-    borderRadius: 14,
-    color: '#333',
-    fontSize: 14,
-    fontFamily: Styles.fonts.Roboto,
-    marginBottom: 10
+    width: 'auto',
+    minHeight: 0,
+    marginLeft: 0,
+    marginRight: 0,
+    color: Colors.TextPrimary,
+    fontSize: 15,
+    fontFamily: Styles.fonts.Roboto
+  },
+  formLabelStyle: {
+    fontSize: 13,
+    color: Colors.TextPrimary,
+    marginTop: 5,
+    marginLeft: 0,
+    marginBottom: 0,
+    marginRight: 0,
+    fontWeight: '400'
+  },
+  containerInputStyle: {
+    marginLeft: 0,
+    paddingLeft: 0,
+    marginRight: 0
   },
   buttonStyle: {
     borderRadius: 5,
