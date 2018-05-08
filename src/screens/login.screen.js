@@ -1,5 +1,5 @@
 import React from 'react'
-import { Alert, Image, Keyboard, StyleSheet, Text, View } from 'react-native'
+import { Alert, Image, Keyboard, StyleSheet, Text, View, KeyboardAvoidingView } from 'react-native'
 import { Button, FormLabel, FormInput } from 'react-native-elements'
 import { inject, observer } from 'mobx-react'
 import { Images } from '../constants/images'
@@ -9,14 +9,15 @@ import { initPrivateApp } from '../../App'
 import { Colors } from '../constants/colors'
 import { Screens } from '../constants/screens'
 
-@inject('Auth') @observer
+@inject('AuthStore') @observer
 export class LoginScreen extends React.Component {
   constructor (props) {
     super(props)
 
     this.state = {
-      username: 'Mary85@hotmail.com',
-      password: 'Jey6JwNg'
+      username: 'admin',
+      password: 'admin123',
+      loading: false
     }
 
     this.inputs = {
@@ -33,52 +34,55 @@ export class LoginScreen extends React.Component {
             <Image source={Images.Logo} style={styles.logo} />
           </View>
 
-          <Header title={`Why, hello there`} />
+          <KeyboardAvoidingView
+            style={{justifyContent: 'center'}} enabled>
+            <Header title={`Why, hello there`} />
 
-          <FormLabel fontFamily={Styles.fonts.RobotoMedium} labelStyle={styles.formLabelStyle}>Email</FormLabel>
-          <FormInput
-            keyboardType='email-address'
-            blurOnSubmit={false}
-            onSubmitEditing={() => {
-              this.inputs.password.focus()
-            }}
-            returnKeyType={'next'}
-            ref={input => { this.inputs.email = input }}
-            containerStyle={styles.containerInputStyle}
-            inputStyle={styles.formInputStyle}
-            onChangeText={(username) => this.setState({username})}
-            value={this.state.username}
-            underlineColorAndroid='transparent'
-          />
+            <FormLabel fontFamily={Styles.fonts.RobotoMedium} labelStyle={styles.formLabelStyle}>Email</FormLabel>
+            <FormInput
+              keyboardType='email-address'
+              blurOnSubmit={false}
+              onSubmitEditing={() => {
+                this.inputs.password.focus()
+              }}
+              returnKeyType={'next'}
+              ref={input => { this.inputs.email = input }}
+              containerStyle={styles.containerInputStyle}
+              inputStyle={styles.formInputStyle}
+              onChangeText={(username) => this.setState({username})}
+              value={this.state.username}
+              underlineColorAndroid='transparent'
+            />
 
-          <FormLabel fontFamily={Styles.fonts.RobotoMedium} labelStyle={styles.formLabelStyle}>Password</FormLabel>
-          <FormInput secureTextEntry
-            onSubmitEditing={() => {
-              this.register()
-            }}
-            returnKeyType={'done'}
-            ref={input => { this.inputs.password = input }}
-            containerStyle={styles.containerInputStyle}
-            inputStyle={styles.formInputStyle}
-            onChangeText={(password) => this.setState({password})}
-            value={this.state.password}
-            underlineColorAndroid='transparent'
-          />
+            <FormLabel fontFamily={Styles.fonts.RobotoMedium} labelStyle={styles.formLabelStyle}>Password</FormLabel>
+            <FormInput secureTextEntry
+              onSubmitEditing={() => {
+                this.register()
+              }}
+              returnKeyType={'done'}
+              ref={input => { this.inputs.password = input }}
+              containerStyle={styles.containerInputStyle}
+              inputStyle={styles.formInputStyle}
+              onChangeText={(password) => this.setState({password})}
+              value={this.state.password}
+              underlineColorAndroid='transparent'
+            />
 
-          <Button
-            onPress={() => this.login()}
-            backgroundColor={Colors.Primary}
-            containerViewStyle={{marginLeft: 0, marginRight: 0, marginTop: 15}}
-            fontSize={14}
-            borderRadius={14}
-            buttonStyle={{padding: 10}}
-            title='Sign in'
-            fontFamily={Styles.fonts.RobotoBold} />
+            <Button
+              onPress={() => this.login()}
+              backgroundColor={Colors.Primary}
+              containerViewStyle={{marginLeft: 0, marginRight: 0, marginTop: 15}}
+              fontSize={14}
+              borderRadius={14}
+              buttonStyle={{padding: 10}}
+              title='Sign in'
+              fontFamily={Styles.fonts.RobotoBold} />
 
-          <View style={styles.registerLinkContainer}>
-            <Text style={styles.registerLink}
-              onPress={() => this.createAccount()}>You need to create account?</Text>
-          </View>
+            <View style={styles.registerLinkContainer}>
+              <Text style={styles.registerLink}
+                onPress={() => this.createAccount()}>You need to create account?</Text>
+            </View>
+          </KeyboardAvoidingView>
         </View>
       </View>
     )
@@ -86,10 +90,13 @@ export class LoginScreen extends React.Component {
 
   login () {
     Keyboard.dismiss()
-    this.props.Auth.login(this.state.username, this.state.password)
-      .then(() => {
-        initPrivateApp()
-      }).catch(err => Alert.alert('Authentication error', err.message))
+    this.setState({loading: true})
+    this.props.AuthStore.login(this.state.username, this.state.password)
+      .then(() => initPrivateApp())
+      .catch(err => {
+        this.setState({loading: false})
+        Alert.alert('Authentication error', err.message)
+      })
   }
 
   createAccount () {

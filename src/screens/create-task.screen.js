@@ -5,14 +5,19 @@ import { TagList } from '../components/tag-list.component'
 import { tagListMock } from '../data/tag-list-mock'
 import { Button } from 'react-native-elements'
 import { Styles } from '../constants/styles'
+import { apolloClient } from '../../App'
+import { gql } from 'apollo-boost'
+import { inject, observer } from 'mobx-react'
 
+@inject('TasksStore') @observer
 export class CreateTaskScreen extends React.Component {
   constructor (props) {
     super(props)
 
     this.state = {
       taskName: '',
-      tagName: ''
+      tagName: '',
+      loading: false
     }
   }
 
@@ -57,14 +62,15 @@ export class CreateTaskScreen extends React.Component {
             </View>
 
             <Button
-              onPress={() => this.dismissModal()}
+              onPress={() => this.createTask()}
               backgroundColor={Colors.Primary}
               containerViewStyle={{marginLeft: 0, marginRight: 0, marginTop: 25}}
               fontSize={14}
               borderRadius={14}
               buttonStyle={{padding: 10}}
               title='Confirm'
-              fontFamily={Styles.fonts.RobotoBold} />
+              fontFamily={Styles.fonts.RobotoBold}
+              disabled={this.state.loading} />
           </View>
         </View>
       </ScrollView>
@@ -75,6 +81,15 @@ export class CreateTaskScreen extends React.Component {
   }
 
   createTask () {
+    this.setState({loading: true})
+    apolloClient.mutate({
+      mutation: gql`mutation CreateTask($title: String!) { createTask(task: {title: $title}) { id } }`,
+      variables: {title: this.state.taskName},
+    }).then(() => {
+      this.props.TasksStore.fetchTasks()
+      this.dismissModal()
+    })
+    .catch(() => this.setState({loading: false}))
   }
 
   dismissModal () {

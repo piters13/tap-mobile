@@ -1,7 +1,6 @@
 import React from 'react'
 import { Keyboard, KeyboardAvoidingView, StyleSheet, Text, View } from 'react-native'
 import { Button, FormLabel, FormInput } from 'react-native-elements'
-import { inject, observer } from 'mobx-react'
 import { Header } from '../components/header.component'
 import { Styles } from '../constants/styles'
 import { Colors } from '../constants/colors'
@@ -9,7 +8,6 @@ import { apolloClient } from '../../App'
 import { gql } from 'apollo-boost'
 import { Screens } from '../constants/screens'
 
-@inject('Auth') @observer
 export class CreateAccountScreen extends React.Component {
   constructor (props) {
     super(props)
@@ -18,7 +16,8 @@ export class CreateAccountScreen extends React.Component {
       firstName: '',
       lastName: '',
       email: '',
-      password: ''
+      password: '',
+      loading: false
     }
 
     this.inputs = {
@@ -108,7 +107,8 @@ export class CreateAccountScreen extends React.Component {
             borderRadius={14}
             buttonStyle={{padding: 10}}
             title='Sign up'
-            fontFamily={Styles.fonts.RobotoBold} />
+            fontFamily={Styles.fonts.RobotoBold}
+            disabled={this.state.loading} />
 
           <View style={{paddingTop: 30}}>
             <Text style={styles.loginLink}
@@ -120,6 +120,7 @@ export class CreateAccountScreen extends React.Component {
   }
 
   register () {
+    this.setState({loading: true})
     Keyboard.dismiss()
     apolloClient.mutate({
       mutation: gql`
@@ -135,6 +136,7 @@ export class CreateAccountScreen extends React.Component {
         password: this.state.password
       }
     }).then(() => this.goLogin())
+      .catch(() => this.setState({loading: false}))
   }
 
   goLogin () {
