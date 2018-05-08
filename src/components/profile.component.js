@@ -1,7 +1,6 @@
 import React from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, TouchableNativeFeedback, View } from 'react-native'
 import { inject, observer } from 'mobx-react'
-// import { Screens } from '../constants/screens'
 import { Separator } from './separator.component'
 import { Colors } from '../constants/colors'
 import { Styles } from '../constants/styles'
@@ -14,10 +13,12 @@ export class Profile extends React.Component {
       <View style={{paddingTop: 10}}>
         <Text style={styles.sectionTextStyle}>Profile</Text>
         <Separator />
-        <TouchableOpacity style={{paddingTop: 15}} onPress={() => this.logout()}>
-          <Text style={{fontWeight: 'bold', fontSize: 16, color: Colors.TextPrimary}}>Logout</Text>
-          <Text style={styles.itemTextStyle}>{this.userInfo}</Text>
-        </TouchableOpacity>
+        <TouchableNativeFeedback onPress={() => this.logout()}>
+          <View style={{paddingLeft: 10, paddingRight: 10, paddingTop: 5, paddingBottom: 5, marginTop: 10, borderLeftWidth: 3, borderLeftColor: '#bdc3c7'}}>
+            <Text style={{fontWeight: 'bold', fontSize: 16, color: Colors.TextPrimary}}>Logout</Text>
+            <Text style={styles.itemTextStyle}>{this.userInfo}</Text>
+          </View>
+        </TouchableNativeFeedback>
       </View>
     )
   }
