@@ -4,16 +4,18 @@ import { Images } from '../constants/images'
 import { Image, StyleSheet, View } from 'react-native'
 import { initPrivateApp, initPublicApp } from '../../App'
 
-@inject('Auth') @observer
+@inject('AuthStore') @observer
 export class MainScreen extends React.Component {
-  componentDidMount () {
+  async componentDidMount () {
+    await this.props.AuthStore.rehydrate()
+
     setTimeout(() => {
-      if (this.props.Auth.isLogged) {
+      if (this.props.AuthStore.isLogged) {
         initPrivateApp()
       } else {
         initPublicApp()
       }
-    }, 2000)
+    }, 1500)
   }
 
   render () {

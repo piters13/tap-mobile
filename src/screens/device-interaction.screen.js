@@ -2,10 +2,12 @@ import React from 'react'
 import { StyleSheet, Switch, Text, View } from 'react-native'
 import { TaskList } from '../components/task-list.component'
 import { Colors } from '../constants/colors'
-import { taskListMock } from '../data/task-list-mock'
 import { Header } from '../components/header.component'
 import { Styles } from '../constants/styles'
+import { inject, observer } from 'mobx-react'
+import { toJS } from 'mobx'
 
+@inject('TasksStore') @observer
 export class DeviceInteractionScreen extends React.Component {
   constructor () {
     super()
@@ -27,7 +29,8 @@ export class DeviceInteractionScreen extends React.Component {
           <Header title={`You have just pressed the button!`} />
           <View style={{alignItems: 'center'}}>
             <View style={this.state.tapped ? styles.workingSwitch : styles.restingSwitch}>
-              <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%'}}>
+              <View
+                style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%'}}>
                 <Text style={{color: 'white', fontFamily: Styles.fonts.RobotoBold}}>
                   {this.buttonLabel}
                 </Text>
@@ -54,10 +57,12 @@ export class DeviceInteractionScreen extends React.Component {
   }
 
   printList () {
+    const tasks = toJS(this.props.TasksStore.tasks)
+
     if (this.state.tapped) {
       return (
         <View style={{flex: 4, paddingTop: 20}}>
-          <TaskList tasks={taskListMock} style={{width: 260, flex: 1}} />
+          <TaskList tasks={tasks} style={{width: 260, flex: 1}} />
         </View>)
     }
   }

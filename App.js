@@ -13,7 +13,7 @@ export const apolloClient = new ApolloClient({
   request: async (operation) => {
     operation.setContext({
       headers: {
-        authorization: stores.Auth.token
+        authorization: stores.AuthStore.token
       }
     });
   },

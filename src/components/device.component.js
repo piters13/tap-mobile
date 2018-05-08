@@ -56,8 +56,7 @@ export class Device extends React.Component {
       [
         {text: 'Yes', onPress: () => this.setState({connectionState: ConnectionState.Attached})},
         {text: 'No', onPress: () => {}, style: 'cancel'}
-      ],
-      { cancelable: false }
+      ]
     )
   }
 

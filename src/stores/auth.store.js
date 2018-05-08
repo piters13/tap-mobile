@@ -1,10 +1,20 @@
 import { action, observable } from 'mobx'
 import { apolloClient } from '../../App'
 import { gql } from 'apollo-boost'
+import { AsyncStorage } from 'react-native'
 
-export class Auth {
+export class AuthStore {
   @observable isLogged = false
   @observable token = ''
+
+  @action rehydrate = async () => {
+    const token = await AsyncStorage.getItem('token')
+
+    if (token) {
+      this.token = token
+      this.isLogged = true
+    }
+  }
 
   @action login = (email, password) =>
     new Promise(async (resolve, reject) => {
@@ -27,6 +37,7 @@ export class Auth {
 
         this.token = token
         this.isLogged = true
+        AsyncStorage.setItem('token', this.token)
 
         resolve()
       } catch (e) {
@@ -38,6 +49,7 @@ export class Auth {
     return new Promise(resolve => {
       this.isLogged = false
       this.token = ''
+      AsyncStorage.setItem('token', this.token)
 
       resolve()
     })

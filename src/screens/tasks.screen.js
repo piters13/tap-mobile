@@ -1,43 +1,42 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import { inject, observer } from 'mobx-react'
 import { Screens } from '../constants/screens'
 import { Header } from '../components/header.component'
 import { TaskList } from '../components/task-list.component'
 import { Colors } from '../constants/colors'
 import { Styles } from '../constants/styles'
 import { Button } from 'react-native-elements'
-import { apolloClient } from '../../App'
-import { gql } from 'apollo-boost'
+import { inject, observer } from 'mobx-react'
+import { toJS } from 'mobx'
 
-@inject('Auth') @observer
+@inject('TasksStore') @observer
 export class TasksScreen extends React.Component {
   constructor (props) {
     super(props)
 
-    this.state = {
-      tasks: []
-    }
-
-    this.getTasks()
+    props.TasksStore.fetchTasks()
   }
 
   render () {
+    const tasks = toJS(this.props.TasksStore.tasks)
+
     return (
       <View style={styles.container}>
         <View style={{flex: 1, width: Styles.baseWidth}}>
           <Header title={`Tasks`} subtitle={`Updated 5 mins ago`} />
-          <TaskList tasks={this.state.tasks} style={{flex: 1, marginBottom: 60}} />
-          <Button
-            containerViewStyle={{paddingLeft: 90, position: 'absolute', bottom: 30}}
-            backgroundColor={Colors.Primary}
-            onPress={() => this.createTask()}
-            fontSize={24}
-            buttonStyle={{width: 65, height: 65}}
-            title='+'
-            borderRadius={50}
-            textStyle={{marginTop: -2}}
-            fontFamily={Styles.fonts.RobotoBold} />
+          <TaskList tasks={tasks} style={{flex: 1, marginBottom: 70}} />
+          <View
+            style={{position: 'absolute', width: '100%', bottom: 20, height: 65, alignItems: 'center', justifyContent: 'center'}}>
+            <Button
+              backgroundColor={Colors.Primary}
+              onPress={() => this.createTask()}
+              fontSize={24}
+              buttonStyle={{width: 65, height: 65}}
+              title='+'
+              borderRadius={50}
+              textStyle={{marginTop: -2}}
+              fontFamily={Styles.fonts.RobotoBold} />
+          </View>
         </View>
       </View>
     )
@@ -54,12 +53,6 @@ export class TasksScreen extends React.Component {
       navigatorButtons: {},
       animationType: 'slide-horizontal'
     })
-  }
-
-  getTasks () {
-    apolloClient.query({
-      query: gql`query { me { tasks { id, title } } }`
-    }).then(resp => this.setState({tasks: resp.data.me.tasks}))
   }
 }
 
