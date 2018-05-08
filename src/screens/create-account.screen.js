@@ -1,11 +1,13 @@
 import React from 'react'
-import { Keyboard, StyleSheet, TextInput, View } from 'react-native'
+import { Keyboard, KeyboardAvoidingView, StyleSheet, Text, TextInput, View } from 'react-native'
 import { Button } from 'react-native-elements'
 import { inject, observer } from 'mobx-react'
 import { Header } from '../components/header.component'
 import { Styles } from '../constants/styles'
 import { Colors } from '../constants/colors'
-import { initPrivateApp } from '../../App'
+import { apolloClient } from '../../App'
+import { gql } from 'apollo-boost'
+import { Screens } from '../constants/screens'
 
 @inject('Auth') @observer
 export class CreateAccountScreen extends React.Component {
@@ -15,20 +17,33 @@ export class CreateAccountScreen extends React.Component {
     this.state = {
       firstName: '',
       lastName: '',
-      username: '',
+      email: '',
       password: ''
+    }
+
+    this.inputs = {
+      firstName: null,
+      lastName: null,
+      email: null,
+      password: null
     }
   }
 
   render () {
     return (
       <View style={styles.container}>
-        <View style={{flex: 1, width: Styles.baseWidth, justifyContent: 'center'}}>
-
+        <KeyboardAvoidingView
+          style={{width: Styles.baseWidth, justifyContent: 'center'}} enabled>
           <Header title={`Happy to have You!`} subtitle={'Simply fill the form below'} />
 
           <TextInput
             placeholder='First name'
+            onSubmitEditing={() => {
+              this.inputs.lastName.focus()
+            }}
+            blurOnSubmit={false}
+            returnKeyType={'next'}
+            ref={input => { this.inputs.firstName = input }}
             underlineColorAndroid='transparent'
             style={styles.input}
             onChangeText={(firstName) => this.setState({firstName})}
@@ -36,6 +51,12 @@ export class CreateAccountScreen extends React.Component {
 
           <TextInput
             placeholder='Last name'
+            onSubmitEditing={() => {
+              this.inputs.email.focus()
+            }}
+            blurOnSubmit={false}
+            returnKeyType={'next'}
+            ref={input => { this.inputs.lastName = input }}
             underlineColorAndroid='transparent'
             style={styles.input}
             onChangeText={(lastName) => this.setState({lastName})}
@@ -44,13 +65,24 @@ export class CreateAccountScreen extends React.Component {
           <TextInput
             placeholder='Email'
             keyboardType='email-address'
+            blurOnSubmit={false}
+            onSubmitEditing={() => {
+              this.inputs.password.focus()
+            }}
+            returnKeyType={'next'}
+            ref={input => { this.inputs.email = input }}
             underlineColorAndroid='transparent'
             style={styles.input}
-            onChangeText={(username) => this.setState({username})}
-            value={this.state.username} />
+            onChangeText={(email) => this.setState({email})}
+            value={this.state.email} />
 
           <TextInput secureTextEntry
             placeholder='Password'
+            onSubmitEditing={() => {
+              this.register()
+            }}
+            returnKeyType={'done'}
+            ref={input => { this.inputs.password = input }}
             underlineColorAndroid='transparent'
             style={styles.input}
             onChangeText={(password) => this.setState({password})}
@@ -59,26 +91,50 @@ export class CreateAccountScreen extends React.Component {
           <Button
             onPress={() => this.register()}
             backgroundColor={Colors.Primary}
-            containerViewStyle={{marginLeft: 0, marginRight: 0, marginTop: 25}}
+            containerViewStyle={{marginLeft: 0, marginRight: 0}}
             fontSize={14}
             borderRadius={14}
             buttonStyle={{padding: 10}}
             title='Sing up'
             fontFamily={Styles.fonts.RobotoBold} />
-        </View>
+
+          <View style={{paddingTop: 30}}>
+            <Text style={styles.loginLink}
+              onPress={() => this.goLogin()}>Actually, I have an account</Text>
+          </View>
+        </KeyboardAvoidingView>
       </View>
     )
   }
 
   register () {
     Keyboard.dismiss()
-    initPrivateApp()
+    apolloClient.mutate({
+      mutation: gql`
+          mutation Register($firstname: String!, $lastname: String!, $email: String!, $password: String!) {
+              register(user: {firstname: $firstname, lastname: $lastname, email: $email, password: $password}) {
+                  id
+              }
+          }`,
+      variables: {
+        firstname: this.state.firstName,
+        lastname: this.state.lastName,
+        email: this.state.email,
+        password: this.state.password
+      }
+    }).then(() => this.goLogin())
+  }
+
+  goLogin () {
+    this.props.navigator.push({
+      screen: Screens.Login.screen
+    })
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    height: '100%',
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#ffffff'
@@ -102,5 +158,9 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     paddingTop: 7,
     paddingBottom: 7
+  },
+  loginLink: {
+    fontSize: 16,
+    fontFamily: Styles.fonts.RobotoLight
   }
 })
