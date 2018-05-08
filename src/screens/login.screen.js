@@ -19,10 +19,10 @@ export class LoginScreen extends React.Component {
       password: 'Jey6JwNg'
     }
 
-    this.props.navigator.toggleTabs({
-      to: 'hidden',
-      animated: false
-    })
+    this.inputs = {
+      email: null,
+      password: null
+    }
   }
 
   render () {
@@ -36,6 +36,12 @@ export class LoginScreen extends React.Component {
           <Header title={`Why, hello there`} />
 
           <TextInput placeholder='Email'
+            onSubmitEditing={() => {
+              this.inputs.password.focus()
+            }}
+            blurOnSubmit={false}
+            returnKeyType={'next'}
+            ref={input => { this.inputs.email = input }}
             keyboardType='email-address'
             underlineColorAndroid='transparent'
             style={styles.input}
@@ -43,6 +49,11 @@ export class LoginScreen extends React.Component {
             value={this.state.username} />
 
           <TextInput secureTextEntry
+            onSubmitEditing={() => {
+              this.login()
+            }}
+            returnKeyType={'done'}
+            ref={input => { this.inputs.password = input }}
             placeholder='Password'
             underlineColorAndroid='transparent'
             style={styles.input}
@@ -52,7 +63,7 @@ export class LoginScreen extends React.Component {
           <Button
             onPress={() => this.login()}
             backgroundColor={Colors.Primary}
-            containerViewStyle={{marginLeft: 0, marginRight: 0, marginTop: 25}}
+            containerViewStyle={{marginLeft: 0, marginRight: 0}}
             fontSize={14}
             borderRadius={14}
             buttonStyle={{padding: 10}}
@@ -77,11 +88,9 @@ export class LoginScreen extends React.Component {
   }
 
   createAccount () {
-    return (
-      this.props.navigator.push({
-        screen: Screens.CreateAccount.screen
-      })
-    )
+    this.props.navigator.push({
+      screen: Screens.CreateAccount.screen
+    })
   }
 }
 

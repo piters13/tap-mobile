@@ -1,13 +1,13 @@
 import React from 'react'
-import { Keyboard, StyleSheet, TextInput, View, KeyboardAvoidingView } from 'react-native'
+import { Keyboard, KeyboardAvoidingView, StyleSheet, Text, TextInput, View } from 'react-native'
 import { Button } from 'react-native-elements'
 import { inject, observer } from 'mobx-react'
 import { Header } from '../components/header.component'
 import { Styles } from '../constants/styles'
 import { Colors } from '../constants/colors'
-import { Screens } from '../screens'
 import { apolloClient } from '../../App'
 import { gql } from 'apollo-boost'
+import { Screens } from '../constants/screens'
 
 @inject('Auth') @observer
 export class CreateAccountScreen extends React.Component {
@@ -21,26 +21,29 @@ export class CreateAccountScreen extends React.Component {
       password: ''
     }
 
-    this.focusNextField = this.focusNextField.bind(this)
-    this.inputs = {}
+    this.inputs = {
+      firstName: null,
+      lastName: null,
+      email: null,
+      password: null
+    }
   }
 
   render () {
     return (
       <View style={styles.container}>
         <KeyboardAvoidingView
-          style={{flex: 1, width: Styles.baseWidth, justifyContent: 'center'}}
-          behavior='padding'>
-
+          style={{width: Styles.baseWidth, justifyContent: 'center'}} enabled>
           <Header title={`Happy to have You!`} subtitle={'Simply fill the form below'} />
 
           <TextInput
             placeholder='First name'
             onSubmitEditing={() => {
-              this.focusNextField('Last name')
+              this.inputs.lastName.focus()
             }}
+            blurOnSubmit={false}
             returnKeyType={'next'}
-            ref={input => { this.inputs['First name'] = input }}
+            ref={input => { this.inputs.firstName = input }}
             underlineColorAndroid='transparent'
             style={styles.input}
             onChangeText={(firstName) => this.setState({firstName})}
@@ -49,10 +52,11 @@ export class CreateAccountScreen extends React.Component {
           <TextInput
             placeholder='Last name'
             onSubmitEditing={() => {
-              this.focusNextField('Email')
+              this.inputs.email.focus()
             }}
+            blurOnSubmit={false}
             returnKeyType={'next'}
-            ref={input => { this.inputs['Last name'] = input }}
+            ref={input => { this.inputs.lastName = input }}
             underlineColorAndroid='transparent'
             style={styles.input}
             onChangeText={(lastName) => this.setState({lastName})}
@@ -61,11 +65,12 @@ export class CreateAccountScreen extends React.Component {
           <TextInput
             placeholder='Email'
             keyboardType='email-address'
+            blurOnSubmit={false}
             onSubmitEditing={() => {
-              this.focusNextField('Password')
+              this.inputs.password.focus()
             }}
             returnKeyType={'next'}
-            ref={input => { this.inputs['Email'] = input }}
+            ref={input => { this.inputs.email = input }}
             underlineColorAndroid='transparent'
             style={styles.input}
             onChangeText={(email) => this.setState({email})}
@@ -73,8 +78,11 @@ export class CreateAccountScreen extends React.Component {
 
           <TextInput secureTextEntry
             placeholder='Password'
+            onSubmitEditing={() => {
+              this.register()
+            }}
             returnKeyType={'done'}
-            ref={input => { this.inputs['Password'] = input }}
+            ref={input => { this.inputs.password = input }}
             underlineColorAndroid='transparent'
             style={styles.input}
             onChangeText={(password) => this.setState({password})}
@@ -83,12 +91,17 @@ export class CreateAccountScreen extends React.Component {
           <Button
             onPress={() => this.register()}
             backgroundColor={Colors.Primary}
-            containerViewStyle={{marginLeft: 0, marginRight: 0, marginTop: 25}}
+            containerViewStyle={{marginLeft: 0, marginRight: 0}}
             fontSize={14}
             borderRadius={14}
             buttonStyle={{padding: 10}}
             title='Sing up'
             fontFamily={Styles.fonts.RobotoBold} />
+
+          <View style={{paddingTop: 30}}>
+            <Text style={styles.loginLink}
+              onPress={() => this.goLogin()}>Actually, I have an account</Text>
+          </View>
         </KeyboardAvoidingView>
       </View>
     )
@@ -98,30 +111,30 @@ export class CreateAccountScreen extends React.Component {
     Keyboard.dismiss()
     apolloClient.mutate({
       mutation: gql`
-        mutation Register($firstname: String!, $lastname: String!, $email: String!, $password: String!) { 
-          register(user: {firstname: $firstname, lastname: $lastname, email: $email, password: $password}) { 
-            id 
-          } 
-        }`,
+          mutation Register($firstname: String!, $lastname: String!, $email: String!, $password: String!) {
+              register(user: {firstname: $firstname, lastname: $lastname, email: $email, password: $password}) {
+                  id
+              }
+          }`,
       variables: {
         firstname: this.state.firstName,
         lastname: this.state.lastName,
         email: this.state.email,
         password: this.state.password
       }
-    }).then(() => this.props.navigator.navigate({
-      screen: Screens.LoginScreen.screen
-    }))
+    }).then(() => this.goLogin())
   }
 
-  focusNextField (id) {
-    this.inputs[id].focus()
+  goLogin () {
+    this.props.navigator.push({
+      screen: Screens.Login.screen
+    })
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    height: '100%',
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#ffffff'
@@ -145,5 +158,9 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     paddingTop: 7,
     paddingBottom: 7
+  },
+  loginLink: {
+    fontSize: 16,
+    fontFamily: Styles.fonts.RobotoLight
   }
 })

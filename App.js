@@ -17,16 +17,17 @@ const rootNavigation = Navigation
 registerScreens(stores, MobxRnnProvider, rootNavigation)
 
 rootNavigation.startSingleScreenApp({
-  screen: Screens.Main
+  screen: Screens.Main,
+  animationType: 'none'
 })
 
 export const initPublicApp = () => rootNavigation.startSingleScreenApp({
   screen: Screens.Login,
-  animationType: 'fade'
+  animationType: 'none'
 })
 
 export const initPrivateApp = () => rootNavigation.startTabBasedApp({
   tabs: NavigationTabs,
   appStyle: appStyle,
-  animationType: 'fade'
+  animationType: 'none'
 })
