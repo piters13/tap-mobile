@@ -1,5 +1,5 @@
 import React from 'react'
-import { Alert, Image, Keyboard, StyleSheet, Text, TextInput, View } from 'react-native'
+import { Alert, Image, Keyboard, KeyboardAvoidingView, StyleSheet, Text, TextInput, View } from 'react-native'
 import { Button } from 'react-native-elements'
 import { inject, observer } from 'mobx-react'
 import { Images } from '../constants/images'
@@ -9,14 +9,15 @@ import { initPrivateApp } from '../../App'
 import { Colors } from '../constants/colors'
 import { Screens } from '../constants/screens'
 
-@inject('Auth') @observer
+@inject('AuthStore') @observer
 export class LoginScreen extends React.Component {
   constructor (props) {
     super(props)
 
     this.state = {
-      username: 'Mary85@hotmail.com',
-      password: 'Jey6JwNg'
+      username: 'admin',
+      password: 'admin123',
+      loading: false
     }
 
     this.inputs = {
@@ -33,42 +34,46 @@ export class LoginScreen extends React.Component {
             <Image source={Images.Logo} style={styles.logo} />
           </View>
 
-          <Header title={`Why, hello there`} />
+          <KeyboardAvoidingView
+            style={{justifyContent: 'center'}} enabled>
+            <Header title={`Why, hello there`} />
 
-          <TextInput placeholder='Email'
-            onSubmitEditing={() => {
-              this.inputs.password.focus()
-            }}
-            blurOnSubmit={false}
-            returnKeyType={'next'}
-            ref={input => { this.inputs.email = input }}
-            keyboardType='email-address'
-            underlineColorAndroid='transparent'
-            style={styles.input}
-            onChangeText={(username) => this.setState({username})}
-            value={this.state.username} />
+            <TextInput placeholder='Email'
+              onSubmitEditing={() => {
+                this.inputs.password.focus()
+              }}
+              blurOnSubmit={false}
+              returnKeyType={'next'}
+              ref={input => { this.inputs.email = input }}
+              keyboardType='email-address'
+              underlineColorAndroid='transparent'
+              style={styles.input}
+              onChangeText={(username) => this.setState({username})}
+              value={this.state.username} />
 
-          <TextInput secureTextEntry
-            onSubmitEditing={() => {
-              this.login()
-            }}
-            returnKeyType={'done'}
-            ref={input => { this.inputs.password = input }}
-            placeholder='Password'
-            underlineColorAndroid='transparent'
-            style={styles.input}
-            onChangeText={(password) => this.setState({password})}
-            value={this.state.password} />
+            <TextInput secureTextEntry
+              onSubmitEditing={() => {
+                this.login()
+              }}
+              returnKeyType={'done'}
+              ref={input => { this.inputs.password = input }}
+              placeholder='Password'
+              underlineColorAndroid='transparent'
+              style={styles.input}
+              onChangeText={(password) => this.setState({password})}
+              value={this.state.password} />
 
-          <Button
-            onPress={() => this.login()}
-            backgroundColor={Colors.Primary}
-            containerViewStyle={{marginLeft: 0, marginRight: 0}}
-            fontSize={14}
-            borderRadius={14}
-            buttonStyle={{padding: 10}}
-            title='Sing in'
-            fontFamily={Styles.fonts.RobotoBold} />
+            <Button
+              onPress={() => this.login()}
+              backgroundColor={Colors.Primary}
+              containerViewStyle={{marginLeft: 0, marginRight: 0}}
+              fontSize={14}
+              borderRadius={14}
+              buttonStyle={{padding: 10}}
+              title='Sign in'
+              fontFamily={Styles.fonts.RobotoBold}
+              disabled={this.state.loading} />
+          </KeyboardAvoidingView>
 
           <View style={styles.registerLinkContainer}>
             <Text style={styles.registerLink}
@@ -81,10 +86,13 @@ export class LoginScreen extends React.Component {
 
   login () {
     Keyboard.dismiss()
-    this.props.Auth.login(this.state.username, this.state.password)
-      .then(() => {
-        initPrivateApp()
-      }).catch(err => Alert.alert('Authentication error', err.message))
+    this.setState({loading: true})
+    this.props.AuthStore.login(this.state.username, this.state.password)
+      .then(() => initPrivateApp())
+      .catch(err => {
+        this.setState({loading: false})
+        Alert.alert('Authentication error', err.message)
+      })
   }
 
   createAccount () {

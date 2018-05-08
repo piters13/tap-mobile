@@ -1,6 +1,8 @@
-import { Auth } from './auth.store'
+import { AuthStore } from './auth.store'
+import { TasksStore } from './tasks.store'
 
 export const stores = {
-  Auth: new Auth(),
+  AuthStore: new AuthStore(),
+  TasksStore: new TasksStore()
 }
 
