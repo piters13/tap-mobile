@@ -57,7 +57,7 @@ export class LoginScreen extends React.Component {
             <FormLabel fontFamily={Styles.fonts.RobotoMedium} labelStyle={styles.formLabelStyle}>Password</FormLabel>
             <FormInput secureTextEntry
               onSubmitEditing={() => {
-                this.register()
+                this.login()
               }}
               returnKeyType={'done'}
               ref={input => { this.inputs.password = input }}
