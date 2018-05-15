@@ -20,6 +20,7 @@ export class AuthStore {
     new Promise(async (resolve, reject) => {
       if (!email || !password) {
         reject({status: 'error', message: 'Please provide both email and password'})
+        return
       }
 
       const mutation = gql`mutation Login($email: String!, $password: String!) { login(email: $email, password: $password) }`
@@ -29,13 +30,12 @@ export class AuthStore {
           variables: {email, password},
         })
 
-        const token = response.data.login
-
-        if (!token) {
+        if (!response.data) {
           reject({status: 'error', message: 'Invalid credentials'})
+          return
         }
 
-        this.token = token
+        this.token = response.data.login
         this.isLogged = true
         AsyncStorage.setItem('token', this.token)
 
