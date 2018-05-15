@@ -8,6 +8,11 @@ import { ApiUrl } from './src/constants/config'
 import { Screens } from './src/constants/screens'
 import { appStyle, NavigationTabs } from './src/constants/navigation'
 
+Object.setPrototypeOf = Object.setPrototypeOf || function (obj, proto) {
+  obj.__proto__ = proto
+  return obj
+}
+
 export const apolloClient = new ApolloClient({
   uri: ApiUrl,
   request: async (operation) => {
@@ -18,8 +23,8 @@ export const apolloClient = new ApolloClient({
     });
   },
   onError: ({ graphQLErrors, networkError }) => {
-    console.error(graphQLErrors)
-    console.error(networkError)
+    console.log(graphQLErrors)
+    console.log(networkError)
   },
 })
 

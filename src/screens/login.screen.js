@@ -15,8 +15,8 @@ export class LoginScreen extends React.Component {
     super(props)
 
     this.state = {
-      username: 'admin',
-      password: 'admin123',
+      username: '',
+      password: '',
       loading: false
     }
 
