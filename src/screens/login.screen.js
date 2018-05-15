@@ -89,6 +89,7 @@ export class LoginScreen extends React.Component {
               backgroundColor={Colors.Primary}
               containerViewStyle={{marginLeft: 0, marginRight: 0, marginTop: 15}}
               fontSize={14}
+              disabled={this.state.loading}
               borderRadius={14}
               buttonStyle={{padding: 10}}
               title='Sign in'
