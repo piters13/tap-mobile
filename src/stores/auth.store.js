@@ -6,6 +6,7 @@ import { AsyncStorage } from 'react-native'
 export class AuthStore {
   @observable isLogged = false
   @observable token = ''
+  @observable user = {firstname: '', lastname: '', email: ''}
 
   @action rehydrate = async () => {
     const token = await AsyncStorage.getItem('token')
@@ -14,6 +15,15 @@ export class AuthStore {
       this.token = token
       this.isLogged = true
     }
+  }
+
+  @action fetchUser = () => {
+    apolloClient.query({
+      query: gql`query { me { firstname, lastname, email } }`,
+      fetchPolicy: 'network-only'
+    }).then(resp => {
+      this.user = resp.data.me
+    })
   }
 
   @action login = (email, password) =>
@@ -49,6 +59,7 @@ export class AuthStore {
     return new Promise(resolve => {
       this.isLogged = false
       this.token = ''
+      this.user = {firstname: '', lastname: '', email: ''}
       AsyncStorage.setItem('token', this.token)
 
       resolve()

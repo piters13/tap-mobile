@@ -12,6 +12,7 @@ export class MainScreen extends React.Component {
     setTimeout(() => {
       if (this.props.AuthStore.isLogged) {
         initPrivateApp()
+        this.props.AuthStore.fetchUser()
       } else {
         initPublicApp()
       }

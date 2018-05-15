@@ -32,7 +32,8 @@ export class Profile extends React.Component {
   }
 
   get userInfo () {
-    return 'You are currently logged as ' + this.props.AuthStore.token
+    return 'You are currently logged as ' + this.props.AuthStore.user.firstname + ' ' +
+      this.props.AuthStore.user.lastname
   }
 
   logout () {

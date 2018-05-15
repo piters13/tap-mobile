@@ -1,30 +1,30 @@
 import React from 'react'
 import { Alert, Keyboard, KeyboardAvoidingView, StyleSheet, Text, View } from 'react-native'
-import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
+import { Button, FormInput, FormLabel, FormValidationMessage } from 'react-native-elements'
 import { Header } from '../components/header.component'
 import { Styles } from '../constants/styles'
 import { Colors } from '../constants/colors'
 import { apolloClient } from '../../App'
 import { gql } from 'apollo-boost'
-import { Screens } from '../constants/screens'
 
 export class CreateAccountScreen extends React.Component {
   constructor (props) {
     super(props)
 
     this.state = {
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
+      firstName: {
+        value: ''
+      },
+      lastName: {
+        value: '',
+      },
+      email: {
+        value: '',
+      },
+      password: {
+        value: '',
+      },
       loading: false
-    }
-
-    this.errors = {
-      emailErrorMessage: '',
-      emptyFirstNameMessage: '',
-      emptyLastNameMessage: '',
-      emptyPasswordMessage: ''
     }
 
     this.inputs = {
@@ -52,11 +52,11 @@ export class CreateAccountScreen extends React.Component {
             containerStyle={styles.containerInputStyle}
             inputStyle={styles.formInputStyle}
             placeholder='Please enter your first name'
-            value={this.state.firstName}
+            value={this.state.firstName.value}
             underlineColorAndroid='transparent'
           />
           <FormValidationMessage labelStyle={styles.errorMessage}>
-            {this.errors.emptyFirstNameMessage}
+            {this.state.firstName.error}
           </FormValidationMessage>
 
           <FormLabel fontFamily={Styles.fonts.RobotoMedium} labelStyle={styles.formLabelStyle}>Last name</FormLabel>
@@ -69,11 +69,11 @@ export class CreateAccountScreen extends React.Component {
             containerStyle={styles.containerInputStyle}
             inputStyle={styles.formInputStyle}
             placeholder='Please enter your last name'
-            value={this.state.lastName}
+            value={this.state.lastName.value}
             underlineColorAndroid='transparent'
           />
           <FormValidationMessage labelStyle={styles.errorMessage}>
-            {this.errors.emptyLastNameMessage}
+            {this.state.lastName.error}
           </FormValidationMessage>
 
           <FormLabel fontFamily={Styles.fonts.RobotoMedium} labelStyle={styles.formLabelStyle}>Email</FormLabel>
@@ -87,11 +87,12 @@ export class CreateAccountScreen extends React.Component {
             containerStyle={styles.containerInputStyle}
             inputStyle={styles.formInputStyle}
             placeholder='Please enter your email address'
-            value={this.state.email}
+            autoCapitalize='none'
+            value={this.state.email.value}
             underlineColorAndroid='transparent'
           />
           <FormValidationMessage labelStyle={styles.errorMessage}>
-            {this.errors.emailErrorMessage}
+            {this.state.email.error}
           </FormValidationMessage>
 
           <FormLabel fontFamily={Styles.fonts.RobotoMedium} labelStyle={styles.formLabelStyle}>Password</FormLabel>
@@ -103,11 +104,11 @@ export class CreateAccountScreen extends React.Component {
             containerStyle={styles.containerInputStyle}
             inputStyle={styles.formInputStyle}
             placeholder='Please enter your password'
-            value={this.state.password}
+            value={this.state.password.value}
             underlineColorAndroid='transparent'
           />
           <FormValidationMessage labelStyle={styles.errorMessage}>
-            {this.errors.emptyPasswordMessage}
+            {this.state.password.error}
           </FormValidationMessage>
 
           <Button
@@ -130,73 +131,52 @@ export class CreateAccountScreen extends React.Component {
     )
   }
 
-  updateFirstName = (firstname) => {
-    this.setState({firstName: firstname})
-    this.validateFirstname(firstname)
+  updateFirstName (firstname) {
+    this.validateField(firstname, 'firstName', (v) => v.length > 0, 'This field is required')
   }
 
-  validateFirstname = (firstname) => {
-    if (!firstname) {
-      this.errors.emptyFirstNameMessage = 'This field cannot be empty'
-      this.setState({firstName: ''})
+  updateLastName (lastname) {
+    this.validateField(lastname, 'lastName', (v) => v.length > 0, 'This field is required')
+  }
+
+  updateEmail (email) {
+    const reg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    this.validateField(email, 'email', (v) => reg.test(v), 'Incorrect email address')
+  }
+
+  updatePassword (pass) {
+    this.validateField(pass, 'password', (v) => v.length > 0, 'This field is required')
+  }
+
+  validateField (value, field, validateFn, error) {
+    if (!validateFn(value)) {
+      this.setState({[field]: {value, error}})
     } else {
-      this.setState({firstName: firstname})
-      this.errors.emptyFirstNameMessage = ''
+      this.setState({[field]: {value, error: null}})
     }
   }
 
-  updateLastName = (lastname) => {
-    this.setState({lastName: lastname})
-    this.validateLastname(lastname)
+  validateForm () {
+    this.validateField(this.state.firstName.value, 'firstName', (v) => v.length > 0, 'This field is required')
+    this.validateField(this.state.lastName.value, 'lastName', (v) => v.length > 0, 'This field is required')
+    this.validateField(this.state.password.value, 'password', (v) => v.length > 0, 'This field is required')
+
+    const reg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    this.validateField(this.state.email.value, 'email', (v) => reg.test(v), 'Incorrect email address')
   }
 
-  validateLastname (lastname) {
-    if (!lastname) {
-      this.errors.emptyLastNameMessage = 'This field cannot be empty'
-      this.setState({lastName: ''})
-    } else {
-      this.setState({lastName: lastname})
-      this.errors.emptyLastNameMessage = ''
-    }
-  }
-
-  updateEmail = (email) => {
-    this.setState({email: email})
-    this.validateEmail(email)
-  }
-
-  validateEmail (email) {
-    let reg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    if (!email) {
-      this.errors.emailErrorMessage = 'This field cannot be empty'
-      this.setState({email: ''})
-    } else if (!reg.test(email)) {
-      this.errors.emailErrorMessage = 'Incorrect email address'
-      this.setState({email: email})
-    } else {
-      this.setState({email: email})
-      this.errors.emailErrorMessage = ''
-    }
-  }
-
-  updatePassword = (pass) => {
-    this.setState({password: pass})
-    this.validatePassword(pass)
-  }
-
-  validatePassword (pass) {
-    if (!pass) {
-      this.errors.emptyPasswordMessage = 'This field cannot be empty'
-      this.setState({password: ''})
-    } else {
-      this.setState({password: pass})
-      this.errors.emptyPasswordMessage = ''
-    }
+  isFormValid () {
+    return !(this.state.firstName.error || this.state.lastName.error || this.state.email.error || this.state.password.error)
   }
 
   register () {
-    if ((!this.errors.emptyFirstNameMessage) && (!this.errors.emptyLastNameMessage) &&
-        (!this.errors.emailErrorMessage) && (!this.errors.emptyPasswordMessage)) {
+    this.validateForm()
+
+    setTimeout(() => {
+      if (!this.isFormValid()) {
+        return
+      }
+
       this.setState({loading: true})
       Keyboard.dismiss()
       apolloClient.mutate({
@@ -207,27 +187,21 @@ export class CreateAccountScreen extends React.Component {
               }
           }`,
         variables: {
-          firstname: this.state.firstName,
-          lastname: this.state.lastName,
-          email: this.state.email,
-          password: this.state.password
+          firstname: this.state.firstName.value,
+          lastname: this.state.lastName.value,
+          email: this.state.email.value,
+          password: this.state.password.value
         }
       }).then(() => this.goLogin())
-        .catch(() => this.setState({loading: false}))
-    } else {
-      Alert.alert(
-        'Please fill in all required fields', '(or check if email address is valid)',
-        [
-          {text: 'OK', onPress: () => {}}
-        ]
-      )
-    }
+      .catch(err => {
+        this.setState({loading: false})
+        Alert.alert('Registration error', err.message)
+      })
+    }, 0)
   }
 
   goLogin () {
-    this.props.navigator.push({
-      screen: Screens.Login.screen
-    })
+    this.props.navigator.pop()
   }
 }
 

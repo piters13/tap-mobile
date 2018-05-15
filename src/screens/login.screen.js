@@ -1,6 +1,6 @@
 import React from 'react'
-import { Alert, Image, Keyboard, StyleSheet, Text, View, KeyboardAvoidingView } from 'react-native'
-import { Button, FormLabel, FormInput } from 'react-native-elements'
+import { Alert, Image, Keyboard, KeyboardAvoidingView, StyleSheet, Text, View } from 'react-native'
+import { Button, FormInput, FormLabel, FormValidationMessage } from 'react-native-elements'
 import { inject, observer } from 'mobx-react'
 import { Images } from '../constants/images'
 import { Header } from '../components/header.component'
@@ -15,8 +15,14 @@ export class LoginScreen extends React.Component {
     super(props)
 
     this.state = {
-      username: '',
-      password: '',
+      email: {
+        value: '',
+        error: null
+      },
+      password: {
+        value: '',
+        error: null
+      },
       loading: false
     }
 
@@ -49,10 +55,15 @@ export class LoginScreen extends React.Component {
               ref={input => { this.inputs.email = input }}
               containerStyle={styles.containerInputStyle}
               inputStyle={styles.formInputStyle}
-              onChangeText={(username) => this.setState({username})}
-              value={this.state.username}
+              onChangeText={(email) => this.updateEmail(email)}
+              value={this.state.email.value}
+              placeholder='Please enter your email address'
+              autoCapitalize='none'
               underlineColorAndroid='transparent'
             />
+            <FormValidationMessage labelStyle={styles.errorMessage}>
+              {this.state.email.error}
+            </FormValidationMessage>
 
             <FormLabel fontFamily={Styles.fonts.RobotoMedium} labelStyle={styles.formLabelStyle}>Password</FormLabel>
             <FormInput secureTextEntry
@@ -63,10 +74,15 @@ export class LoginScreen extends React.Component {
               ref={input => { this.inputs.password = input }}
               containerStyle={styles.containerInputStyle}
               inputStyle={styles.formInputStyle}
-              onChangeText={(password) => this.setState({password})}
-              value={this.state.password}
+              onChangeText={(password) => this.updatePassword(password)}
+              value={this.state.password.value}
+              placeholder='Please enter your password'
               underlineColorAndroid='transparent'
             />
+
+            <FormValidationMessage labelStyle={styles.errorMessage}>
+              {this.state.password.error}
+            </FormValidationMessage>
 
             <Button
               onPress={() => this.login()}
@@ -88,15 +104,49 @@ export class LoginScreen extends React.Component {
     )
   }
 
+  updateEmail (email) {
+    const reg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    this.validateField(email, 'email', (v) => reg.test(v), 'Incorrect email address')
+  }
+
+  updatePassword (pass) {
+    this.validateField(pass, 'password', (v) => v.length > 0, 'This field is required')
+  }
+
+  validateField (value, field, validateFn, error) {
+    if (!validateFn(value)) {
+      this.setState({[field]: {value, error}})
+    } else {
+      this.setState({[field]: {value, error: null}})
+    }
+  }
+
+  validateForm () {
+    this.validateField(this.state.password.value, 'password', (v) => v.length > 0, 'This field is required')
+    const reg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    this.validateField(this.state.email.value, 'email', (v) => reg.test(v), 'Incorrect email address')
+  }
+
+  isFormValid () {
+    return !(this.state.email.error || this.state.password.error)
+  }
+
   login () {
-    Keyboard.dismiss()
-    this.setState({loading: true})
-    this.props.AuthStore.login(this.state.username, this.state.password)
-      .then(() => initPrivateApp())
-      .catch(err => {
-        this.setState({loading: false})
-        Alert.alert('Authentication error', err.message)
-      })
+    this.validateForm()
+
+    setTimeout(() => {
+      if (!this.isFormValid()) {
+        return
+      }
+      Keyboard.dismiss()
+      this.setState({loading: true})
+      this.props.AuthStore.login(this.state.email.value, this.state.password.value)
+        .then(() => initPrivateApp())
+        .catch(err => {
+          this.setState({loading: false})
+          Alert.alert('Authentication error', err.message)
+        })
+    }, 0)
   }
 
   createAccount () {
@@ -150,5 +200,13 @@ const styles = StyleSheet.create({
   registerLink: {
     fontSize: 16,
     fontFamily: Styles.fonts.RobotoLight
+  },
+  errorMessage: {
+    fontFamily: Styles.fonts.Roboto,
+    marginTop: 0,
+    marginLeft: 0,
+    marginBottom: 1,
+    marginRight: 0,
+    padding: 0
   }
 })
