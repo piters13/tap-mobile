@@ -11,7 +11,11 @@ export class DevicesList extends React.Component {
         <FlatList data={this.props.devices} ItemSeparatorComponent={Separator}
           renderItem={({item, index}) => (
             <View>
-              <DevicesListItem navigator={this.props.navigator} item={item} index={index} style={styles.listItemStyle} />
+              <DevicesListItem
+                callbackFn={this.props.callbackFn}
+                navigator={this.props.navigator}
+                item={item}
+                index={index} style={styles.listItemStyle} />
             </View>
           )} keyExtractor={item => item.id} />
         <Separator />

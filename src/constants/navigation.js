@@ -14,7 +14,7 @@ export const NavigationTabs = [
     icon: Icons.Home
   },
   {
-    label: Screens.DeviceInteraction.title,
+    label: 'Actions',
     screen: Screens.DeviceInteraction.screen,
     icon: Icons.Connection
   },

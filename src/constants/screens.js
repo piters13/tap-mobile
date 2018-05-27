@@ -30,5 +30,9 @@ export const Screens = {
   CreateAccount: {
     screen: 'CreateAccountScreen',
     title: 'New account'
+  },
+  ClickNotification: {
+    screen: 'ClickNotificationScreen',
+    title: 'Clicker clicked'
   }
 }
