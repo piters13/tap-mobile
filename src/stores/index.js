@@ -5,4 +5,3 @@ export const stores = {
   AuthStore: new AuthStore(),
   TasksStore: new TasksStore()
 }
-

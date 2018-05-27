@@ -62,7 +62,7 @@ export class DeviceInteractionScreen extends React.Component {
     if (this.state.tapped) {
       return (
         <View style={{flex: 4, paddingTop: 20}}>
-          <TaskList tasks={tasks} style={{width: 260, flex: 1}} />
+          <TaskList navigator={this.props.navigator} tasks={tasks} style={{flex: 1}} />
         </View>)
     }
   }

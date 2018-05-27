@@ -1,9 +1,10 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { Badge } from 'react-native-elements'
 import { Styles } from '../constants/styles'
 import { Colors } from '../constants/colors'
 import { randomInt } from '../utils/random'
+import { Screens } from '../constants/screens'
 
 export class TaskListItem extends React.Component {
   constructor (props) {
@@ -13,27 +14,40 @@ export class TaskListItem extends React.Component {
 
   render () {
     return (
-      <View style={this.props.style}>
-        <View>
-          <Text style={styles.titleStyle}>
-            {this.props.item.title}
-          </Text>
-          <Text style={styles.subtitleStyle}>
-            {this.props.item.subtitle}
-          </Text>
+      <TouchableOpacity onPress={() => this.showTask()}>
+        <View style={this.props.style}>
+          <View>
+            <Text numberOfLines={1} style={styles.titleStyle}>
+              {this.props.item.title}
+            </Text>
+            <Text style={styles.subtitleStyle}>
+              {this.props.item.subtitle}
+            </Text>
+          </View>
+          <View>
+            <Badge value={this.state.notes} containerStyle={styles.firstBadgeStyle} textStyle={styles.badgeTextStyle} />
+            <Badge value={this.state.actions} containerStyle={styles.secondBadgeStyle} textStyle={styles.badgeTextStyle} />
+          </View>
         </View>
-        <View>
-          <Badge value={this.state.notes} containerStyle={styles.firstBadgeStyle} textStyle={styles.badgeTextStyle} />
-          <Badge value={this.state.actions} containerStyle={styles.secondBadgeStyle} textStyle={styles.badgeTextStyle} />
-        </View>
-      </View>
+      </TouchableOpacity>
+    )
+  }
+
+  showTask = () => {
+    return (
+      this.props.navigator.push({
+        screen: Screens.ConcreteTask.screen
+      })
     )
   }
 }
 
 const styles = StyleSheet.create({
   titleStyle: {
+    flex: 1,
+    maxWidth: '85%',
     fontSize: 22,
+    paddingTop: 5,
     color: Colors.TextPrimary,
     fontFamily: Styles.fonts.RobotoLight
   },

@@ -30,5 +30,9 @@ export const Screens = {
   CreateAccount: {
     screen: 'CreateAccountScreen',
     title: 'New account'
+  },
+  ConcreteTask: {
+    screen: 'ConcreteTaskScreen',
+    title: 'Task details'
   }
 }

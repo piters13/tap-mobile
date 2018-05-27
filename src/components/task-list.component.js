@@ -13,7 +13,7 @@ export class TaskList extends React.Component {
           ItemSeparatorComponent={Separator}
           renderItem={({item}) => (
             <View>
-              <TaskListItem item={item} style={styles.listItemStyle} />
+              <TaskListItem navigator={this.props.navigator} item={item} style={styles.listItemStyle} />
             </View>
           )} />
         <Separator />
