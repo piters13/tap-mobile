@@ -8,6 +8,7 @@ import { SettingsScreen } from './settings.screen'
 import { AvailableDevicesScreen } from './available-devices.screen'
 import { CreateAccountScreen } from './create-account.screen'
 import { MainScreen } from './main.screen'
+import { DashboardScreen } from './dashboard.screen'
 
 const screens = [
   {screen: Screens.Main.screen, component: MainScreen},
@@ -18,6 +19,7 @@ const screens = [
   {screen: Screens.CreateTask.screen, component: CreateTaskScreen},
   {screen: Screens.Settings.screen, component: SettingsScreen},
   {screen: Screens.AvailableDevices.screen, component: AvailableDevicesScreen},
+  {screen: Screens.Dashboard.screen, component: DashboardScreen}
 ]
 
 export function registerScreens (store, Provider, rootNavigation) {

@@ -41,7 +41,8 @@ export class Profile extends React.Component {
       'Are you sure you want to logout?', '',
       [
         {
-          text: 'Yes', onPress: () => {
+          text: 'Yes',
+          onPress: () => {
             initPublicApp()
             this.props.AuthStore.logout()
           }

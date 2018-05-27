@@ -27,7 +27,7 @@
     "graphql-tag": "^2.8.0",
     "mobx": "^3.3.1",
     "mobx-react": "^4.3.4",
-    "rambda": "^1.0.13",
+    "ramda": "^0.25.0",
     "react": "16.2.0",
     "react-apollo": "^2.1.2",
     "react-native": "0.55.3",

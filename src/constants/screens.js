@@ -30,5 +30,9 @@ export const Screens = {
   CreateAccount: {
     screen: 'CreateAccountScreen',
     title: 'New account'
+  },
+  Dashboard: {
+    screen: 'DashboardScreen',
+    title: 'Dashboard'
   }
 }

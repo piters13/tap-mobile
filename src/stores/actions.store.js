@@ -2,15 +2,15 @@ import { action, observable } from 'mobx'
 import { apolloClient } from '../../App'
 import { gql } from 'apollo-boost'
 
-export class TasksStore {
-  @observable tasks = []
+export class ActionsStore {
+  @observable actions = []
 
-  @action fetchTasks = () => {
+  @action fetchActions = () => {
     apolloClient.query({
-      query: gql`query { me { tasks { id, title } } }`,
+      query: gql`query { me { actions { type, createdAt } } }`,
       fetchPolicy: 'network-only'
     }).then(resp => {
-      this.tasks = resp.data.me.tasks
+      this.actions = resp.data.me.actions
     })
   }
 }
