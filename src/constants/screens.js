@@ -34,5 +34,9 @@ export const Screens = {
   ConcreteTask: {
     screen: 'ConcreteTaskScreen',
     title: 'Task details'
+  },
+  Actions: {
+    screen: 'ActionsScreen',
+    title: 'Actions'
   }
 }
