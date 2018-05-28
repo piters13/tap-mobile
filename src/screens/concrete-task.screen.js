@@ -8,14 +8,11 @@ import { NotesList } from '../components/notes-list.component'
 import { ActionsList } from '../components/actions-list-component'
 import { notesListMock } from '../data/notes-list-mock'
 import { actionsListMock } from '../data/actions-list-mock'
-import { randomInt } from '../utils/random'
 
 export class ConcreteTaskScreen extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      notes: randomInt(0, 10),
-      actions: randomInt(0, 40),
       type: 'notes'
     }
   }
@@ -29,8 +26,8 @@ export class ConcreteTaskScreen extends React.Component {
             <TouchableHighlight underlayColor={'transparent'} onPress={() => this.setState({type: 'notes'})}
               style={this.state.type === 'notes' ? styles.activeNotes : styles.touchableStyle} >
               <View style={{alignItems: 'center'}}>
-                <Text>Notes</Text>
-                <Badge value={this.state.notes}
+                <Text style={{fontFamily: Styles.fonts.RobotoLight}}>Notes</Text>
+                <Badge value={this.props.notes}
                   containerStyle={styles.firstBadgeStyle}
                   textStyle={styles.badgeTextStyle} />
               </View>
@@ -38,8 +35,8 @@ export class ConcreteTaskScreen extends React.Component {
             <TouchableHighlight underlayColor={'transparent'} onPress={() => this.setState({type: 'actions'})}
               style={this.state.type === 'notes' ? styles.touchableStyle : styles.activeActions} >
               <View style={{alignItems: 'center'}}>
-                <Text>Actions</Text>
-                <Badge value={this.state.actions}
+                <Text style={{fontFamily: Styles.fonts.RobotoLight}}>Actions</Text>
+                <Badge value={this.props.actions}
                   containerStyle={styles.secondBadgeStyle}
                   textStyle={styles.badgeTextStyle} />
               </View>

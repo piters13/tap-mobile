@@ -38,7 +38,9 @@ export class TaskListItem extends React.Component {
       this.props.navigator.push({
         screen: Screens.ConcreteTask.screen,
         passProps: {
-          title: this.props.item.title
+          title: this.props.item.title,
+          notes: this.state.notes,
+          actions: this.state.actions
         }
       })
     )
