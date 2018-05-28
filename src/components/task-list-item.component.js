@@ -36,7 +36,10 @@ export class TaskListItem extends React.Component {
   showTask = () => {
     return (
       this.props.navigator.push({
-        screen: Screens.ConcreteTask.screen
+        screen: Screens.ConcreteTask.screen,
+        passProps: {
+          title: this.props.item.title
+        }
       })
     )
   }
@@ -45,7 +48,7 @@ export class TaskListItem extends React.Component {
 const styles = StyleSheet.create({
   titleStyle: {
     flex: 1,
-    maxWidth: '85%',
+    maxWidth: 200,
     fontSize: 22,
     paddingTop: 5,
     color: Colors.TextPrimary,

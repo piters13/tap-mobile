@@ -24,7 +24,7 @@ export class ConcreteTaskScreen extends React.Component {
     return (
       <View style={styles.container}>
         <View style={{flex: 1, width: Styles.baseWidth}}>
-          <Header title={`Temp title`} subtitle={`Temp subtitle`} />
+          <Header title={this.props.title} />
           <View style={{justifyContent: 'space-between', flexDirection: 'row'}}>
             <TouchableHighlight underlayColor={'transparent'} onPress={() => this.setState({type: 'notes'})}
               style={this.state.type === 'notes' ? styles.activeNotes : styles.touchableStyle} >
