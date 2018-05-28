@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import { Header } from '../components/header.component'
 import { DevicesList } from '../components/devices-list.component'
 import { Styles } from '../constants/styles'
@@ -16,7 +16,8 @@ export class AvailableDevicesScreen extends React.Component {
       bleState: null,
       scanning: false,
       devices: [],
-      connecting: null
+      connecting: null,
+      stopTimeout: null
     }
 
     this.startScan()
@@ -25,6 +26,10 @@ export class AvailableDevicesScreen extends React.Component {
   componentWillUnmount () {
     if (this.state.scanning) {
       this.props.BleStore.bleManager.stopDeviceScan()
+    }
+
+    if (this.state.stopTimeout) {
+      clearTimeout(this.state.stopTimeout)
     }
   }
 
@@ -122,9 +127,12 @@ export class AvailableDevicesScreen extends React.Component {
           }
         })
 
-        setTimeout(() => {
+        const stopTimeout = setTimeout(() => {
           this.stopScan()
+          this.setState({stopTimeout: null})
         }, 30000)
+
+        this.setState({stopTimeout})
       }
     }, true)
   }

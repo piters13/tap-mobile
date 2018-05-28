@@ -14,6 +14,7 @@ export class AuthStore {
     if (token) {
       this.token = token
       this.isLogged = true
+      this.fetchUser()
     }
   }
 
@@ -50,6 +51,8 @@ export class AuthStore {
         AsyncStorage.setItem('token', this.token)
 
         resolve()
+
+        this.fetchUser()
       } catch (e) {
         reject({status: 'error', message: e.message})
       }

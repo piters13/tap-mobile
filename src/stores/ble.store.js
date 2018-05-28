@@ -59,11 +59,15 @@ export class BleStore {
   }
 
   _startPingSubscription () {
-    this.pingSubscription = setInterval(() => this.send('1'), this.settings.interval * 60000)
+    if (this.state === ConnectionState.Connected) {
+      this.pingSubscription = setInterval(() => this.send('1'), this.settings.interval * 60000)
+    }
   }
 
   _stopPingSubscription () {
-    clearInterval(this.pingSubscription)
-    this.pingSubscription = null
+    if (this.pingSubscription) {
+      clearInterval(this.pingSubscription)
+      this.pingSubscription = null
+    }
   }
 }
