@@ -31,7 +31,7 @@
     "rambda": "^1.0.13",
     "react": "16.2.0",
     "react-apollo": "^2.1.2",
-    "react-native": "0.55.3",
+    "react-native": "^0.55.4",
     "react-native-action-button": "^2.8.4",
     "react-native-ble-plx": "^0.8.0",
     "react-native-elements": "^0.19.1",
@@ -39,6 +39,8 @@
     "react-native-modal": "^5.4.0",
     "react-native-modal-datetime-picker": "^5.1.0",
     "react-native-navigation": "^1.1.426",
+    "react-native-svg": "^6.3.1",
+    "react-native-svg-charts": "^5.0.0",
     "react-native-tag-select": "^2.0.0",
     "react-native-vector-icons": "^4.6.0",
     "standard": "^11.0.1"
