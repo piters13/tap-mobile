@@ -5,16 +5,11 @@ import { Separator } from './separator.component'
 import { Colors } from '../constants/colors'
 import { Styles } from '../constants/styles'
 import { Screens } from '../constants/screens'
-import { ConnectionState } from '../constants/enums/connection-state'
+import { inject, observer } from 'mobx-react'
+import { ConnectionState } from '../stores/ble.store'
 
+@inject('BleStore') @observer
 export class Device extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      connectionState: ConnectionState.Detached
-    }
-  }
-
   render () {
     return (
       <View style={{paddingTop: 5}}>
@@ -26,8 +21,10 @@ export class Device extends React.Component {
   }
 
   createDeviceAttachmentSetting = () => {
-    const buttonTitle = this.state.connectionState === ConnectionState.Detached ? 'DETACH' : 'SCAN'
-    const deviceInfo = this.state.connectionState === ConnectionState.Detached ? 'I am connected!' : 'No device connected'
+    const connection = this.props.BleStore.state
+
+    const buttonTitle = connection === ConnectionState.Connected ? 'DETACH' : 'SCAN'
+    const deviceInfo = connection === ConnectionState.Connected ? 'I am connected!' : 'No device connected'
     return (
       <View style={styles.itemStyle}>
         <Text style={styles.itemTextStyle}>{deviceInfo}</Text>
@@ -44,7 +41,7 @@ export class Device extends React.Component {
 
   toggleDeviceConnection = () => {
     return (
-      this.state.connectionState === ConnectionState.Detached
+      this.props.BleStore.state === ConnectionState.Connected
         ? () => this.detachDevice()
         : () => this.attachDevice()
     )
@@ -54,7 +51,7 @@ export class Device extends React.Component {
     Alert.alert(
       'Are you sure you want to detach the device?', '',
       [
-        {text: 'Yes', onPress: () => this.setState({connectionState: ConnectionState.Attached})},
+        {text: 'Yes', onPress: () => this.props.BleStore.disconnect()},
         {text: 'No', onPress: () => {}, style: 'cancel'}
       ]
     )

@@ -7,6 +7,7 @@ import { stores } from './src/stores'
 import { ApiUrl } from './src/constants/config'
 import { Screens } from './src/constants/screens'
 import { appStyle, NavigationTabs } from './src/constants/navigation'
+import { BleManager } from 'react-native-ble-plx'
 
 Object.setPrototypeOf = Object.setPrototypeOf || function (obj, proto) {
   obj.__proto__ = proto

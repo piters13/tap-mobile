@@ -5,8 +5,11 @@ import { Colors } from '../constants/colors'
 import { Styles } from '../constants/styles'
 import { Separator } from './separator.component'
 import Modal from 'react-native-modal'
+import { inject, observer } from 'mobx-react'
 
 const intervals = [
+  {value: 0.1, shortLabel: '6s (DEV)', label: '6 seconds (DEV)'},
+  {value: 0.5, shortLabel: '30s (DEV)', label: '30 seconds (DEV)'},
   {value: 15, shortLabel: '15 min', label: '15 minutes'},
   {value: 30, shortLabel: '30 min', label: '30 minutes'},
   {value: 45, shortLabel: '45 min', label: '45 minutes'},
@@ -14,11 +17,12 @@ const intervals = [
   {value: 90, shortLabel: '1:30h', label: '1 hour 30 minutes'},
   {value: 120, shortLabel: '2h', label: '2 hours'}]
 
+@inject('BleStore') @observer
 export class IntervalPicker extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      interval: intervals.find(x => x.value === 30),
+      interval: intervals.find(x => x.value === 0.5),
       isModalVisible: false
     }
   }
@@ -43,15 +47,20 @@ export class IntervalPicker extends React.Component {
           <View style={styles.modalContent}>
             <FlatList
               ListHeaderComponent={
-                <Text style={{fontSize: 20, fontFamily: Styles.fonts.RobotoBold, paddingBottom: 10, color: Colors.TextPrimary}}>
+                <Text style={{
+                  fontSize: 20,
+                  fontFamily: Styles.fonts.RobotoBold,
+                  paddingBottom: 10,
+                  color: Colors.TextPrimary
+                }}>
                   Ping me every...
                 </Text>}
               ItemSeparatorComponent={Separator}
               data={intervals}
-              renderItem={({ item }) => (
+              renderItem={({item}) => (
                 this.renderRow(item)
               )}
-              keyExtractor={(item, index) => index}
+              keyExtractor={(item) => item.shortLabel}
             />
           </View>
           <View style={styles.modalFooter}>
@@ -78,7 +87,7 @@ export class IntervalPicker extends React.Component {
   }
 
   toggleModal = () =>
-    this.setState({ isModalVisible: !this.state.isModalVisible });
+    this.setState({isModalVisible: !this.state.isModalVisible})
 
   fadeInEntry = () => {
     return {
@@ -95,13 +104,19 @@ export class IntervalPicker extends React.Component {
   renderRow = (item) => {
     return (
       <TouchableOpacity
-        onPress={() => this.setState({interval: item})}
+        onPress={() => this.changeInterval(item)}
         style={styles.modalItem}>
         {item.value === this.state.interval.value
           ? <Text style={{fontSize: 16, fontFamily: Styles.fonts.RobotoBold, color: Colors.Primary}}>{item.label}</Text>
-          : <Text style={{fontSize: 16, fontFamily: Styles.fonts.RobotoLight, color: Colors.TextPrimary}}>{item.label}</Text>}
+          : <Text
+            style={{fontSize: 16, fontFamily: Styles.fonts.RobotoLight, color: Colors.TextPrimary}}>{item.label}</Text>}
       </TouchableOpacity>
     )
+  }
+
+  changeInterval (interval) {
+    this.props.BleStore.changeInterval(interval.value)
+    this.setState({interval})
   }
 }
 

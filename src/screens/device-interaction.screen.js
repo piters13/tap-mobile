@@ -7,11 +7,12 @@ import { Styles } from '../constants/styles'
 import { inject, observer } from 'mobx-react'
 import { toJS } from 'mobx'
 
-@inject('TasksStore') @observer
+@inject('TasksStore', 'BleStore') @observer
 export class DeviceInteractionScreen extends React.Component {
-  constructor () {
-    super()
-    this.state = {tapped: true}
+  constructor (props) {
+    super(props)
+
+    this.state = {tapped: !!(this.props && this.props.tapped)}
   }
 
   get buttonLabel () {
