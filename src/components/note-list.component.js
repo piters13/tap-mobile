@@ -1,6 +1,6 @@
 import React from 'react'
 import { FlatList, StyleSheet, View } from 'react-native'
-import { NotesListItem } from '../components/notes-list-item.component'
+import { NotesListItem } from '../components/note-list-item.component'
 import { Separator } from '../components/separator.component'
 
 export class NotesList extends React.Component {

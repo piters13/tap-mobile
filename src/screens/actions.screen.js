@@ -10,7 +10,7 @@ export class ActionsScreen extends React.Component {
     return (
       <View style={styles.container}>
         <View style={{flex: 1, width: Styles.baseWidth}}>
-          <Header title={`Tasks`} subtitle={`Updated 5 mins ago`} />
+          <Header title={`Actions`} />
           <ActionsList actions={actionsListMock} style={{marginBottom: 70, flex: 1}} />
         </View>
       </View>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { Header } from '../components/header.component'
-import { DevicesList } from '../components/devices-list.component'
+import { DevicesList } from '../components/device-list.component'
 import { devicesListMock } from '../data/devices-list-mock'
 import { Styles } from '../constants/styles'
 

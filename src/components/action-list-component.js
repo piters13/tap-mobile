@@ -1,6 +1,6 @@
 import React from 'react'
 import { FlatList, StyleSheet, View } from 'react-native'
-import { ActionsListItem } from '../components/actions-list-item.component'
+import { ActionsListItem } from '../components/action-list-item.component'
 import { Separator } from '../components/separator.component'
 
 export class ActionsList extends React.Component {
