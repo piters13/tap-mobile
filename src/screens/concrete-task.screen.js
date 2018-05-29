@@ -86,7 +86,10 @@ export class ConcreteTaskScreen extends React.Component {
   goNewNote = () => {
     return (
       this.props.navigator.push({
-        screen: Screens.NewNote.screen
+        screen: Screens.NewNote.screen,
+        passProps: {
+          title: this.props.title
+        }
       })
     )
   }

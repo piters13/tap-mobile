@@ -13,7 +13,7 @@ export class NotesList extends React.Component {
             <View>
               <NotesListItem item={item} index={index} style={styles.listItemStyle} />
             </View>
-          )} keyExtractor={item => item.id} />
+          )} keyExtractor={item => item.id.toString()} />
         <Separator />
       </View>
     )
