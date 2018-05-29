@@ -38,5 +38,9 @@ export const Screens = {
   Actions: {
     screen: 'ActionsScreen',
     title: 'Actions'
+  },
+  NewNote: {
+    screen: 'NewNoteScreen',
+    title: 'New note'
   }
 }

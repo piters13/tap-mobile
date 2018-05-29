@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet, View, TouchableHighlight, Text } from 'react-native'
 import { Header } from '../components/header.component'
+import { Screens } from '../constants/screens'
 import { Colors } from '../constants/colors'
 import { Styles } from '../constants/styles'
 import { Button, Badge } from 'react-native-elements'
@@ -70,7 +71,7 @@ export class ConcreteTaskScreen extends React.Component {
         <View style={{position: 'absolute', width: '100%', bottom: 20, height: 65, alignItems: 'center', justifyContent: 'center'}}>
           <Button
             backgroundColor={Colors.Primary}
-            onPress={() => {}}
+            onPress={() => { this.goNewNote() }}
             fontSize={24}
             buttonStyle={{width: 65, height: 65}}
             title='+'
@@ -80,6 +81,14 @@ export class ConcreteTaskScreen extends React.Component {
         </View>
       )
     }
+  }
+
+  goNewNote = () => {
+    return (
+      this.props.navigator.push({
+        screen: Screens.NewNote.screen
+      })
+    )
   }
 }
 
