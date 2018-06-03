@@ -6,50 +6,30 @@ import { PieChart } from 'react-native-svg-charts'
 @inject('ActionsStore') @observer
 export class DailyActivityChart extends React.Component {
   render () {
-    const data = [
-      {
-        key: 1,
-        value: 50,
-        svg: { fill: '#600080' },
-        arc: { outerRadius: '130%', cornerRadius: 10 }
-      },
-      {
-        key: 2,
-        value: 50,
-        svg: { fill: '#9900cc' }
-      },
-      {
-        key: 3,
-        value: 40,
-        svg: { fill: '#c61aff' }
-      },
-      {
-        key: 4,
-        value: 95,
-        svg: { fill: '#d966ff' }
-      },
-      {
-        key: 5,
-        value: 35,
-        svg: { fill: '#ecb3ff' }
-      }
-    ]
+    // let actionsCount = this.getActionsCount()
+
+    // let data = [ actionsCount.restActionsCount, actionsCount.workActionsCount ]
+    const data = [3, 5]
+    const randomColor = () => ('#' + (Math.random() * 0xFFFFFF << 0).toString(16) + '000000').slice(0, 7)
+
+    const pieData = data
+      .filter(value => value > 0)
+      .map((value, index) => ({
+        value,
+        svg: {
+          fill: randomColor(),
+          onPress: () => console.log('press', index)
+        },
+        key: `pie-${index}`
+      }))
 
     return (
       <PieChart
         style={{ height: 200 }}
-        outerRadius={'70%'}
-        innerRadius={10}
-        data={data}
+        data={pieData}
       />
     )
   }
-  // const actionsCount = this.getActionsCount()
-  // actionsCount.restActionsCount
-  // const data = [
-  //   {name: 'Activity', value: 19},
-  //   {name: 'Rest', value: 4}
-  // ]
 
   getActionsCount () {
     const actions = this.props.ActionsStore.actions

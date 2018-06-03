@@ -7,7 +7,7 @@ export class ActionsStore {
 
   @action fetchActions = () => {
     apolloClient.query({
-      query: gql`query { me { actions { type, createdAt } } }`,
+      query: gql`query { me { tasks {actions { type, createdAt } } } }`,
       fetchPolicy: 'network-only'
     }).then(resp => {
       this.actions = resp.data.me.actions
