@@ -9,6 +9,10 @@ export const Screens = {
   },
   Tasks: {
     screen: 'TasksScreen',
+    title: 'Tasks'
+  },
+  Dashboard: {
+    screen: 'DashboardScreen',
     title: 'Dashboard'
   },
   Settings: {
