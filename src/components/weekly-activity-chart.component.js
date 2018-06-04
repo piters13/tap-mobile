@@ -57,8 +57,4 @@ export class WeeklyActivityChart extends React.Component {
       return new Date(e.CreatedAt)
     })))
   }
-
-  greaterThanOrEqual (a, b) {
-    return a >= b
-  }
 }
