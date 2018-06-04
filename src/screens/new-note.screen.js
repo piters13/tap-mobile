@@ -34,36 +34,40 @@ export class NewNoteScreen extends React.Component {
               {this.showCurrentDate()}
             </View>
             <Header title={this.props.title} style={{paddingBottom: 0, paddingTop: 0}} />
-            <FormLabel fontFamily={Styles.fonts.RobotoMedium} labelStyle={styles.formLabelStyle}>Title</FormLabel>
-            <FormInput
-              blurOnSubmit={false}
-              onSubmitEditing={() => {
-                this.inputs.noteContent.focus()
-              }}
-              returnKeyType={'next'}
-              ref={input => { this.inputs.noteTitle = input }}
-              containerStyle={styles.containerInputStyle}
-              inputStyle={styles.formInputStyle}
-              onChangeText={(title) => this.setState({noteTitle: title})}
-              value={this.state.noteTitle.value}
-              placeholder="What's your note about?"
-              autoCapitalize='none'
-              underlineColorAndroid='transparent'
-            />
-            <FormLabel fontFamily={Styles.fonts.RobotoMedium} labelStyle={styles.formLabelStyle}>Content</FormLabel>
-            <FormInput multiline
-              blurOnSubmit={false}
-              onSubmitEditing={() => {}}
-              ref={input => { this.inputs.noteContent = input }}
-              containerStyle={styles.containerInputStyle}
-              inputStyle={styles.formContentInputStyle}
-              onChangeText={(note) => this.setState({noteContent: note})}
-              value={this.state.noteContent.value}
-              autoCapitalize='none'
-              placeholder='Write something awesome...'
-              underlineColorAndroid='transparent' />
 
-            <View style={{position: 'absolute', width: '100%', bottom: 20, alignItems: 'center', justifyContent: 'center'}}>
+            <View style={{flex: 1}}>
+              <FormLabel fontFamily={Styles.fonts.RobotoMedium} labelStyle={styles.formLabelStyle}>Title</FormLabel>
+              <FormInput
+                blurOnSubmit={false}
+                onSubmitEditing={() => {
+                  this.inputs.noteContent.focus()
+                }}
+                returnKeyType={'next'}
+                ref={input => { this.inputs.noteTitle = input }}
+                containerStyle={styles.containerInputStyle}
+                inputStyle={styles.formInputStyle}
+                onChangeText={(title) => this.setState({noteTitle: title})}
+                value={this.state.noteTitle.value}
+                placeholder="What's your note about?"
+                autoCapitalize='none'
+                underlineColorAndroid='transparent'
+              />
+
+              <FormLabel fontFamily={Styles.fonts.RobotoMedium} labelStyle={styles.formLabelStyle}>Content</FormLabel>
+              <FormInput multiline
+                blurOnSubmit={false}
+                onSubmitEditing={() => {}}
+                ref={input => { this.inputs.noteContent = input }}
+                containerStyle={styles.containerInputStyle}
+                inputStyle={styles.formContentInputStyle}
+                onChangeText={(note) => this.setState({noteContent: note})}
+                value={this.state.noteContent.value}
+                autoCapitalize='none'
+                placeholder='Write something awesome...'
+                underlineColorAndroid='transparent' />
+            </View>
+
+            <View style={{width: '100%', bottom: 20, alignItems: 'center', justifyContent: 'center'}}>
               <Button
                 onPress={() => {}}
                 backgroundColor='#DCDCDC'
@@ -140,7 +144,6 @@ const styles = StyleSheet.create({
     marginLeft: 0,
     marginRight: 0,
     fontSize: 15,
-    height: 170,
     fontFamily: Styles.fonts.Roboto,
     color: Colors.TextPrimary,
     textAlignVertical: 'top'
