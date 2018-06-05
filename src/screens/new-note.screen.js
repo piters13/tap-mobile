@@ -35,24 +35,24 @@ export class NewNoteScreen extends React.Component {
             </View>
             <Header title={this.props.title} style={{paddingBottom: 0, paddingTop: 0}} />
 
-            <View style={{flex: 1}}>
-              <FormLabel fontFamily={Styles.fonts.RobotoMedium} labelStyle={styles.formLabelStyle}>Title</FormLabel>
-              <FormInput
-                blurOnSubmit={false}
-                onSubmitEditing={() => {
-                  this.inputs.noteContent.focus()
-                }}
-                returnKeyType={'next'}
-                ref={input => { this.inputs.noteTitle = input }}
-                containerStyle={styles.containerInputStyle}
-                inputStyle={styles.formInputStyle}
-                onChangeText={(title) => this.setState({noteTitle: title})}
-                value={this.state.noteTitle.value}
-                placeholder="What's your note about?"
-                autoCapitalize='none'
-                underlineColorAndroid='transparent'
-              />
+            <FormLabel fontFamily={Styles.fonts.RobotoMedium} labelStyle={styles.formLabelStyle}>Title</FormLabel>
+            <FormInput
+              blurOnSubmit={false}
+              onSubmitEditing={() => {
+                this.inputs.noteContent.focus()
+              }}
+              returnKeyType={'next'}
+              ref={input => { this.inputs.noteTitle = input }}
+              containerStyle={styles.containerInputStyle}
+              inputStyle={styles.formInputStyle}
+              onChangeText={(title) => this.setState({noteTitle: title})}
+              value={this.state.noteTitle.value}
+              placeholder="What's your note about?"
+              autoCapitalize='none'
+              underlineColorAndroid='transparent'
+            />
 
+            <View style={{flex: 1}}>
               <FormLabel fontFamily={Styles.fonts.RobotoMedium} labelStyle={styles.formLabelStyle}>Content</FormLabel>
               <FormInput multiline
                 blurOnSubmit={false}
@@ -67,7 +67,7 @@ export class NewNoteScreen extends React.Component {
                 underlineColorAndroid='transparent' />
             </View>
 
-            <View style={{width: '100%', bottom: 20, alignItems: 'center', justifyContent: 'center'}}>
+            <View style={{width: '100%', marginBottom: 20, marginTop: 20, alignItems: 'center', justifyContent: 'center'}}>
               <Button
                 onPress={() => {}}
                 backgroundColor='#DCDCDC'
@@ -160,6 +160,7 @@ const styles = StyleSheet.create({
   containerInputStyle: {
     marginLeft: 0,
     paddingLeft: 0,
-    marginRight: 0
+    marginRight: 0,
+    height: 'auto'
   }
 })
