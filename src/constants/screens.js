@@ -42,5 +42,9 @@ export const Screens = {
   NewNote: {
     screen: 'NewNoteScreen',
     title: 'New note'
+  },
+  ConcreteNote: {
+    screen: 'ConcreteNoteScreen',
+    title: 'Note content'
   }
 }

@@ -11,7 +11,7 @@ export class NotesList extends React.Component {
         <FlatList data={this.props.notes} ItemSeparatorComponent={Separator}
           renderItem={({item, index}) => (
             <View>
-              <NotesListItem item={item} index={index} style={styles.listItemStyle} />
+              <NotesListItem title={this.props.title} navigator={this.props.navigator} item={item} index={index} style={styles.listItemStyle} />
             </View>
           )} keyExtractor={item => item.id.toString()} />
         <Separator />

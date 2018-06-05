@@ -55,7 +55,7 @@ export class ConcreteTaskScreen extends React.Component {
 
   showNotesList = () => {
     return (
-      <NotesList notes={notesListMock} style={{marginBottom: 70, flex: 1}} />
+      <NotesList title={this.props.title} navigator={this.props.navigator} notes={notesListMock} style={{marginBottom: 70, flex: 1}} />
     )
   }
 

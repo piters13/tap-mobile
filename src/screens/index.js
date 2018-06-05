@@ -11,6 +11,7 @@ import { MainScreen } from './main.screen'
 import { ConcreteTaskScreen } from './concrete-task.screen'
 import { ActionsScreen } from './actions.screen'
 import { NewNoteScreen } from './new-note.screen'
+import { ConcreteNoteScreen } from './concrete-note.screen'
 
 const screens = [
   {screen: Screens.Main.screen, component: MainScreen},
@@ -23,7 +24,8 @@ const screens = [
   {screen: Screens.AvailableDevices.screen, component: AvailableDevicesScreen},
   {screen: Screens.ConcreteTask.screen, component: ConcreteTaskScreen},
   {screen: Screens.Actions.screen, component: ActionsScreen},
-  {screen: Screens.NewNote.screen, component: NewNoteScreen}
+  {screen: Screens.NewNote.screen, component: NewNoteScreen},
+  {screen: Screens.ConcreteNote.screen, component: ConcreteNoteScreen}
 ]
 
 export function registerScreens (store, Provider, rootNavigation) {
