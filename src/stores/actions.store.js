@@ -7,17 +7,21 @@ export class ActionsStore {
 
   @action fetchActions () {
     apolloClient.query({
-      query: gql`query { me { actions { id, type, task { id } } } }`
+      query: gql`query { me { actions { id, type, task { id }, createdAt } } }`
+    }).then(res => {
+      if (res.data) {
+        this.actions = res.data.me.actions
+      }
     })
   }
 
   @action createAction (type) {
-    apolloClient.mutation({
-      query: gql`mutation createAction($type: Int!) { createAction(action: {type: $type}) { id, type, task { id } } }`,
+    apolloClient.mutate({
+      mutation: gql`mutation createAction($type: Int!) { createAction(action: {type: $type}) { id, type, task { id }, createdAt } }`,
       variables: {type}
     }).then((res) => {
-      if (res.data.action) {
-        this.actions.concat([res.data.action])
+      if (res.data) {
+        this.actions = this.actions.concat([res.data.createAction])
       }
     })
   }

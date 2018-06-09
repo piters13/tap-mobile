@@ -20,7 +20,7 @@ export const NavigationTabs = [
   },
   {
     label: 'Actions',
-    screen: Screens.DeviceInteraction.screen,
+    screen: Screens.Actions.screen,
     icon: Icons.Connection
   },
   {

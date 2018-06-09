@@ -38,5 +38,9 @@ export const Screens = {
   ClickNotification: {
     screen: 'ClickNotificationScreen',
     title: 'Clicker clicked'
+  },
+  Actions: {
+    screen: 'ActionsScreen',
+    title: 'Actions'
   }
 }
