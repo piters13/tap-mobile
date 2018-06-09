@@ -1,13 +1,14 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { Header } from '../components/header.component'
-import { DevicesList } from '../components/devices-list.component'
+import { DevicesList } from '../components/device-list.component'
 import { Styles } from '../constants/styles'
 import { Colors } from '../constants/colors'
 import { inject, observer } from 'mobx-react'
 import { Screens } from '../constants/screens'
+import { ActionTypes } from '../constants/action-types'
 
-@inject('BleStore') @observer
+@inject('BleStore', 'ActionsStore') @observer
 export class AvailableDevicesScreen extends React.Component {
   constructor (props) {
     super(props)
@@ -84,11 +85,15 @@ export class AvailableDevicesScreen extends React.Component {
               passProps: {tapped: true},
               autoDismissTimerSec: 10
             })
+
+            this.props.ActionsStore.createAction(ActionTypes.Working)
           } else if (value === '2') {
             this.props.navigator.showInAppNotification({
               screen: Screens.ClickNotification.screen,
               autoDismissTimerSec: 10
             })
+
+            this.props.ActionsStore.createAction(ActionTypes.Resting)
           }
         })
 

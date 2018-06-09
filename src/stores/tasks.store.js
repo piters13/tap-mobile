@@ -7,10 +7,20 @@ export class TasksStore {
 
   @action fetchTasks = () => {
     apolloClient.query({
-      query: gql`query { me { tasks { id, title } } }`,
+      query: gql`query { me { tasks { id, title, actions { id, type, createdAt }, descriptions { id, title, value, createdAt } } } }`,
       fetchPolicy: 'network-only'
     }).then(resp => {
+      console.log(resp)
       this.tasks = resp.data.me.tasks
     })
+  }
+
+  @action addDescriptionToTask = (taskId, description) => {
+    for (let i in this.tasks) {
+      if (this.tasks[i].taskId === taskId) {
+        this.tasks[i].description = description
+        break
+      }
+    }
   }
 }

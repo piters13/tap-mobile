@@ -10,6 +10,10 @@ import { CreateAccountScreen } from './create-account.screen'
 import { MainScreen } from './main.screen'
 import { ClickNotificationScreen } from './click-notification.screen'
 import { DashboardScreen } from './dashboard.screen'
+import { ActionsScreen } from './actions.screen'
+import { ConcreteTaskScreen } from './concrete-task.screen'
+import { NewNoteScreen } from './new-note.screen'
+import { ConcreteNoteScreen } from './concrete-note.screen'
 
 const screens = [
   {screen: Screens.Main.screen, component: MainScreen},
@@ -21,7 +25,11 @@ const screens = [
   {screen: Screens.Settings.screen, component: SettingsScreen},
   {screen: Screens.AvailableDevices.screen, component: AvailableDevicesScreen},
   {screen: Screens.ClickNotification.screen, component: ClickNotificationScreen},
-  {screen: Screens.Dashboard.screen, component: DashboardScreen}
+  {screen: Screens.Dashboard.screen, component: DashboardScreen},
+  {screen: Screens.ConcreteTask.screen, component: ConcreteTaskScreen},
+  {screen: Screens.Actions.screen, component: ActionsScreen},
+  {screen: Screens.NewNote.screen, component: NewNoteScreen},
+  {screen: Screens.ConcreteNote.screen, component: ConcreteNoteScreen}
 ]
 
 export function registerScreens (store, Provider, rootNavigation) {

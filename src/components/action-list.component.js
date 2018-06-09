@@ -1,19 +1,26 @@
 import React from 'react'
 import { FlatList, StyleSheet, View } from 'react-native'
-import { TaskListItem } from '../components/task-list-item.component'
 import { Separator } from '../components/separator.component'
+import { ActionListItem } from './action-list-item.component'
 
-export class TaskList extends React.Component {
+export class ActionList extends React.Component {
+  constructor (props) {
+    super(props)
+    this.props.detailed = this.props.detailed || false
+  }
+
   render () {
     return (
       <View style={this.props.style}>
         <Separator />
-        <FlatList data={this.props.tasks}
+        <FlatList data={this.props.actions}
           keyExtractor={(item, index) => item.id}
           ItemSeparatorComponent={Separator}
           renderItem={({item}) => (
             <View>
-              <TaskListItem navigator={this.props.navigator} item={item} style={styles.listItemStyle} />
+              <ActionListItem item={item}
+                navigator={this.props.navigator}
+                style={styles.listItemStyle} />
             </View>
           )} />
         <Separator />
