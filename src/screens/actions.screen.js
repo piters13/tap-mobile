@@ -21,7 +21,7 @@ export class ActionsScreen extends React.Component {
       <View style={styles.container}>
         <View style={{flex: 1, width: Styles.baseWidth}}>
           <Header title={`Actions`} subtitle={`Updated 5 mins ago`} />
-          <ActionList actions={actions} style={{flex: 1, marginBottom: 70}} />
+          <ActionList actions={actions} style={{flex: 1, marginBottom: 70}} navigator={this.props.navigator}/>
         </View>
       </View>
     )

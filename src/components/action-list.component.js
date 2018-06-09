@@ -19,7 +19,7 @@ export class ActionList extends React.Component {
           renderItem={({item}) => (
             <View>
               <ActionListItem item={item}
-                navigation={this.props.navigation}
+                navigator={this.props.navigator}
                 style={styles.listItemStyle} />
             </View>
           )} />

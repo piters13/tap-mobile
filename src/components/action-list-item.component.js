@@ -22,7 +22,7 @@ export class ActionListItem extends React.Component {
   }
 
   modifyAction() {
-    this.props.navigation.showLightBox({
+    this.props.navigator.showLightBox({
       screen: Screens.DeviceInteraction.screen,
       props: {
         action: this.props.item
