@@ -1,17 +1,20 @@
 import React from 'react'
 import * as R from 'ramda'
-import { inject, observer } from 'mobx-react'
+import { Alert } from 'react-native'
 import { PieChart } from 'react-native-svg-charts'
 
-@inject('ActionsStore') @observer
 export class DailyActivityChart extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      workActionsCount: 0,
+      restActionsCount: 0
+    }
+  }
   render () {
-    // let actionsCount = this.getActionsCount()
-
-    // let data = [ actionsCount.restActionsCount, actionsCount.workActionsCount ]
-    const data = [3, 5]
+    const data = [ this.workActionsCount, this.workActionsCount ]
     const randomColor = () => ('#' + (Math.random() * 0xFFFFFF << 0).toString(16) + '000000').slice(0, 7)
-
+    // const colors = ['#ffa31a', '#66ff33']
     const pieData = data
       .filter(value => value > 0)
       .map((value, index) => ({
@@ -32,20 +35,15 @@ export class DailyActivityChart extends React.Component {
   }
 
   getActionsCount () {
-    const actions = this.props.ActionsStore.actions
-    const actionsByDay = R.groupBy(a => a.createdAt, actions)
-    const newestActions = R.filter(R.where({actionsByDay: R.contains(this.getLatestDay(actionsByDay))}))
-    const newestActionsByType = R.groupBy(a => a.type, newestActions)
+    const getDay = (date) => `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`
+    const today = getDay(new Date())
 
+    const actions = this.props.actions.filter(a => getDay(a) === today)
+    const actionsByType = R.groupBy(a => a.type, actions)
+    Alert.alert('Filtered actions' + actions)
     this.setState({
-      workActionsCount: newestActionsByType[0].length,
-      restActionsCount: newestActionsByType[1].length
+      workActionsCount: actionsByType[0].length,
+      restActionsCount: actionsByType[1].length
     })
-  }
-
-  getLatestDay (a) {
-    return new Date(Math.max.apply(null, a.map(function (e) {
-      return new Date(e.CreatedAt)
-    })))
   }
 }

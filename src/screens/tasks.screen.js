@@ -14,7 +14,7 @@ export class TasksScreen extends React.Component {
   constructor (props) {
     super(props)
 
-    props.TasksStore.fetchTasks()
+    this.props.TasksStore.fetchTasks()
   }
 
   render () {

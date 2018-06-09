@@ -1,23 +1,31 @@
 import React from 'react'
-import { StyleSheet, View, ScrollView, Text } from 'react-native'
+import { StyleSheet, View, ScrollView, Text, Alert } from 'react-native'
 import { Header } from '../components/header.component'
 import { Styles } from '../constants/styles'
 import { inject, observer } from 'mobx-react'
 import { DailyActivityChart } from '../components/daily-activity-chart.component'
 import { WeeklyActivityChart } from '../components/weekly-activity-chart.component'
-
-@inject('AuthStore') @observer
+import { toJS } from 'mobx'
+@inject('AuthStore', 'ActionsStore') @observer
 export class DashboardScreen extends React.Component {
+  constructor (props) {
+    super(props)
+
+    this.props.ActionsStore.fetchActions()
+  }
+
   render () {
+    const actions = toJS(this.props.ActionsStore.actions)
+    Alert.alert('Actions ' + actions)
     return (
       <View style={styles.container}>
         <View style={{flex: 1, width: Styles.baseWidth}}>
           <Header title={`Hi ` + this.props.AuthStore.user.firstname} />
           <ScrollView style={styles.componentsStyle}>
             <Text> Your weekly activities </Text>
-            <WeeklyActivityChart />
+            <WeeklyActivityChart actions={actions} />
             <Text> Your daily activities </Text>
-            <DailyActivityChart />
+            <DailyActivityChart actions={actions} />
           </ScrollView>
         </View>
       </View>

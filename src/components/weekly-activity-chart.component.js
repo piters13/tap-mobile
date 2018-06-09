@@ -1,15 +1,20 @@
 import React from 'react'
 import * as R from 'ramda'
-import { inject, observer } from 'mobx-react'
 import { View } from 'react-native'
 import { BarChart, Grid } from 'react-native-svg-charts'
 import { Text } from 'react-native-svg'
 
-@inject('ActionsStore') @observer
 export class WeeklyActivityChart extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      workActionsCount: 0,
+      restActionsCount: 0
+    }
+  }
   render () {
-    const data = [ 10, 5, 25, 15, 20, 7, 6 ]
-
+    const data = [ this.workActionsCount, this.workActionsCount ]
+    const data = [ 3, 4 ]
     const CUT_OFF = 20
     const Labels = ({ x, y, bandwidth, data }) => (
       data.map((value, index) => (
@@ -43,18 +48,36 @@ export class WeeklyActivityChart extends React.Component {
       </View>
     )
   }
-  getWeeklyActions () {
-    const actions = this.props.ActionsStore.actions
-    const sortByDate = R.reverse(R.sortBy(R.prop('createdAt'), actions))
-    const actionsByDay = R.groupBy(a => a.createdAt, sortByDate)
-    const last7days = R.take(7, actionsByDay)
 
-    return last7days
+  
+  getActionsCount () {
+    const getDay = (date) => `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`
+    const today = getDay(new Date())
+
+    const actions = this.props.actions.filter(a => getDay(a) === today)
+    const actionsByType = R.groupBy(a => a.type, actions)
+    Alert.alert('Filtered actions' + actions)
+    this.setState({
+      workActionsCount: actionsByType[0].length,
+      restActionsCount: actionsByType[1].length
+    })
   }
+}
 
-  getLatestDay (a) {
-    return new Date(Math.max.apply(null, a.map(function (e) {
-      return new Date(e.CreatedAt)
-    })))
+  getWeeklyActions () {
+    const getDay = (date) => `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`
+    const today = getDay(new Date())
+    const weekBeforeToday = new Date(today.getTime())
+    weekBeforeToday.setDate(today.getDate() - 7)
+    const actions = this.props.actions.filter(a => getDay(a) <= weekBeforeToday)
+
+    const sortByDate = R.reverse(R.sortBy(R.prop('createdAt'), actions))
+    const actionsByType = R.groupBy(a => a.type, actionsByDay)
+    const last7days = R.take(7, actionsByType)
+
+    this.setState({
+      workActionsCount: last7days[0].length,
+      restActionsCount: last7days[1].length
+    })
   }
 }
