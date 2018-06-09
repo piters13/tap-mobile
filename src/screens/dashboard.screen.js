@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, ScrollView, Text, Alert } from 'react-native'
+import { StyleSheet, View, ScrollView, Text } from 'react-native'
 import { Header } from '../components/header.component'
 import { Styles } from '../constants/styles'
 import { inject, observer } from 'mobx-react'
@@ -16,7 +16,6 @@ export class DashboardScreen extends React.Component {
 
   render () {
     const actions = toJS(this.props.ActionsStore.actions)
-    Alert.alert('Actions ' + actions)
     return (
       <View style={styles.container}>
         <View style={{flex: 1, width: Styles.baseWidth}}>

@@ -1,6 +1,5 @@
 import React from 'react'
 import * as R from 'ramda'
-import { Alert } from 'react-native'
 import { PieChart } from 'react-native-svg-charts'
 
 export class DailyActivityChart extends React.Component {
@@ -40,7 +39,6 @@ export class DailyActivityChart extends React.Component {
 
     const actions = this.props.actions.filter(a => getDay(a) === today)
     const actionsByType = R.groupBy(a => a.type, actions)
-    Alert.alert('Filtered actions' + actions)
     this.setState({
       workActionsCount: actionsByType[0].length,
       restActionsCount: actionsByType[1].length
