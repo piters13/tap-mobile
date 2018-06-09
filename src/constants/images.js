@@ -5,5 +5,6 @@ export const Images = {
 export const Icons = {
   Home: require('../../img/home.png'),
   Connection: require('../../img/connection.png'),
-  Cog: require('../../img/cog.png')
+  Cog: require('../../img/cog.png'),
+  Tasks: require('../../img/tasks.png')
 }

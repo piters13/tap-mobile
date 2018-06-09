@@ -6,39 +6,9 @@ import { Preferences } from '../components/preferences.component'
 import { Profile } from '../components/profile.component'
 import { Styles } from '../constants/styles'
 import { Colors } from '../constants/colors'
-import { PieChart } from 'react-native-svg-charts'
 
 export class SettingsScreen extends React.Component {
   render () {
-    const data = [
-      {
-        key: 1,
-        value: 50,
-        svg: { fill: '#600080' },
-        arc: { outerRadius: '130%', cornerRadius: 10,  }
-      },
-      {
-        key: 2,
-        value: 50,
-        svg: { fill: '#9900cc' }
-      },
-      {
-        key: 3,
-        value: 40,
-        svg: { fill: '#c61aff' }
-      },
-      {
-        key: 4,
-        value: 95,
-        svg: { fill: '#d966ff' }
-      },
-      {
-        key: 5,
-        value: 35,
-        svg: { fill: '#ecb3ff' }
-      }
-    ]
-
     return (
       <View style={styles.container}>
         <View style={{flex: 1, width: Styles.baseWidth}}>
@@ -47,12 +17,6 @@ export class SettingsScreen extends React.Component {
             <Device navigator={this.props.navigator} />
             <Preferences />
             <Profile />
-            <PieChart
-              style={{ height: 200 }}
-              outerRadius={'70%'}
-              innerRadius={10}
-              data={data}
-            />
           </ScrollView>
         </View>
       </View>

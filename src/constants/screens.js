@@ -9,6 +9,10 @@ export const Screens = {
   },
   Tasks: {
     screen: 'TasksScreen',
+    title: 'Tasks'
+  },
+  Dashboard: {
+    screen: 'DashboardScreen',
     title: 'Dashboard'
   },
   Settings: {
@@ -34,5 +38,9 @@ export const Screens = {
   ClickNotification: {
     screen: 'ClickNotificationScreen',
     title: 'Clicker clicked'
+  },
+  Actions: {
+    screen: 'ActionsScreen',
+    title: 'Actions'
   }
 }

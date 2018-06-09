@@ -9,13 +9,18 @@ export const defaultNavigatorStyle = {
 
 export const NavigationTabs = [
   {
-    label: Screens.Tasks.title,
-    screen: Screens.Tasks.screen,
+    label: Screens.Dashboard.title,
+    screen: Screens.Dashboard.screen,
     icon: Icons.Home
   },
   {
+    label: Screens.Tasks.title,
+    screen: Screens.Tasks.screen,
+    icon: Icons.Tasks
+  },
+  {
     label: 'Actions',
-    screen: Screens.DeviceInteraction.screen,
+    screen: Screens.Actions.screen,
     icon: Icons.Connection
   },
   {
