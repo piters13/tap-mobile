@@ -19,7 +19,7 @@ export class DevicesListItem extends React.Component {
     )
   }
 
-  getSignalStrength() {
+  getSignalStrength () {
     if (this.props.item.rssi > -40) {
       return 'Awesome'
     } else if (this.props.item.rssi > -70) {

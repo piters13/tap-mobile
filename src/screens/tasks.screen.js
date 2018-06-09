@@ -24,7 +24,7 @@ export class TasksScreen extends React.Component {
       <View style={styles.container}>
         <View style={{flex: 1, width: Styles.baseWidth}}>
           <Header title={`Tasks`} subtitle={`Updated 5 mins ago`} />
-          <TaskList tasks={tasks} style={{flex: 1, marginBottom: 70}} />
+          <TaskList navigator={this.props.navigator} tasks={tasks} style={{flex: 1, marginBottom: 70}} />
           <View
             style={{position: 'absolute', width: '100%', bottom: 20, height: 65, alignItems: 'center', justifyContent: 'center'}}>
             <Button

@@ -39,8 +39,20 @@ export const Screens = {
     screen: 'ClickNotificationScreen',
     title: 'Clicker clicked'
   },
+  ConcreteTask: {
+    screen: 'ConcreteTaskScreen',
+    title: 'Task details'
+  },
   Actions: {
     screen: 'ActionsScreen',
     title: 'Actions'
+  },
+  NewNote: {
+    screen: 'NewNoteScreen',
+    title: 'New note'
+  },
+  ConcreteNote: {
+    screen: 'ConcreteNoteScreen',
+    title: 'Note content'
   }
 }
