@@ -10,8 +10,12 @@ export class DailyActivityChart extends React.Component {
       restActionsCount: 0
     }
   }
+
+  componentDidMount () {
+    this.getActionsCount()
+  }
   render () {
-    const data = [ this.workActionsCount, this.workActionsCount ]
+    let data = [ this.workActionsCount, this.workActionsCount ]
     const randomColor = () => ('#' + (Math.random() * 0xFFFFFF << 0).toString(16) + '000000').slice(0, 7)
     // const colors = ['#ffa31a', '#66ff33']
     const pieData = data
@@ -36,12 +40,13 @@ export class DailyActivityChart extends React.Component {
   getActionsCount () {
     const getDay = (date) => `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`
     const today = getDay(new Date())
-
+    console.log('ff' + this.props.actions)
     const actions = this.props.actions.filter(a => getDay(a) === today)
     const actionsByType = R.groupBy(a => a.type, actions)
+    console.log('Actions ' + actions)
     this.setState({
-      workActionsCount: actionsByType[0].length,
-      restActionsCount: actionsByType[1].length
+      workActionsCount: actionsByType.hasOwnProperty('0') ? actionsByType[0].length : 0,
+      restActionsCount: actionsByType.hasOwnProperty('1') ? actionsByType[1].length : 0
     })
   }
 }

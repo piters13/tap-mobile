@@ -13,7 +13,7 @@ export class WeeklyActivityChart extends React.Component {
     }
   }
   render () {
-    const data = [ this.workActionsCount, this.workActionsCount ]
+    const data = [ 3, 5 ] // [ this.workActionsCount, this.workActionsCount ]
     const CUT_OFF = 20
     const Labels = ({ x, y, bandwidth, data }) => (
       data.map((value, index) => (
@@ -59,8 +59,8 @@ export class WeeklyActivityChart extends React.Component {
     const last7days = R.take(7, actionsByType)
 
     this.setState({
-      workActionsCount: last7days[0].length,
-      restActionsCount: last7days[1].length
+      workActionsCount: last7days.hasOwnProperty('0') ? actionsByType[0].length : 0,
+      restActionsCount: last7days.hasOwnProperty('1') ? actionsByType[1].length : 0
     })
   }
 }
