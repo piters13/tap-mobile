@@ -7,15 +7,19 @@ import { Styles } from '../constants/styles'
 import { Button, Badge } from 'react-native-elements'
 import { NotesList } from '../components/note-list.component'
 import { ActionsList } from '../components/action-list-component'
-import { notesListMock } from '../data/notes-list-mock'
 import { actionsListMock } from '../data/actions-list-mock'
+import { inject, observer } from 'mobx-react'
+import { toJS } from 'mobx'
 
+@inject('TasksStore') @observer
 export class ConcreteTaskScreen extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
       type: 'notes'
     }
+
+    props.TasksStore.fetchTasks()
   }
 
   render () {
@@ -54,8 +58,10 @@ export class ConcreteTaskScreen extends React.Component {
     this.state.type === 'notes' ? this.showNotesList() : this.showActionsList()
 
   showNotesList = () => {
+    const notes = toJS(this.props.TasksStore.tasks)
+
     return (
-      <NotesList title={this.props.title} navigator={this.props.navigator} notes={notesListMock} style={{marginBottom: 70, flex: 1}} />
+      <NotesList title={this.props.title} navigator={this.props.navigator} notes={notes} style={{marginBottom: 70, flex: 1}} />
     )
   }
 
@@ -88,6 +94,7 @@ export class ConcreteTaskScreen extends React.Component {
       this.props.navigator.push({
         screen: Screens.NewNote.screen,
         passProps: {
+          taskId: this.props.taskId,
           title: this.props.title
         }
       })

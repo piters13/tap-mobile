@@ -10,10 +10,7 @@ export class NotesListItem extends React.Component {
       <View style={this.props.style}>
         <TouchableOpacity onPress={() => this.showNote()}>
           <Text style={styles.titleStyle}>
-            {this.props.item.label}
-          </Text>
-          <Text style={styles.subtitleStyle}>
-            {this.props.item.subtitle}
+            {this.props.item.title}
           </Text>
         </TouchableOpacity>
       </View>
@@ -26,7 +23,7 @@ export class NotesListItem extends React.Component {
         screen: Screens.ConcreteNote.screen,
         passProps: {
           title: this.props.title,
-          noteTitle: this.props.item.label
+          noteTitle: this.props.item.title
         }
       })
     )

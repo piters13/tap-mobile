@@ -51,7 +51,7 @@ export class IntervalPicker extends React.Component {
               renderItem={({ item }) => (
                 this.renderRow(item)
               )}
-              keyExtractor={(item, index) => index}
+              keyExtractor={(item, index) => index.toString()}
             />
           </View>
           <View style={styles.modalFooter}>

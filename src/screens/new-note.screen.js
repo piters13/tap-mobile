@@ -4,7 +4,11 @@ import { Header } from '../components/header.component'
 import { Button, FormInput, FormLabel } from 'react-native-elements'
 import { Styles } from '../constants/styles'
 import { Colors } from '../constants/colors'
+import { apolloClient } from '../../App'
+import { gql } from 'apollo-boost'
+import { inject, observer } from 'mobx-react'
 
+@inject('TasksStore') @observer
 export class NewNoteScreen extends React.Component {
   constructor (props) {
     super(props)
@@ -15,7 +19,8 @@ export class NewNoteScreen extends React.Component {
       },
       noteContent: {
         value: ''
-      }
+      },
+      loading: false
     }
 
     this.inputs = {
@@ -81,14 +86,15 @@ export class NewNoteScreen extends React.Component {
                 fontFamily={Styles.fonts.RobotoBold} />
 
               <Button
-                onPress={() => {}}
+                onPress={() => this.saveNote()}
                 backgroundColor={Colors.Primary}
                 containerViewStyle={{marginLeft: 0, marginRight: 0, marginTop: 15, width: '100%'}}
                 fontSize={14}
                 borderRadius={14}
                 buttonStyle={{padding: 10}}
                 title='Save this note'
-                fontFamily={Styles.fonts.RobotoBold} />
+                fontFamily={Styles.fonts.RobotoBold}
+                disabled={this.state.loading} />
             </View>
           </KeyboardAvoidingView>
         </View>
@@ -111,6 +117,24 @@ export class NewNoteScreen extends React.Component {
     return (
       <Text>{date}</Text>
     )
+  }
+
+  saveNote = () => {
+    this.setState({loading: true})
+    apolloClient.mutate({
+      mutation: gql`mutation CreateDescription($noteTitle: String!, $noteContent: String!, $id: Int!) { 
+        addDescription(description: {
+          title: $noteTitle
+          value: $noteContent,
+          taskId: $id
+        }) {title, value, id}
+      }`,
+      variables: {noteTitle: this.state.noteTitle, noteContent: this.state.noteContent, id: this.props.taskId}
+    }).then((res) => {
+      this.props.TasksStore.addDescriptionToTask(this.props.taskId, res.data.description)
+      this.props.navigator.pop()
+    })
+      .catch(() => this.setState({loading: false}))
   }
 }
 
