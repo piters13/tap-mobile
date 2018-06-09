@@ -21,7 +21,7 @@ export class ActionListItem extends React.Component {
     )
   }
 
-  modifyAction() {
+  modifyAction () {
     this.props.navigator.showLightBox({
       screen: Screens.DeviceInteraction.screen,
       passProps: {

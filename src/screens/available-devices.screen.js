@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { Header } from '../components/header.component'
-import { DevicesList } from '../components/devices-list.component'
+import { DevicesList } from '../components/device-list.component'
 import { Styles } from '../constants/styles'
 import { Colors } from '../constants/colors'
 import { inject, observer } from 'mobx-react'

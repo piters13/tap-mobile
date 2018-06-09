@@ -13,4 +13,13 @@ export class TasksStore {
       this.tasks = resp.data.me.tasks
     })
   }
+
+  @action addDescriptionToTask = (taskId, description) => {
+    for (let i in this.tasks) {
+      if (this.tasks[i].taskId === taskId) {
+        this.tasks[i].description = description
+        break
+      }
+    }
+  }
 }

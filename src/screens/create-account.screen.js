@@ -16,13 +16,13 @@ export class CreateAccountScreen extends React.Component {
         value: ''
       },
       lastName: {
-        value: '',
+        value: ''
       },
       email: {
-        value: '',
+        value: ''
       },
       password: {
-        value: '',
+        value: ''
       },
       loading: false
     }
@@ -193,10 +193,10 @@ export class CreateAccountScreen extends React.Component {
           password: this.state.password.value
         }
       }).then(() => this.goLogin())
-      .catch(err => {
-        this.setState({loading: false})
-        Alert.alert('Registration error', err.message)
-      })
+        .catch(err => {
+          this.setState({loading: false})
+          Alert.alert('Registration error', err.message)
+        })
     }, 0)
   }
 

@@ -84,12 +84,12 @@ export class CreateTaskScreen extends React.Component {
     this.setState({loading: true})
     apolloClient.mutate({
       mutation: gql`mutation CreateTask($title: String!) { createTask(task: {title: $title}) { id } }`,
-      variables: {title: this.state.taskName},
+      variables: {title: this.state.taskName}
     }).then(() => {
       this.props.TasksStore.fetchTasks()
       this.dismissModal()
     })
-    .catch(() => this.setState({loading: false}))
+      .catch(() => this.setState({loading: false}))
   }
 
   dismissModal () {
