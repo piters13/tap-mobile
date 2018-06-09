@@ -16,7 +16,6 @@ export class DashboardScreen extends React.Component {
 
   render () {
     const actions = toJS(this.props.ActionsStore.actions)
-    console.log('hfg' + actions)
     return (
       <View style={styles.container}>
         <View style={{flex: 1, width: Styles.baseWidth}}>
