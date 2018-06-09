@@ -10,7 +10,6 @@ export class TasksStore {
       query: gql`query { me { tasks { id, title, actions { id, type, createdAt }, descriptions { id, title, value, createdAt } } } }`,
       fetchPolicy: 'network-only'
     }).then(resp => {
-      console.log(resp)
       this.tasks = resp.data.me.tasks
     })
   }

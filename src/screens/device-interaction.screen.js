@@ -6,37 +6,40 @@ import { Header } from '../components/header.component'
 import { Styles } from '../constants/styles'
 import { inject, observer } from 'mobx-react'
 import { toJS } from 'mobx'
+import { ActionTypes } from '../constants/action-types'
 
-@inject('TasksStore', 'BleStore') @observer
+@inject('TasksStore', 'ActionsStore') @observer
 export class DeviceInteractionScreen extends React.Component {
   constructor (props) {
     super(props)
 
-    this.state = {tapped: !!(this.props && this.props.tapped)}
+    this.state = {
+      type: this.props.action.type
+    }
   }
 
   get buttonLabel () {
-    return this.state.tapped ? 'Working' : 'Resting'
+    return this.state.type === ActionTypes.Working ? 'Working' : 'Resting'
   }
 
   get footerText () {
-    return this.state.tapped ? 'Keep up the good work!' : 'Take your time!'
+    return this.state.type === ActionTypes.Working ? 'Keep up the good work!' : 'Take your time!'
   }
 
   render () {
     return (
       <View style={styles.container}>
         <View style={{flex: 1, width: Styles.baseWidth}}>
-          <Header title={`You have just pressed the button!`} />
+          <Header title={new Date(this.props.action.createdAt).toLocaleString()} />
           <View style={{alignItems: 'center'}}>
-            <View style={this.state.tapped ? styles.workingSwitch : styles.restingSwitch}>
+            <View style={this.state.type === ActionTypes.Working ? styles.workingSwitch : styles.restingSwitch}>
               <View
                 style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%'}}>
                 <Text style={{color: 'white', fontFamily: Styles.fonts.RobotoBold}}>
                   {this.buttonLabel}
                 </Text>
                 <Switch
-                  value={this.state.tapped}
+                  value={this.state.type === ActionTypes.Working}
                   onTintColor='#3280CB'
                   thumbTintColor='#ffffff'
                   tintColor='#3F3F3F'
@@ -60,7 +63,7 @@ export class DeviceInteractionScreen extends React.Component {
   printList () {
     const tasks = toJS(this.props.TasksStore.tasks)
 
-    if (this.state.tapped) {
+    if (this.state.type === ActionTypes.Working) {
       return (
         <View style={{flex: 4, paddingTop: 20}}>
           <TaskList tasks={tasks} style={{width: 260, flex: 1}} />
@@ -69,7 +72,9 @@ export class DeviceInteractionScreen extends React.Component {
   }
 
   changeTapped () {
-    this.setState({tapped: !this.state.tapped})
+    this.props.ActionsStore.updateAction(this.props.action, {
+      type: this.state.type === 0 ? 1 : 0
+    }).then((a) => this.setState({type: a.type}))
   }
 }
 
