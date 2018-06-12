@@ -5,15 +5,8 @@ import { BarChart, Grid } from 'react-native-svg-charts'
 import { Text } from 'react-native-svg'
 
 export class WeeklyActivityChart extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      workActionsCount: 0,
-      restActionsCount: 0
-    }
-  }
   render () {
-    const data = [ 3, 5 ] // [ this.workActionsCount, this.workActionsCount ]
+    const data = this.getWeeklyActions()
     const CUT_OFF = 20
     const Labels = ({ x, y, bandwidth, data }) => (
       data.map((value, index) => (
@@ -49,18 +42,28 @@ export class WeeklyActivityChart extends React.Component {
   }
 
   getWeeklyActions () {
-    const getDay = (date) => `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`
-    const today = getDay(new Date())
-    const weekBeforeToday = new Date(today.getTime())
-    weekBeforeToday.setDate(today.getDate() - 7)
-    const actions = this.props.actions.filter(a => getDay(a) <= weekBeforeToday)
+    const getDay = (date) => `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`
+    const weekAgoDate = new Date()
+    weekAgoDate.setDate(weekAgoDate.getDate() - 7)
+    const weekBeforeToday = getDay(weekAgoDate)
+    const getDayOfAction = (action) => getDay(new Date(action.createdAt))
+    const filteredActions = this.props.actions.filter(a => getDayOfAction(a) >= weekBeforeToday)
+    const sortByDate = R.sortBy(R.prop('createdAt'), filteredActions)
+    const actionsByDate = R.groupBy(a => getDayOfAction(a), sortByDate)
 
-    const actionsByType = R.groupBy(a => a.type, actions)
-    const last7days = R.take(7, actionsByType)
+    const actionsByDateAndType = Object.keys(actionsByDate)
+      .reduce(
+        (prev, next) => Object.assign(prev, {[next]: R.groupBy(R.prop('type'),
+          actionsByDate[next])}),
+        {})
 
-    this.setState({
-      workActionsCount: last7days.hasOwnProperty('0') ? actionsByType[0].length : 0,
-      restActionsCount: last7days.hasOwnProperty('1') ? actionsByType[1].length : 0
-    })
+    const valuesByDateAndType = Object.values(actionsByDateAndType)
+
+    var result = []
+    for (let i of valuesByDateAndType) {
+      result.push(i.hasOwnProperty('0') ? i[0].length : 0)
+    }
+
+    return result
   }
 }

@@ -23,7 +23,7 @@ export class DashboardScreen extends React.Component {
           <ScrollView style={styles.componentsStyle}>
             <Text> Your weekly activities </Text>
             <WeeklyActivityChart actions={actions} />
-            <Text> Your daily activities </Text>
+            <Text> Today activities </Text>
             <DailyActivityChart actions={actions} />
           </ScrollView>
         </View>
