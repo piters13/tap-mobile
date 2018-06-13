@@ -1,31 +1,32 @@
 import React from 'react'
 import * as R from 'ramda'
-import { View } from 'react-native'
+import { View, Text as NativeText } from 'react-native'
 import { BarChart, Grid } from 'react-native-svg-charts'
 import { Text } from 'react-native-svg'
 
 export class WeeklyActivityChart extends React.Component {
-  render () {
+  renderWeeklyActivity () {
     const data = this.getWeeklyActions()
-    const CUT_OFF = 20
-    const Labels = ({ x, y, bandwidth, data }) => (
-      data.map((value, index) => (
-        <Text
-          key={index}
-          x={x(index) + (bandwidth / 2)}
-          y={value < CUT_OFF ? y(value) - 10 : y(value) + 15}
-          fontSize={14}
-          fill={value >= CUT_OFF ? 'white' : 'black'}
-          alignmentBaseline={'middle'}
-          textAnchor={'middle'}
-        >
-          {value}
-        </Text>
-      ))
-    )
-
-    return (
-      <View style={{ flexDirection: 'row', height: 200, paddingVertical: 16 }}>
+    if (R.isEmpty(data)) {
+      return <NativeText> You didn't do anything progressive during this week! Don't give up! Let's do something ;)</NativeText>
+    } else {
+      const CUT_OFF = 20
+      const Labels = ({ x, y, bandwidth, data }) => (
+        data.map((value, index) => (
+          <Text
+            key={index}
+            x={x(index) + (bandwidth / 2)}
+            y={value < CUT_OFF ? y(value) - 10 : y(value) + 15}
+            fontSize={14}
+            fill={value >= CUT_OFF ? 'white' : 'black'}
+            alignmentBaseline={'middle'}
+            textAnchor={'middle'}
+          >
+            {value}
+          </Text>
+        ))
+      )
+      return (
         <BarChart
           style={{ flex: 1 }}
           data={data}
@@ -37,8 +38,14 @@ export class WeeklyActivityChart extends React.Component {
           <Grid direction={Grid.Direction.HORIZONTAL} />
           <Labels />
         </BarChart>
-      </View>
-    )
+      )
+    }
+  }
+
+  render () {
+    return <View style={{ flexDirection: 'row', height: 200, paddingVertical: 16 }}>
+      {this.renderWeeklyActivity()}
+    </View>
   }
 
   getWeeklyActions () {
@@ -48,22 +55,23 @@ export class WeeklyActivityChart extends React.Component {
     const weekBeforeToday = getDay(weekAgoDate)
     const getDayOfAction = (action) => getDay(new Date(action.createdAt))
     const filteredActions = this.props.actions.filter(a => getDayOfAction(a) >= weekBeforeToday)
-    const sortByDate = R.sortBy(R.prop('createdAt'), filteredActions)
-    const actionsByDate = R.groupBy(a => getDayOfAction(a), sortByDate)
+    if (R.isEmpty(filteredActions)) {
+      return {}
+    } else {
+      const sortByDate = R.sortBy(R.prop('createdAt'), filteredActions)
+      const actionsByDate = R.groupBy(a => getDayOfAction(a), sortByDate)
+      const actionsByDateAndType = Object.keys(actionsByDate)
+        .reduce(
+          (prev, next) => Object.assign(prev, {[next]: R.groupBy(R.prop('type'),
+            actionsByDate[next])}),
+          {})
 
-    const actionsByDateAndType = Object.keys(actionsByDate)
-      .reduce(
-        (prev, next) => Object.assign(prev, {[next]: R.groupBy(R.prop('type'),
-          actionsByDate[next])}),
-        {})
-
-    const valuesByDateAndType = Object.values(actionsByDateAndType)
-
-    var result = []
-    for (let i of valuesByDateAndType) {
-      result.push(i.hasOwnProperty('0') ? i[0].length : 0)
+      const valuesByDateAndType = Object.values(actionsByDateAndType)
+      var result = []
+      for (let i of valuesByDateAndType) {
+        result.push(i.hasOwnProperty('0') ? i[0].length : 0)
+      }
+      return result
     }
-
-    return result
   }
 }

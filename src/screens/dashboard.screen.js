@@ -6,6 +6,8 @@ import { inject, observer } from 'mobx-react'
 import { DailyActivityChart } from '../components/daily-activity-chart.component'
 import { WeeklyActivityChart } from '../components/weekly-activity-chart.component'
 import { toJS } from 'mobx'
+import { Colors } from '../constants/colors'
+
 @inject('AuthStore', 'ActionsStore') @observer
 export class DashboardScreen extends React.Component {
   constructor (props) {
@@ -21,9 +23,9 @@ export class DashboardScreen extends React.Component {
         <View style={{flex: 1, width: Styles.baseWidth}}>
           <Header title={`Hi ` + this.props.AuthStore.user.firstname} />
           <ScrollView style={styles.componentsStyle}>
-            <Text> Your weekly activities </Text>
+            <Text style={styles.heading} > Your weekly activities </Text>
             <WeeklyActivityChart actions={actions} />
-            <Text> Today activities </Text>
+            <Text style={styles.heading} > Today's activities </Text>
             <DailyActivityChart actions={actions} />
           </ScrollView>
         </View>
@@ -38,5 +40,12 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     backgroundColor: '#ffffff'
+  },
+  heading: {
+    fontSize: 17,
+    paddingTop: 10,
+    paddingBottom: 10,
+    color: Colors.TextPrimary,
+    fontFamily: Styles.fonts.RobotoLight
   }
 })
