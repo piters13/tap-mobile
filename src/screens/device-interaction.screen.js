@@ -66,7 +66,8 @@ export class DeviceInteractionScreen extends React.Component {
     if (this.state.type === ActionTypes.Working) {
       return (
         <View style={{flex: 4, paddingTop: 20}}>
-          <TaskList navigator={this.props.navigator} tasks={tasks} style={{flex: 1}} />
+          <TaskList navigator={this.props.navigator} tasks={tasks} style={{flex: 1}}
+            callbackFn={this.updateTask.bind(this)} />
         </View>)
     }
   }
@@ -75,6 +76,12 @@ export class DeviceInteractionScreen extends React.Component {
     this.props.ActionsStore.updateAction(this.props.action, {
       type: this.state.type === 0 ? 1 : 0
     }).then((a) => this.setState({type: a.type}))
+  }
+
+  updateTask (task) {
+    this.props.ActionsStore.updateAction(this.props.action, {
+      taskId: task.id
+    }).then(() => this.props.TasksStore.fetchTasks())
   }
 }
 

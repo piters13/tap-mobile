@@ -11,7 +11,7 @@ export class ActionsStore {
       query: gql`query {
           me {
               actions {
-                  id, type, task { id },
+                  id, type, task { id, title },
                   createdAt
               }
           }
@@ -26,7 +26,7 @@ export class ActionsStore {
   @action createAction (type) {
     apolloClient.mutate({
       mutation: gql`mutation createAction($type: Int!) {
-          createAction(action: {type: $type}) { id, type, task { id }, createdAt }
+          createAction(action: {type: $type}) { id, type, task { id, title }, createdAt }
       }`,
       variables: {type}
     }).then((res) => {
@@ -41,7 +41,7 @@ export class ActionsStore {
       apolloClient.mutate({
         mutation: gql`mutation updateAction($actionId: Int!, $type: Int, $taskId: Int) {
             updateAction(action: {type: $type, taskId: $taskId}, actionSearch: {id: $actionId}) {
-                id, type, task { id }, createdAt
+                id, type, task { id, title }, createdAt
             }
         }`,
         variables: {

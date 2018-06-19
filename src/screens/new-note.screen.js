@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, Text, KeyboardAvoidingView } from 'react-native'
+import { KeyboardAvoidingView, StyleSheet, View } from 'react-native'
 import { Header } from '../components/header.component'
 import { Button, FormInput, FormLabel } from 'react-native-elements'
 import { Styles } from '../constants/styles'
@@ -35,10 +35,7 @@ export class NewNoteScreen extends React.Component {
         <View style={{width: Styles.baseWidth}}>
           <KeyboardAvoidingView
             style={{height: '100%'}} enabled>
-            <View style={{paddingTop: '10%'}}>
-              {this.showCurrentDate()}
-            </View>
-            <Header title={this.props.title} style={{paddingBottom: 0, paddingTop: 0}} />
+            <Header title={'Create note'} subtitle={this.props.task.title} />
 
             <FormLabel fontFamily={Styles.fonts.RobotoMedium} labelStyle={styles.formLabelStyle}>Title</FormLabel>
             <FormInput
@@ -72,7 +69,8 @@ export class NewNoteScreen extends React.Component {
                 underlineColorAndroid='transparent' />
             </View>
 
-            <View style={{width: '100%', marginBottom: 20, marginTop: 20, alignItems: 'center', justifyContent: 'center'}}>
+            <View
+              style={{width: '100%', marginBottom: 20, marginTop: 20, alignItems: 'center', justifyContent: 'center'}}>
               <Button
                 onPress={() => {}}
                 backgroundColor='#DCDCDC'
@@ -102,39 +100,28 @@ export class NewNoteScreen extends React.Component {
     )
   }
 
-  showCurrentDate = () => {
-    let today = new Date()
-    let day = today.getDate()
-    let month = parseInt(today.getMonth() + 1)
-    let year = today.getFullYear()
-    let hour = today.getHours()
-    let minutes = today.getMinutes()
-    if (day < 10) { day = '0' + day }
-    if (month < 10) { month = '0' + month }
-    if (hour < 10) { hour = '0' + hour }
-    if (minutes < 10) { minutes = '0' + minutes }
-    let date = day + '.' + month + '.' + year + ', ' + hour + ':' + minutes
-    return (
-      <Text>{date}</Text>
-    )
-  }
-
   saveNote = () => {
     this.setState({loading: true})
     apolloClient.mutate({
-      mutation: gql`mutation CreateDescription($noteTitle: String!, $noteContent: String!, $id: Int!) { 
-        addDescription(description: {
-          title: $noteTitle
-          value: $noteContent,
-          taskId: $id
-        }) {title, value, id}
+      mutation: gql`mutation CreateDescription($noteTitle: String!, $noteContent: String!, $id: Int!) {
+          addDescription(description: {
+              title: $noteTitle
+              value: $noteContent,
+              taskId: $id
+          }) {title, value, id, createdAt}
       }`,
-      variables: {noteTitle: this.state.noteTitle, noteContent: this.state.noteContent, id: this.props.taskId}
+      variables: {
+        noteTitle: this.state.noteTitle,
+        noteContent: this.state.noteContent,
+        id: this.props.task.id
+      }
     }).then((res) => {
-      this.props.TasksStore.addDescriptionToTask(this.props.taskId, res.data.description)
-      this.props.navigator.pop()
+      if (res.data) {
+        this.props.TasksStore.addDescriptionToTask(this.props.task.id, res.data.addDescription)
+        this.props.navigator.pop()
+      }
     })
-      .catch(() => this.setState({loading: false}))
+    .catch(() => this.setState({loading: false}))
   }
 }
 

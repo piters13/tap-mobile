@@ -24,9 +24,18 @@ export class TasksScreen extends React.Component {
       <View style={styles.container}>
         <View style={{flex: 1, width: Styles.baseWidth}}>
           <Header title={`Tasks`} subtitle={`Updated 5 mins ago`} />
-          <TaskList navigator={this.props.navigator} tasks={tasks} style={{flex: 1, marginBottom: 70}} />
+          <TaskList navigator={this.props.navigator}
+            tasks={tasks} style={{flex: 1, marginBottom: 70}}
+            callbackFn={this.showTask.bind(this)} />
           <View
-            style={{position: 'absolute', width: '100%', bottom: 20, height: 65, alignItems: 'center', justifyContent: 'center'}}>
+            style={{
+              position: 'absolute',
+              width: '100%',
+              bottom: 20,
+              height: 65,
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
             <Button
               backgroundColor={Colors.Primary}
               onPress={() => this.createTask()}
@@ -52,6 +61,15 @@ export class TasksScreen extends React.Component {
       },
       navigatorButtons: {},
       animationType: 'slide-horizontal'
+    })
+  }
+
+  showTask (item) {
+    this.props.navigator.push({
+      screen: Screens.ConcreteTask.screen,
+      passProps: {
+        task: item
+      }
     })
   }
 }

@@ -13,7 +13,9 @@ export class TaskList extends React.Component {
           ItemSeparatorComponent={Separator}
           renderItem={({item}) => (
             <View>
-              <TaskListItem navigator={this.props.navigator} item={item} style={styles.listItemStyle} />
+              <TaskListItem navigator={this.props.navigator}
+                callbackFn={this.props.callbackFn}
+                item={item} style={styles.listItemStyle} />
             </View>
           )} />
         <Separator />

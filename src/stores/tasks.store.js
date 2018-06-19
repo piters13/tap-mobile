@@ -1,6 +1,7 @@
-import { action, observable } from 'mobx'
+import { action, observable, toJS } from 'mobx'
 import { apolloClient } from '../../App'
 import { gql } from 'apollo-boost'
+import * as R from 'ramda'
 
 export class TasksStore {
   @observable tasks = []
@@ -15,11 +16,10 @@ export class TasksStore {
   }
 
   @action addDescriptionToTask = (taskId, description) => {
-    for (let i in this.tasks) {
-      if (this.tasks[i].taskId === taskId) {
-        this.tasks[i].description = description
-        break
-      }
-    }
+    debugger
+    const index = toJS(this.tasks).findIndex(t => t.id === taskId)
+    const oldTask = toJS(this.tasks)[index]
+    const newTask = Object.assign({}, oldTask, {descriptions: oldTask.descriptions.concat([description])})
+    this.tasks = R.update(index, newTask, toJS(this.tasks))
   }
 }

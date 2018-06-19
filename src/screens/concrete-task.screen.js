@@ -1,38 +1,32 @@
 import React from 'react'
-import { StyleSheet, View, TouchableHighlight, Text } from 'react-native'
+import { StyleSheet, Text, TouchableHighlight, View } from 'react-native'
 import { Header } from '../components/header.component'
 import { Screens } from '../constants/screens'
 import { Colors } from '../constants/colors'
 import { Styles } from '../constants/styles'
-import { Button, Badge } from 'react-native-elements'
-import { NotesList } from '../components/note-list.component'
-import { ActionsList } from '../components/action-list.component'
-import { actionsListMock } from '../data/actions-list-mock'
-import { inject, observer } from 'mobx-react'
-import { toJS } from 'mobx'
+import { Badge, Button } from 'react-native-elements'
+import { NoteList } from '../components/note-list.component'
+import { ActionList } from '../components/action-list.component'
 
-@inject('TasksStore') @observer
 export class ConcreteTaskScreen extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
       type: 'notes'
     }
-
-    props.TasksStore.fetchTasks()
   }
 
   render () {
     return (
       <View style={styles.container}>
         <View style={{flex: 1, width: Styles.baseWidth}}>
-          <Header title={this.props.title} />
+          <Header title={this.props.task.title} />
           <View style={{justifyContent: 'space-between', flexDirection: 'row'}}>
             <TouchableHighlight underlayColor={'transparent'} onPress={() => this.setState({type: 'notes'})}
               style={this.state.type === 'notes' ? styles.activeNotes : styles.touchableStyle} >
               <View style={{alignItems: 'center'}}>
                 <Text style={{fontFamily: Styles.fonts.RobotoLight}}>Notes</Text>
-                <Badge value={this.props.notes}
+                <Badge value={this.props.task.descriptions.length}
                   containerStyle={styles.firstBadgeStyle}
                   textStyle={styles.badgeTextStyle} />
               </View>
@@ -41,7 +35,7 @@ export class ConcreteTaskScreen extends React.Component {
               style={this.state.type === 'notes' ? styles.touchableStyle : styles.activeActions} >
               <View style={{alignItems: 'center'}}>
                 <Text style={{fontFamily: Styles.fonts.RobotoLight}}>Actions</Text>
-                <Badge value={this.props.actions}
+                <Badge value={this.props.task.actions.length}
                   containerStyle={styles.secondBadgeStyle}
                   textStyle={styles.badgeTextStyle} />
               </View>
@@ -58,16 +52,14 @@ export class ConcreteTaskScreen extends React.Component {
     this.state.type === 'notes' ? this.showNotesList() : this.showActionsList()
 
   showNotesList = () => {
-    const notes = toJS(this.props.TasksStore.tasks)
-
     return (
-      <NotesList title={this.props.title} navigator={this.props.navigator} notes={notes} style={{marginBottom: 70, flex: 1}} />
+      <NoteList task={this.props.task} navigator={this.props.navigator} style={{marginBottom: 70, flex: 1}} />
     )
   }
 
   showActionsList = () => {
     return (
-      <ActionsList actions={actionsListMock} style={{marginBottom: 70, flex: 1}} />
+      <ActionList actions={this.props.task.actions} style={{marginBottom: 70, flex: 1}} />
     )
   }
 
@@ -94,8 +86,7 @@ export class ConcreteTaskScreen extends React.Component {
       this.props.navigator.push({
         screen: Screens.NewNote.screen,
         passProps: {
-          taskId: this.props.taskId,
-          title: this.props.title
+          task: this.props.task
         }
       })
     )

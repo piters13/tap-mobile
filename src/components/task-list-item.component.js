@@ -1,20 +1,17 @@
 import React from 'react'
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Badge } from 'react-native-elements'
 import { Styles } from '../constants/styles'
 import { Colors } from '../constants/colors'
-import { randomInt } from '../utils/random'
-import { Screens } from '../constants/screens'
 
 export class TaskListItem extends React.Component {
   constructor (props) {
     super(props)
-    this.state = {notes: randomInt(0, 10), actions: randomInt(0, 40)}
   }
 
   render () {
     return (
-      <TouchableOpacity onPress={() => this.showTask()}>
+      <TouchableOpacity onPress={() => this.props.callbackFn(this.props.item)}>
         <View style={this.props.style}>
           <View>
             <Text numberOfLines={1} style={styles.titleStyle}>
@@ -25,25 +22,13 @@ export class TaskListItem extends React.Component {
             </Text>
           </View>
           <View>
-            <Badge value={this.state.notes} containerStyle={styles.firstBadgeStyle} textStyle={styles.badgeTextStyle} />
-            <Badge value={this.state.actions} containerStyle={styles.secondBadgeStyle} textStyle={styles.badgeTextStyle} />
+            <Badge value={this.props.item.descriptions.length} containerStyle={styles.firstBadgeStyle}
+              textStyle={styles.badgeTextStyle} />
+            <Badge value={this.props.item.actions.length} containerStyle={styles.secondBadgeStyle}
+              textStyle={styles.badgeTextStyle} />
           </View>
         </View>
       </TouchableOpacity>
-    )
-  }
-
-  showTask = () => {
-    return (
-      this.props.navigator.push({
-        screen: Screens.ConcreteTask.screen,
-        passProps: {
-          taskId: this.props.item.id,
-          title: this.props.item.title,
-          notes: this.state.notes,
-          actions: this.state.actions
-        }
-      })
     )
   }
 }
