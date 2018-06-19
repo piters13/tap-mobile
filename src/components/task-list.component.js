@@ -15,7 +15,7 @@ export class TaskList extends React.Component {
             <View>
               <TaskListItem navigator={this.props.navigator}
                 callbackFn={this.props.callbackFn}
-                item={item} style={styles.listItemStyle} />
+                item={item} emph={this.props.emph ? this.props.emph === item.id : false} style={styles.listItemStyle} />
             </View>
           )} />
         <Separator />

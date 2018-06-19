@@ -7,7 +7,10 @@ import { Styles } from '../constants/styles'
 import { Badge, Button } from 'react-native-elements'
 import { NoteList } from '../components/note-list.component'
 import { ActionList } from '../components/action-list.component'
+import { inject, observer } from 'mobx-react'
+import { toJS } from 'mobx'
 
+@observer @inject('TasksStore', 'ActionsStore')
 export class ConcreteTaskScreen extends React.Component {
   constructor (props) {
     super(props)
@@ -17,16 +20,18 @@ export class ConcreteTaskScreen extends React.Component {
   }
 
   render () {
+    const task = toJS(this.props.TasksStore.tasks).find(t => t.id === this.props.task.id)
+
     return (
       <View style={styles.container}>
         <View style={{flex: 1, width: Styles.baseWidth}}>
-          <Header title={this.props.task.title} />
+          <Header title={task.title} />
           <View style={{justifyContent: 'space-between', flexDirection: 'row'}}>
             <TouchableHighlight underlayColor={'transparent'} onPress={() => this.setState({type: 'notes'})}
               style={this.state.type === 'notes' ? styles.activeNotes : styles.touchableStyle} >
               <View style={{alignItems: 'center'}}>
                 <Text style={{fontFamily: Styles.fonts.RobotoLight}}>Notes</Text>
-                <Badge value={this.props.task.descriptions.length}
+                <Badge value={task.descriptions.length}
                   containerStyle={styles.firstBadgeStyle}
                   textStyle={styles.badgeTextStyle} />
               </View>
@@ -35,41 +40,41 @@ export class ConcreteTaskScreen extends React.Component {
               style={this.state.type === 'notes' ? styles.touchableStyle : styles.activeActions} >
               <View style={{alignItems: 'center'}}>
                 <Text style={{fontFamily: Styles.fonts.RobotoLight}}>Actions</Text>
-                <Badge value={this.props.task.actions.length}
+                <Badge value={task.actions.length}
                   containerStyle={styles.secondBadgeStyle}
                   textStyle={styles.badgeTextStyle} />
               </View>
             </TouchableHighlight>
           </View>
-          {this.showList()}
-          {this.showAddNoteButton()}
+          {this.showList(task)}
+          {this.showAddNoteButton(task)}
         </View>
       </View>
     )
   }
 
-  showList = () =>
-    this.state.type === 'notes' ? this.showNotesList() : this.showActionsList()
+  showList = (task) =>
+    this.state.type === 'notes' ? this.showNotesList(task) : this.showActionsList(task)
 
-  showNotesList = () => {
+  showNotesList = (task) => {
     return (
-      <NoteList task={this.props.task} navigator={this.props.navigator} style={{marginBottom: 70, flex: 1}} />
+      <NoteList task={task} navigator={this.props.navigator} style={{marginBottom: 70, flex: 1}} />
     )
   }
 
-  showActionsList = () => {
+  showActionsList = (task) => {
     return (
-      <ActionList actions={this.props.task.actions} style={{marginBottom: 70, flex: 1}} />
+      <ActionList actions={task.actions} navigator={this.props.navigator} style={{marginBottom: 70, flex: 1}} />
     )
   }
 
-  showAddNoteButton = () => {
+  showAddNoteButton = (task) => {
     if (this.state.type === 'notes') {
       return (
         <View style={{position: 'absolute', width: '100%', bottom: 20, height: 65, alignItems: 'center', justifyContent: 'center'}}>
           <Button
             backgroundColor={Colors.Primary}
-            onPress={() => { this.goNewNote() }}
+            onPress={() => { this.goNewNote(task) }}
             fontSize={24}
             buttonStyle={{width: 65, height: 65}}
             title='+'
@@ -81,12 +86,12 @@ export class ConcreteTaskScreen extends React.Component {
     }
   }
 
-  goNewNote = () => {
+  goNewNote = (task) => {
     return (
       this.props.navigator.push({
         screen: Screens.NewNote.screen,
         passProps: {
-          task: this.props.task
+          task
         }
       })
     )

@@ -50,7 +50,7 @@ export class NewNoteScreen extends React.Component {
               onChangeText={(title) => this.setState({noteTitle: title})}
               value={this.state.noteTitle.value}
               placeholder="What's your note about?"
-              autoCapitalize='none'
+              autoCapitalize='sentences'
               underlineColorAndroid='transparent'
             />
 
@@ -64,7 +64,7 @@ export class NewNoteScreen extends React.Component {
                 inputStyle={styles.formContentInputStyle}
                 onChangeText={(note) => this.setState({noteContent: note})}
                 value={this.state.noteContent.value}
-                autoCapitalize='none'
+                autoCapitalize='sentences'
                 placeholder='Write something awesome...'
                 underlineColorAndroid='transparent' />
             </View>
@@ -117,8 +117,8 @@ export class NewNoteScreen extends React.Component {
       }
     }).then((res) => {
       if (res.data) {
-        this.props.TasksStore.addDescriptionToTask(this.props.task.id, res.data.addDescription)
-        this.props.navigator.pop()
+        this.props.TasksStore.fetchTasks()
+          .then(() => this.props.navigator.pop())
       }
     })
     .catch(() => this.setState({loading: false}))

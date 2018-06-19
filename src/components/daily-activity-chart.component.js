@@ -7,15 +7,14 @@ export class DailyActivityChart extends React.Component {
   renderDailyActivity () {
     const data = this.getActionsCount()
     if (R.isEmpty(data)) {
-      return <Text> You didn't do anything progressive today! Don't give up! Let's do something ;)</Text>
+      return <Text> You didn't do anything productive today! Don't give up! Let's do something ;)</Text>
     } else {
-      const randomColor = () => ('#' + (Math.random() * 0xFFFFFF << 0).toString(16) + '000000').slice(0, 7)
       const pieData = data
         .filter(value => value > 0)
         .map((value, index) => ({
           value,
           svg: {
-            fill: randomColor(),
+            fill: index === 0 ? '#2ecc71' : '#333333',
             onPress: () => console.log('press', index)
           },
           key: `pie-${index}`

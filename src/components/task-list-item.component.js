@@ -19,6 +19,7 @@ export class TaskListItem extends React.Component {
             </Text>
             <Text style={styles.subtitleStyle}>
               {this.props.item.subtitle}
+              {this.props.emph ? 'CONNECTED' : ''}
             </Text>
           </View>
           <View>

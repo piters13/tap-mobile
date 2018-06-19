@@ -7,11 +7,14 @@ export class TasksStore {
   @observable tasks = []
 
   @action fetchTasks = () => {
-    apolloClient.query({
-      query: gql`query { me { tasks { id, title, actions { id, type, createdAt }, descriptions { id, title, value, createdAt } } } }`,
-      fetchPolicy: 'network-only'
-    }).then(resp => {
-      this.tasks = resp.data.me.tasks
+    return new Promise((resolve, reject) => {
+      apolloClient.query({
+        query: gql`query { me { tasks { id, title, actions { id, type, createdAt }, descriptions { id, title, value, createdAt } } } }`,
+        fetchPolicy: 'network-only'
+      }).then(resp => {
+        this.tasks = resp.data.me.tasks
+        resolve()
+      })
     })
   }
 

@@ -18,15 +18,17 @@ export class DashboardScreen extends React.Component {
 
   render () {
     const actions = toJS(this.props.ActionsStore.actions)
+    const loading = toJS(this.props.ActionsStore.loading)
     return (
       <View style={styles.container}>
         <View style={{flex: 1, width: Styles.baseWidth}}>
-          <Header title={`Hi ` + this.props.AuthStore.user.firstname} />
+          <Header title={`How are you, ${this.props.AuthStore.user.firstname}?`} />
           <ScrollView style={styles.componentsStyle}>
-            <Text style={styles.heading} > Your weekly activities </Text>
-            <WeeklyActivityChart actions={actions} />
-            <Text style={styles.heading} > Today's activities </Text>
-            <DailyActivityChart actions={actions} />
+            <Text style={styles.heading}>Your today's activities</Text>
+            {loading ? <Text>Loading...</Text> : <DailyActivityChart actions={actions} />}
+            <View style={{height: 30}}/>
+            <Text style={styles.heading}>Your activities on last days</Text>
+            {loading ? <Text>Loading...</Text> : <WeeklyActivityChart actions={actions} />}
           </ScrollView>
         </View>
       </View>
@@ -44,8 +46,8 @@ const styles = StyleSheet.create({
   heading: {
     fontSize: 17,
     paddingTop: 10,
-    paddingBottom: 10,
+    paddingBottom: 20,
     color: Colors.TextPrimary,
-    fontFamily: Styles.fonts.RobotoLight
+    fontFamily: Styles.fonts.RobotoBold
   }
 })
