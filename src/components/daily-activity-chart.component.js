@@ -1,71 +1,49 @@
 import React from 'react'
 import * as R from 'ramda'
-import { inject, observer } from 'mobx-react'
 import { PieChart } from 'react-native-svg-charts'
+import { Text } from 'react-native'
 
-@inject('ActionsStore') @observer
 export class DailyActivityChart extends React.Component {
-  render () {
-    const data = [
-      {
-        key: 1,
-        value: 50,
-        svg: { fill: '#600080' },
-        arc: { outerRadius: '130%', cornerRadius: 10 }
-      },
-      {
-        key: 2,
-        value: 50,
-        svg: { fill: '#9900cc' }
-      },
-      {
-        key: 3,
-        value: 40,
-        svg: { fill: '#c61aff' }
-      },
-      {
-        key: 4,
-        value: 95,
-        svg: { fill: '#d966ff' }
-      },
-      {
-        key: 5,
-        value: 35,
-        svg: { fill: '#ecb3ff' }
-      }
-    ]
-
-    return (
-      <PieChart
-        style={{ height: 200 }}
-        outerRadius={'70%'}
-        innerRadius={10}
-        data={data}
-      />
-    )
+  renderDailyActivity () {
+    const data = this.getActionsCount()
+    if (R.isEmpty(data)) {
+      return <Text> You didn't do anything progressive today! Don't give up! Let's do something ;)</Text>
+    } else {
+      const randomColor = () => ('#' + (Math.random() * 0xFFFFFF << 0).toString(16) + '000000').slice(0, 7)
+      const pieData = data
+        .filter(value => value > 0)
+        .map((value, index) => ({
+          value,
+          svg: {
+            fill: randomColor(),
+            onPress: () => console.log('press', index)
+          },
+          key: `pie-${index}`
+        }))
+      return (
+        <PieChart
+          style={{ height: 200 }}
+          data={pieData}
+        />
+      )
+    }
   }
-  // const actionsCount = this.getActionsCount()
-  // actionsCount.restActionsCount
-  // const data = [
-  //   {name: 'Activity', value: 19},
-  //   {name: 'Rest', value: 4}
-  // ]
+  render () {
+    return this.renderDailyActivity()
+  }
 
   getActionsCount () {
-    const actions = this.props.ActionsStore.actions
-    const actionsByDay = R.groupBy(a => a.createdAt, actions)
-    const newestActions = R.filter(R.where({actionsByDay: R.contains(this.getLatestDay(actionsByDay))}))
-    const newestActionsByType = R.groupBy(a => a.type, newestActions)
-
-    this.setState({
-      workActionsCount: newestActionsByType[0].length,
-      restActionsCount: newestActionsByType[1].length
-    })
-  }
-
-  getLatestDay (a) {
-    return new Date(Math.max.apply(null, a.map(function (e) {
-      return new Date(e.CreatedAt)
-    })))
+    const getDay = (date) => `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`
+    const today = getDay(new Date())
+    const actions = this.props.actions.filter(a => getDay(new Date(a.createdAt)) === today)
+    if (R.isEmpty(actions)) {
+      return {}
+    } else {
+      const actionsByType = R.groupBy(a => a.type, actions)
+      return [
+        actionsByType.hasOwnProperty('0') ? actionsByType[0].length : 0,
+        actionsByType.hasOwnProperty('1') ? actionsByType[1].length : 0
+      ]
+    }
   }
 }
