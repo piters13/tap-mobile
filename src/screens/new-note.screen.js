@@ -54,7 +54,7 @@ export class NewNoteScreen extends React.Component {
               underlineColorAndroid='transparent'
             />
 
-            <View style={{flex: 1}}>
+            <View style={{height: 200}}>
               <FormLabel fontFamily={Styles.fonts.RobotoMedium} labelStyle={styles.formLabelStyle}>Content</FormLabel>
               <FormInput multiline
                 blurOnSubmit={false}
@@ -151,13 +151,13 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     paddingBottom: 5,
     width: '100%',
-    minHeight: 0,
     marginLeft: 0,
     marginRight: 0,
     fontSize: 15,
     fontFamily: Styles.fonts.Roboto,
     color: Colors.TextPrimary,
-    textAlignVertical: 'top'
+    textAlignVertical: 'top',
+    height: 200
   },
   formLabelStyle: {
     fontSize: 13,

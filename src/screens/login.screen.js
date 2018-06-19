@@ -1,5 +1,5 @@
 import React from 'react'
-import { Alert, Image, Keyboard, KeyboardAvoidingView, StyleSheet, Text, View } from 'react-native'
+import { Alert, Image, Keyboard, StyleSheet, Text, View } from 'react-native'
 import { Button, FormInput, FormLabel, FormValidationMessage } from 'react-native-elements'
 import { inject, observer } from 'mobx-react'
 import { Images } from '../constants/images'
@@ -40,8 +40,7 @@ export class LoginScreen extends React.Component {
             <Image source={Images.Logo} style={styles.logo} />
           </View>
 
-          <KeyboardAvoidingView
-            style={{justifyContent: 'center'}} enabled>
+          <View>
             <Header title={`Why, hello there`} />
 
             <FormLabel fontFamily={Styles.fonts.RobotoMedium} labelStyle={styles.formLabelStyle}>Email</FormLabel>
@@ -99,7 +98,7 @@ export class LoginScreen extends React.Component {
               <Text style={styles.registerLink}
                 onPress={() => this.createAccount()}>You need to create account?</Text>
             </View>
-          </KeyboardAvoidingView>
+          </View>
         </View>
       </View>
     )

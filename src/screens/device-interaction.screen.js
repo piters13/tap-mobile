@@ -15,7 +15,7 @@ export class DeviceInteractionScreen extends React.Component {
 
     this.state = {
       type: this.props.action.type,
-      connectedTo: this.props.action.task.id
+      connectedTo: this.props.action.task ? this.props.action.task.id : null
     }
   }
 
